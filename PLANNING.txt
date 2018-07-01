@@ -1,0 +1,63 @@
+// ENDPOINTS
+
+.get('/api/user/:id')
+.get('/api/playlist')
+.get('/api/posts')
+
+
+// Routes
+
+path='/profile/:id'
+path='/timeline'
+path='/timeline/trending'
+path='/discover'
+
+
+// Points
+
+Redux - 10
+Sass - 10
+Responsive Design - 20
+Presentation - 10
+Full CRUD - 10
+MVP - 10
+Foreign key / Join statement - 10
+Domain - 10
+API - 10
+Digital Ocean - 10
+
+// Database
+
+Tables - User, User_Playlist, Posts, Artist, Song
+
+User - User_ID, Friends
+User_Playlist - Playlist_ID, Posts, User_ID
+Posts - Artist_ID, Song_ID, Genre
+Artist - Artist_ID, name
+Song - Song_ID, name
+
+// Header
+
+Logo
+Search - Artist, Song, Genre
+Notifications - Likes, Adds, Comments
+Profile picture / Login button
+
+// Nav
+
+Timeline / Friends
+Discover
+My Profile
+
+// Timeline / Friends
+
+Be able to switch between Newest/Trending and artist/songs
+
+
+// Discover
+
+Be able to sort by Artist/Song/Genre and Newest/Trending/Recommended
+
+// Profile
+
+Displays songs the user has added to their playlist, how many times the user has listened to it, and how many likes/dislikes it has

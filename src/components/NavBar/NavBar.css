@@ -1,0 +1,16 @@
+.navbar {
+  width: 20vw;
+  height: 80vh;
+  background: #222;
+  font-size: 20px;
+}
+
+div p {
+  padding: 20px 0;
+  color: #e6e6e6;
+  border-bottom: 2px solid black;
+}
+
+a {
+  text-decoration: none;
+}
