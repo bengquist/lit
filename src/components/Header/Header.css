@@ -16,6 +16,10 @@ i:hover {
   cursor: pointer;
 }
 
+a {
+  color: #000;
+}
+
 input {
   background: none;
   border: none;

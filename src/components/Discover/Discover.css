@@ -1,5 +1,17 @@
+.discover {
+  width: 80%;
+}
+
 .discover p {
-  width: 80vw;
   color: #000;
   border: none;
+}
+
+.add-btn {
+  width: 80px;
+  height: 40px;
+}
+
+.add-btn:hover {
+  cursor: pointer;
 }

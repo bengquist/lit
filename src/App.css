@@ -2,7 +2,7 @@
   text-align: center;
   font-family: 'Paytone One', sans-serif;
   background: coral;
-  height: 100vh;
+  height: 100%;
 }
 
 .body {
@@ -27,4 +27,8 @@
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
+}
+
+::-webkit-scrollbar { 
+  display: none; 
 }

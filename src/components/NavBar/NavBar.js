@@ -6,17 +6,17 @@ export default () => {
   return (
     <div className="navbar">
       <Link to="/timeline/recent">
-        <p>
+        <p className="links">
           <span>Timeline</span>
         </p>
       </Link>
       <Link to="/discover">
-        <p>
+        <p className="links">
           <span>Discover</span>
         </p>
       </Link>
       <Link to="/profile">
-        <p>
+        <p className="links">
           <span>Profile</span>
         </p>
       </Link>
