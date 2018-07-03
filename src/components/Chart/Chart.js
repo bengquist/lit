@@ -1,7 +1,9 @@
 import React from "react";
+import { connect } from "react-redux";
+import { addToProfile } from "../../ducks/reducers/reducer";
 import "./Chart.css";
 
-export default props => {
+const Chart = props => {
   const { artist, album, uri } = props;
 
   return (
@@ -19,7 +21,7 @@ export default props => {
         <i className="fas fa-thumbs-up" />
         <i className="fas fa-thumbs-down" />
 
-        <button className="add-btn">
+        <button onClick={() => props.addToProfile(props)} className="add-btn">
           <i className="fas fa-plus-square" />
           ADD
         </button>
@@ -27,3 +29,8 @@ export default props => {
     </div>
   );
 };
+
+export default connect(
+  null,
+  { addToProfile }
+)(Chart);

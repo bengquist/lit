@@ -22,7 +22,6 @@ class Discover extends Component {
 
   render() {
     const albums = this.state.recentPosts.map((album, i) => {
-      console.log(album);
       return (
         <Chart
           key={i}

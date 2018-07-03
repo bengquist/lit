@@ -6,15 +6,30 @@ import "./Timeline.css";
 
 class Timeline extends Component {
   render() {
+    console.log(this.props);
     let userPosts = this.props.posts.map(val => {
-      const { post_id, user_id, artist_name, song_name, genre } = val;
+      const {
+        post_id,
+        user_id,
+        user_name,
+        artist_name,
+        song_name,
+        genre,
+        uri,
+        profile_img
+      } = val;
+
       return (
         <Posts
           key={post_id}
           userID={user_id}
+          userName={user_name}
           artistName={artist_name}
           songName={song_name}
           genre={genre}
+          user={user_name}
+          uri={uri}
+          profileImg={profile_img}
         />
       );
     });
@@ -29,7 +44,6 @@ class Timeline extends Component {
             <p>Trending</p>
           </Link>
         </div>
-        <input type="text" placeholder="Search Friends..." />
         {userPosts}
       </div>
     );

@@ -14,7 +14,11 @@ export default () => {
         </Link>
       </div>
       <div className="input">
-        <input type="text" placeholder="Search Artist, Song, Genre..." />
+        <input
+          className="search"
+          type="text"
+          placeholder="Search Artist, Song, Genre..."
+        />
       </div>
       <div className="user-login">
         <i className="fas fa-bell" />

@@ -20,7 +20,7 @@ a {
   color: #000;
 }
 
-input {
+.search {
   background: none;
   border: none;
   border-bottom: 2px solid black;
@@ -32,12 +32,12 @@ input {
   color: coral;
 }
 
-input:focus {
+.search:focus {
   outline: none;
   color: coral;
 }
 
-input::placeholder {
+.search::placeholder {
   opacity: .3;
   font-size: 20px;
   color: #fff;
