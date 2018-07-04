@@ -36,5 +36,13 @@ module.exports = {
     db.editProfilePost([id, comment]).then(posts => {
       res.status(200).send(posts);
     });
+  },
+
+  addUser: (req, res, next) => {
+    const db = req.app.get("db");
+
+    db.addUser().then(users => {
+      res.status(200).send(users);
+    });
   }
 };

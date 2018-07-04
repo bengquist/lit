@@ -23,9 +23,16 @@ export default () => {
       <div className="user-login">
         <i className="fas fa-bell" />
         <i className="fas fa-user" />
-        <button className="login-btn">
-          <p href="http://localhost:8888">Log In</p>
-        </button>
+        <Link to="/login">
+          <button className="login-btn">
+            <p>Log In</p>
+          </button>
+        </Link>
+        <Link to="/signup">
+          <button className="login-btn">
+            <p>Sign Up</p>
+          </button>
+        </Link>
       </div>
     </div>
   );

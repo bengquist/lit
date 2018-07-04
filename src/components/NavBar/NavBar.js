@@ -5,7 +5,7 @@ import "./NavBar.css";
 export default () => {
   return (
     <div className="navbar">
-      <Link to="/timeline/recent">
+      <Link to="/">
         <p className="links">
           <span>Timeline</span>
         </p>

@@ -11,6 +11,7 @@ const SET_LOGIN = "SET_LOGIN";
 const ADD_TO_PROFILE = "ADD_TO_PROFILE";
 const DELETE_FROM_PROFILE = "DELETE_FROM_PROFILE";
 const EDIT_PROFILE_POST = "EDIT_PROFILE_POST";
+const USER_SIGN_UP = "USER_SIGN_UP";
 
 export default function reducer(state = initialState, action) {
   switch (action.type) {
@@ -26,6 +27,8 @@ export default function reducer(state = initialState, action) {
       return { ...state, posts: action.payload.data };
     case EDIT_PROFILE_POST + "_FULFILLED":
       return { ...state, posts: action.payload.data };
+    case USER_SIGN_UP:
+      return { ...state };
     default:
       return state;
   }
@@ -70,5 +73,12 @@ export function setToken(token) {
   return {
     type: SET_TOKEN,
     payload: token
+  };
+}
+
+export function userSignupRequest(userInfo) {
+  return {
+    type: USER_SIGN_UP,
+    payload: axios.post("/api/users", { userInfo })
   };
 }
