@@ -21,9 +21,19 @@ module.exports = {
     const db = req.app.get("db");
 
     const { id } = req.params;
-    console.log(req.params);
 
     db.deleteFromProfile([id]).then(posts => {
+      res.status(200).send(posts);
+    });
+  },
+
+  editProfilePost: (req, res, next) => {
+    const db = req.app.get("db");
+
+    const { id } = req.params;
+    const { comment } = req.body;
+
+    db.editProfilePost([id, comment]).then(posts => {
       res.status(200).send(posts);
     });
   }

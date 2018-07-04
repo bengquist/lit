@@ -10,6 +10,7 @@ const SET_TOKEN = "SET_TOKEN";
 const SET_LOGIN = "SET_LOGIN";
 const ADD_TO_PROFILE = "ADD_TO_PROFILE";
 const DELETE_FROM_PROFILE = "DELETE_FROM_PROFILE";
+const EDIT_PROFILE_POST = "EDIT_PROFILE_POST";
 
 export default function reducer(state = initialState, action) {
   switch (action.type) {
@@ -22,6 +23,8 @@ export default function reducer(state = initialState, action) {
     case ADD_TO_PROFILE + "_FULFILLED":
       return { ...state, posts: action.payload.data };
     case DELETE_FROM_PROFILE + "_FULFILLED":
+      return { ...state, posts: action.payload.data };
+    case EDIT_PROFILE_POST + "_FULFILLED":
       return { ...state, posts: action.payload.data };
     default:
       return state;
@@ -45,7 +48,14 @@ export function addToProfile(data) {
 export function deleteFromProfile(postID) {
   return {
     type: DELETE_FROM_PROFILE,
-    payload: axios.delete(`/api/profileposts/${postID}`)
+    payload: axios.delete(`/api/profilepost/${postID}`)
+  };
+}
+
+export function editProfilePost(postID, comment) {
+  return {
+    type: EDIT_PROFILE_POST,
+    payload: axios.put(`/api/profilepost${postID}`, { comment })
   };
 }
 

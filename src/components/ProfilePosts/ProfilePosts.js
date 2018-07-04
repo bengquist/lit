@@ -30,10 +30,10 @@ const ProfilePosts = props => {
 
       <div className="user">
         <div className="toggle">
-          <div>
+          <div onClick={() => props.editProfilePost(postID)}>
             <i className="fas fa-edit" />
           </div>
-          <div onClick={() => props.deleteFromProfile(postID)} href="#">
+          <div onClick={() => props.deleteFromProfile(postID)}>
             <i className="fas fa-trash-alt" />
           </div>
         </div>
