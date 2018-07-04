@@ -2,7 +2,8 @@ import axios from "axios";
 
 const initialState = {
   posts: [],
-  token: ""
+  token: "",
+  errors: []
 };
 
 const GET_POSTS = "GET_POSTS";
@@ -27,8 +28,8 @@ export default function reducer(state = initialState, action) {
       return { ...state, posts: action.payload.data };
     case EDIT_PROFILE_POST + "_FULFILLED":
       return { ...state, posts: action.payload.data };
-    case USER_SIGN_UP:
-      return { ...state };
+    case USER_SIGN_UP + "_FULFILLED":
+      return { ...state, errors: action.payload.data };
     default:
       return state;
   }

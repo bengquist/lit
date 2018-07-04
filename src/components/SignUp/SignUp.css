@@ -3,7 +3,15 @@
 }
 
 .sign-up-bg {
-  width: 400px;
+  width: 800px;
   height: 400px;
   background: #fff;
+}
+
+.has-error input {
+  outline-color: red;
+}
+
+.has-error span {
+  color: red;
 }
