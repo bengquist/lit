@@ -24,7 +24,7 @@ export default () => {
         <i className="fas fa-bell" />
         <i className="fas fa-user" />
         <button className="login-btn">
-          <a href="http://localhost:8888">Log In</a>
+          <p href="http://localhost:8888">Log In</p>
         </button>
       </div>
     </div>

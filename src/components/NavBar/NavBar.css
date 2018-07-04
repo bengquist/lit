@@ -1,14 +1,18 @@
 .navbar {
   width: 20%;
   height: 80vh;
-  background: #222;
+  background: #012831;
   font-size: 20px;
+  box-shadow: 1px 0 10px #012831;
 }
 
-.links{
+.links {
   padding: 20px 0;
-  color: #e6e6e6;
-  border-bottom: 2px solid black;
+  color: #82ABB5;
+}
+
+.links:hover {
+  color: rgb(203, 229, 236);
 }
 
 a {

@@ -77,7 +77,8 @@ massive(process.env.CONNECTION_STRING).then(db => {
 });
 
 app.get("/api/posts", ctrl.getAllPosts);
-app.post("/api/posts", ctrl.addToProfile);
+app.post("/api/profileposts", ctrl.addToProfile);
+app.delete("/api/profileposts/:id", ctrl.deleteFromProfile);
 
 app.listen(port, () => {
   console.log(`Listening on port:3001`);
