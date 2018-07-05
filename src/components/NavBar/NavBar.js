@@ -15,11 +15,6 @@ export default () => {
           <span>Discover</span>
         </p>
       </Link>
-      <Link to="/profile">
-        <p className="links">
-          <span>Profile</span>
-        </p>
-      </Link>
     </div>
   );
 };

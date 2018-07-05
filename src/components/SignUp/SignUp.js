@@ -36,7 +36,6 @@ class SignUp extends Component {
     e.preventDefault();
     this.setState({ isLoading: true });
     if (this.isValid()) {
-      console.log(this.state);
       this.props.userSignupRequest(this.state).then(() => {
         this.props.addFlashMessage({
           type: "success",

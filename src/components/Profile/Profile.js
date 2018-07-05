@@ -44,7 +44,6 @@ class Profile extends Component {
             <p>Trending</p>
           </Link> */}
         </div>
-        {console.log(userPosts)}
         {userPosts}
       </div>
     );

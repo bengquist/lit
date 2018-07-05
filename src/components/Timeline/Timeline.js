@@ -4,8 +4,8 @@ import "./Timeline.css";
 
 class Timeline extends Component {
   render() {
-    const timelinePosts = this.props.posts.map(val => {
-      return <p>{val.timestamp}</p>;
+    const timelinePosts = this.props.posts.map((val, i) => {
+      return <p key={i}>{val.timestamp}</p>;
     });
 
     return (

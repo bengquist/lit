@@ -4,7 +4,12 @@ import { connect } from "react-redux";
 import Header from "./components/Header/Header";
 import NavBar from "./components/NavBar/NavBar";
 import routes from "./routes";
-import { getAllPosts, setToken, isLoggedIn } from "./ducks/reducers/reducer";
+import {
+  getAllPosts,
+  setToken,
+  setUser,
+  isLoggedIn
+} from "./ducks/reducers/reducer";
 import "./reset.css";
 import "./App.css";
 
@@ -15,6 +20,11 @@ class App extends Component {
   componentDidMount() {
     const params = this.getHashParams();
     const token = params["/access_token"];
+    const name = params["name"];
+    const email = params["email"];
+    const profileImg = params["profile_img"];
+
+    console.log(name, email, profileImg);
 
     if (token) {
       spotifyApi.setAccessToken(token);
@@ -22,6 +32,7 @@ class App extends Component {
 
     this.props.setToken(token);
     this.props.getAllPosts();
+    this.props.setUser({ name, email, profileImg });
   }
 
   getHashParams() {
@@ -38,9 +49,14 @@ class App extends Component {
   }
 
   render() {
+    if (this.props.state.user.profile_img) {
+      var profileImg = this.props.state.user.profile_img;
+    }
+    console.log(this.props.state.user);
+
     return (
       <div className="App">
-        <Header />
+        <Header profileImg={profileImg} />
         <div className="body">
           <NavBar />
           {routes}
@@ -59,6 +75,6 @@ function mapStateToProps(state) {
 export default withRouter(
   connect(
     mapStateToProps,
-    { getAllPosts, setToken, isLoggedIn }
+    { getAllPosts, setToken, setUser, isLoggedIn }
   )(App)
 );

@@ -40,9 +40,9 @@ module.exports = {
   addToProfile: (req, res, next) => {
     const db = req.app.get("db");
 
-    const { album, artist, uri } = req.body;
+    const { album, artist, uri, userID } = req.body;
 
-    db.addToProfile([uri, artist, album]).then(posts => {
+    db.addToProfile([uri, artist, album, userID]).then(posts => {
       res.status(200).send(posts);
     });
   },
@@ -70,17 +70,30 @@ module.exports = {
 
   addUser: (req, res, next) => {
     const db = req.app.get("db");
-    const { errors, isValid } = validateInput(req.body.userInfo);
+    const { name, email, profileImg } = req.body;
+    console.log(profileImg);
 
-    if (isValid) {
-      const { username, password, email } = req.body.userInfo;
-      const password_digest = bcrypt.hashSync(password, 10);
+    db.checkUser([email]).then(user => {
+      if (!_.isEmpty(user)) {
+        db.getUser([email]).then(user => {
+          res.status(200).send(user);
+        });
+      } else
+        [
+          db.addUser([email, name, profileImg]).then(user => {
+            res.status(200).send(user);
+          })
+        ];
+    });
+    // if (isValid) {
+    //   const { username, password, email } = req.body.userInfo;
+    //   const password_digest = bcrypt.hashSync(password, 10);
 
-      db.addUser([email, username, password_digest]).then(users => {
-        res.status(200).send({ success: true });
-      });
-    } else {
-      res.status(200).json(errors);
-    }
+    //   db.addUser([email, username, password_digest]).then(users => {
+    //     res.status(200).send({ success: true });
+    //   });
+    // } else {
+    //   res.status(200).json(errors);
+    // }
   }
 };

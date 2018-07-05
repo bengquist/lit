@@ -21,6 +21,7 @@ class Discover extends Component {
   }
 
   render() {
+    console.log();
     const albums = this.state.recentPosts.map((album, i) => {
       return (
         <Chart
@@ -28,6 +29,7 @@ class Discover extends Component {
           artist={album.artists[0].name}
           album={album.name}
           uri={album.uri}
+          userID={this.props.state.user.user_id}
         />
       );
     });
