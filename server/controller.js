@@ -1,31 +1,25 @@
 const Validator = require("validator");
+const bcrypt = require("bcrypt");
+
 const _ = require("lodash");
 
 const validateInput = data => {
   let errors = {};
 
-  if (Validator.isEmpty(data.userInfo.email)) {
+  if (Validator.isEmpty(data.email)) {
     errors.email = "Email is required";
-  }
-  if (!Validator.isEmail(data.userInfo.email)) {
+  } else if (!Validator.isEmail(data.email)) {
     errors.email = "Email is invalid";
-  }
-  if (Validator.isEmpty(data.userInfo.password)) {
+  } else if (Validator.isEmpty(data.password)) {
     errors.password = "Password is required";
-  }
-  if (Validator.isEmpty(data.userInfo.passwordConfirmation)) {
+  } else if (Validator.isEmpty(data.passwordConfirmation)) {
     errors.passwordConfirmation = "Password confirmation is required";
-  }
-  if (
-    !Validator.equals(
-      data.userInfo.password,
-      data.userInfo.passwordConfirmation
-    )
-  ) {
+  } else if (!Validator.equals(data.password, data.passwordConfirmation)) {
     errors.passwordConfirmation = "Passwords do not match";
-  }
-  if (Validator.isEmpty(data.userInfo.username)) {
+  } else if (Validator.isEmpty(data.username)) {
     errors.username = "Username is required";
+  } else {
+    errors = {};
   }
 
   return {
@@ -75,10 +69,16 @@ module.exports = {
   },
 
   addUser: (req, res, next) => {
-    const { errors, isValid } = validateInput(req.body);
+    const db = req.app.get("db");
+    const { errors, isValid } = validateInput(req.body.userInfo);
 
     if (isValid) {
-      res.status(200).json({ success: true });
+      const { username, password, email } = req.body.userInfo;
+      const password_digest = bcrypt.hashSync(password, 10);
+
+      db.addUser([email, username, password_digest]).then(users => {
+        res.status(200).send({ success: true });
+      });
     } else {
       res.status(200).json(errors);
     }

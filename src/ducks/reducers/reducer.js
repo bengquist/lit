@@ -1,9 +1,11 @@
 import axios from "axios";
+import { SSL_OP_NO_SESSION_RESUMPTION_ON_RENEGOTIATION } from "constants";
 
 const initialState = {
   posts: [],
   token: "",
-  errors: []
+  errors: [],
+  message: {}
 };
 
 const GET_POSTS = "GET_POSTS";
@@ -13,6 +15,7 @@ const ADD_TO_PROFILE = "ADD_TO_PROFILE";
 const DELETE_FROM_PROFILE = "DELETE_FROM_PROFILE";
 const EDIT_PROFILE_POST = "EDIT_PROFILE_POST";
 const USER_SIGN_UP = "USER_SIGN_UP";
+const ADD_FLASH_MESSAGE = "ADD_FLASH_MESSAGE";
 
 export default function reducer(state = initialState, action) {
   switch (action.type) {
@@ -30,6 +33,9 @@ export default function reducer(state = initialState, action) {
       return { ...state, posts: action.payload.data };
     case USER_SIGN_UP + "_FULFILLED":
       return { ...state, errors: action.payload.data };
+    case ADD_FLASH_MESSAGE:
+      console.log(action.payload);
+      return { ...state, message: action.payload };
     default:
       return state;
   }
@@ -78,8 +84,17 @@ export function setToken(token) {
 }
 
 export function userSignupRequest(userInfo) {
+  console.log(userInfo);
+
   return {
     type: USER_SIGN_UP,
     payload: axios.post("/api/users", { userInfo })
+  };
+}
+
+export function addFlashMessage(message) {
+  return {
+    type: ADD_FLASH_MESSAGE,
+    payload: message
   };
 }

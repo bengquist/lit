@@ -19,6 +19,11 @@ export default () => {
           type="text"
           placeholder="Search Artist, Song, Genre..."
         />
+        <select name="type" id="type">
+          <option value="artist">Artist</option>
+          <option value="song">Song</option>
+          <option value="Album">Album</option>
+        </select>
       </div>
       <div className="user-login">
         <i className="fas fa-bell" />

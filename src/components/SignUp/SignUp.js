@@ -1,6 +1,9 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { userSignupRequest } from "../../ducks/reducers/reducer";
+import {
+  userSignupRequest,
+  addFlashMessage
+} from "../../ducks/reducers/reducer";
 import validateInput from "../../Validations/signup";
 import TextFieldGroup from "../Common/TextFieldGroup";
 import axios from "axios";
@@ -33,8 +36,12 @@ class SignUp extends Component {
     e.preventDefault();
     this.setState({ isLoading: true });
     if (this.isValid()) {
+      console.log(this.state);
       this.props.userSignupRequest(this.state).then(() => {
-        console.log("asdfasdf");
+        this.props.addFlashMessage({
+          type: "success",
+          text: "You signed up successfully"
+        });
         this.setState({ isLoading: false });
       });
     }
@@ -94,5 +101,5 @@ class SignUp extends Component {
 
 export default connect(
   state => state,
-  { userSignupRequest }
+  { userSignupRequest, addFlashMessage }
 )(SignUp);

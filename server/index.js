@@ -15,16 +15,16 @@ const port = 3001;
 const app = express();
 app.use(json());
 
-app.use(
-  session({
-    secret: process.env.SECRET,
-    resave: false,
-    saveUninitialized: false,
-    cookie: {
-      maxAge: 2 * 7 * 24 * 60 * 60 * 1000
-    }
-  })
-);
+// app.use(
+//   session({
+//     secret: process.env.SECRET,
+//     resave: false,
+//     saveUninitialized: false,
+//     cookie: {
+//       maxAge: 2 * 7 * 24 * 60 * 60 * 1000
+//     }
+//   })
+// );
 
 massive(process.env.CONNECTION_STRING).then(db => {
   app.set("db", db);
