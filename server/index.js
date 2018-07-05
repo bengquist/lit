@@ -8,6 +8,7 @@ const passport = require("passport");
 const Auth0Strategy = require("passport-auth0");
 const session = require("express-session");
 const cookieParser = require("cookie-parser");
+const cors = require("cors");
 
 const ctrl = require("./controller");
 
@@ -34,6 +35,7 @@ const app = express();
 app.use(json());
 
 app.use(express.static(__dirname + "/public")).use(cookieParser());
+app.use(cors());
 
 app.get("/login", function(req, res) {
   let state = generateRandomString(16);
@@ -41,6 +43,7 @@ app.get("/login", function(req, res) {
 
   // your application requests authorization
   let scope = "user-read-private user-read-email user-read-playback-state";
+  console.log("yoooooooo");
   res.redirect(
     "https://accounts.spotify.com/authorize?" +
       querystring.stringify({

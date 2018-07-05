@@ -22,7 +22,6 @@ const ADD_FLASH_MESSAGE = "ADD_FLASH_MESSAGE";
 export default function reducer(state = initialState, action) {
   switch (action.type) {
     case SET_USER + "_FULFILLED":
-      console.log(action.payload.data);
       return { ...state, user: action.payload.data[0] };
     case GET_POSTS + "_FULFILLED":
       return { ...state, posts: action.payload.data };
@@ -60,7 +59,6 @@ export function getAllPosts() {
 }
 
 export function addToProfile(data) {
-  console.log(data);
   return {
     type: ADD_TO_PROFILE,
     payload: axios.post("/api/profileposts", data)

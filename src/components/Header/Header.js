@@ -4,6 +4,19 @@ import axios from "axios";
 import "./Header.css";
 
 class Header extends Component {
+  state = {
+    search: "",
+    selected: ""
+  };
+
+  searchHandler = e => {
+    this.setState({ search: e.target.value });
+  };
+
+  selectHandler = e => {
+    this.setState({ selected: e.target.value });
+  };
+
   render() {
     return (
       <div className="header">
@@ -15,12 +28,17 @@ class Header extends Component {
           </Link>
         </div>
         <div className="input">
-          <select name="type" id="type">
-            <option value="artist">Artist</option>
-            <option value="song">Song</option>
-            <option value="Album">Album</option>
+          <select
+            onChange={event => this.selectHandler(event)}
+            name="type"
+            id="type"
+          >
+            <option value="Artists">Artist</option>
+            <option value="Tracks">Song</option>
+            <option value="Albums">Album</option>
           </select>
           <input
+            onChange={event => this.searchHandler(event)}
             className="search"
             type="text"
             placeholder="Search Artist, Song, Genre..."

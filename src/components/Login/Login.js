@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import "./Login.css";
 
-export default class Login extends Component {
+class Login extends Component {
   render() {
     return (
       <div>
@@ -9,16 +9,10 @@ export default class Login extends Component {
           <form>
             <h1>Join the sounds!</h1>
             <div className="login-fg">
-              <div className="user">
-                <label>Username</label>
-                <input type="text" name="username" />
-              </div>
-              <div className="pass">
-                <label>Password</label>
-                <input type="text" name="password" />
-              </div>
               <div className="button">
-                <button className="submit-btn">Log In</button>
+                <a href="http://localhost:3001/login" className="submit-btn">
+                  It's Lit!
+                </a>
               </div>
             </div>
           </form>
@@ -27,3 +21,5 @@ export default class Login extends Component {
     );
   }
 }
+
+export default Login;

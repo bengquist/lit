@@ -26,9 +26,7 @@ class App extends Component {
 
     console.log(name, email, profileImg);
 
-    if (token) {
-      spotifyApi.setAccessToken(token);
-    }
+    token && spotifyApi.setAccessToken(token);
 
     this.props.setToken(token);
     this.props.getAllPosts();
@@ -49,7 +47,7 @@ class App extends Component {
   }
 
   render() {
-    if (this.props.state.user.profile_img) {
+    if (this.props.state.user) {
       var profileImg = this.props.state.user.profile_img;
     }
     console.log(this.props.state.user);
