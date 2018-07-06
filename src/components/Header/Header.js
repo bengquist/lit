@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
+import _ from "lodash";
 import axios from "axios";
 import "./Header.css";
 
@@ -18,38 +19,47 @@ class Header extends Component {
     spotifyApi.setAccessToken(this.props.token);
   }
 
+  changeHandler = () => {
+    switch (this.state.selected) {
+      case "Artists":
+        return () => {
+          spotifyApi
+            .searchArtists(this.state.search)
+            .then(artists => this.setState({ results: artists.artists.items }))
+            .catch(() => this.setState({ results: [] }));
+        };
+      case "Tracks":
+        return () => {
+          spotifyApi
+            .searchTracks(this.state.search)
+            .then(tracks => this.setState({ results: tracks.tracks.items }))
+            .catch(() => this.setState({ results: [] }));
+        };
+      case "Albums":
+        return () => {
+          spotifyApi
+            .searchAlbums(this.state.search)
+            .then(albums => this.setState({ results: albums.albums.items }))
+            .catch(() => this.setState({ results: [] }));
+        };
+    }
+  };
+
   searchHandler = e => {
     this.setState({ search: e.target.value });
+    const activateHandler = this.changeHandler();
+    _.debounce(activateHandler, 1000)();
   };
 
   selectHandler = e => {
     this.setState({ selected: e.target.value });
   };
 
-  clickHander = () => {
-    switch (this.state.selected) {
-      case "Artists":
-        return spotifyApi
-          .searchArtists(this.state.search)
-          .then(artists => this.setState({ results: artists.artists.items }));
-      case "Tracks":
-        return spotifyApi
-          .searchTracks(this.state.search)
-          .then(tracks => this.setState({ results: tracks.tracks.items }));
-      case "Albums":
-        return spotifyApi
-          .searchAlbums(this.state.search)
-          .then(albums => this.setState({ results: albums.albums.items }));
-    }
-  };
-
   render() {
     const showResults = this.state.results.map((val, i) => {
-      console.log(val);
       return <p key={i}>{val.name}</p>;
     });
 
-    console.log(this.state.results);
     return (
       <div className="header">
         <div className="logo">
@@ -75,7 +85,7 @@ class Header extends Component {
             type="text"
             placeholder="Search Artist, Song, Genre..."
           />
-          <button onClick={() => this.clickHander()}>Search</button>
+          <button>Search</button>
         </div>
         <div className="user-login">
           <i className="fas fa-bell" />

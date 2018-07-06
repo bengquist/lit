@@ -8,7 +8,7 @@ const spotifyApi = new SpotifyWebApi();
 
 class Discover extends Component {
   state = {
-    recentPosts: []
+    recentAlbums: []
   };
 
   componentDidMount() {
@@ -16,13 +16,13 @@ class Discover extends Component {
       spotifyApi.setAccessToken(this.props.token);
     }
     spotifyApi.getNewReleases().then(response => {
-      this.setState({ recentPosts: response.albums.items });
+      this.setState({ recentAlbums: response.albums.items });
     });
   }
 
   render() {
     console.log();
-    const albums = this.state.recentPosts.map((album, i) => {
+    const albums = this.state.recentAlbums.map((album, i) => {
       return (
         <Chart
           key={i}
