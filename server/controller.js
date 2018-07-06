@@ -40,9 +40,11 @@ module.exports = {
   addToProfile: (req, res, next) => {
     const db = req.app.get("db");
 
-    const { album, artist, uri, userID } = req.body;
+    const { uri, userID } = req.body;
 
-    db.addToProfile([uri, artist, album, userID]).then(posts => {
+    console.log(uri, userID);
+
+    db.addToProfile([uri, userID]).then(posts => {
       res.status(200).send(posts);
     });
   },
@@ -75,15 +77,15 @@ module.exports = {
 
     db.checkUser([email]).then(user => {
       if (!_.isEmpty(user)) {
+        console.log("already stored");
         db.getUser([email]).then(user => {
           res.status(200).send(user);
         });
-      } else
-        [
-          db.addUser([email, name, profileImg]).then(user => {
-            res.status(200).send(user);
-          })
-        ];
+      } else {
+        db.addUser([email, name, profileImg]).then(user => {
+          res.status(200).send(user);
+        });
+      }
     });
     // if (isValid) {
     //   const { username, password, email } = req.body.userInfo;

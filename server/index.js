@@ -108,7 +108,7 @@ app.get("/callback", function(req, res) {
           email = body.email;
           profile_img = body.images[0].url;
           res.redirect(
-            "http://localhost:3000/#" +
+            "http://localhost:3000/#/" +
               querystring.stringify({
                 access_token: access_token,
                 refresh_token: refresh_token,

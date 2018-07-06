@@ -23,8 +23,7 @@ class App extends Component {
     const name = params["name"];
     const email = params["email"];
     const profileImg = params["profile_img"];
-
-    console.log(name, email, profileImg);
+    console.log(token);
 
     token && spotifyApi.setAccessToken(token);
 
@@ -50,7 +49,7 @@ class App extends Component {
     if (this.props.state.user) {
       var profileImg = this.props.state.user.profile_img;
     }
-    console.log(this.props.state.user);
+    console.log(this.props);
 
     return (
       <div className="App">

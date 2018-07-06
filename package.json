@@ -30,6 +30,7 @@
     "redux-promise-middleware": "^5.1.1",
     "redux-thunk": "^2.3.0",
     "request": "^2.87.0",
+    "semantic-ui-react": "^0.82.0",
     "spotify-web-api-js": "^0.24.0",
     "validator": "^10.4.0"
   },

@@ -20,28 +20,6 @@ i:hover {
   cursor: pointer;
 }
 
-.search {
-  background: none;
-  border: none;
-  border-bottom: 2px solid black;
-  padding: 5px;
-  width: 260px;
-  height: 30px;
-  font-size: 24px;
-  border-radius: 5px;
-}
-
-.search:focus {
-  outline: none;
-  color: #82ABB5;
-}
-
-.search::placeholder {
-  opacity: .3;
-  font-size: 20px;
-  color: #fff;
-}
-
 .logo {
   margin-left: 15px;
   font-size: 70px;

@@ -9,7 +9,6 @@
 .toggle {
   font-size: 30px;
   flex-direction: column;
-  align-self: flex-end;
   letter-spacing: 10px;
-  margin: 10px;
+  margin-right: 40px;
 }
