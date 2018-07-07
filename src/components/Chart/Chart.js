@@ -3,7 +3,15 @@ import { connect } from "react-redux";
 import { addToProfile } from "../../ducks/reducers/reducer";
 import "./Chart.css";
 
-import { Form, TextArea, Button, Icon } from "semantic-ui-react";
+import {
+  Form,
+  TextArea,
+  Button,
+  Icon,
+  Dimmer,
+  Loader,
+  Segment
+} from "semantic-ui-react";
 
 class Chart extends Component {
   state = {
@@ -23,10 +31,12 @@ class Chart extends Component {
     return (
       <div className="chart">
         <iframe
+          display={this.state.display}
           src={`https://embed.spotify.com/?uri=${uri}`}
           frameBorder="0"
           height="80"
         />
+
         <Form>
           <TextArea
             onChange={event => this.commentHandler(event)}
@@ -41,7 +51,6 @@ class Chart extends Component {
             }}
           />
         </Form>
-
         <div className="toggle">
           <Button
             onClick={() =>

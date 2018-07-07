@@ -52,9 +52,12 @@ class Discover extends Component {
         };
       case "New Releases":
         return () => {
-          spotifyApi.getNewReleases().then(response => {
-            this.setState({ results: response.albums.items });
-          });
+          spotifyApi
+            .getNewReleases()
+            .then(response => {
+              this.setState({ results: response.albums.items });
+            })
+            .catch(() => this.setState({ results: [] }));
         };
     }
   };
@@ -66,11 +69,20 @@ class Discover extends Component {
   };
 
   handleItemClick = (e, { name }) =>
-    this.setState({ selected: name, activeItem: name });
+    this.setState({ selected: name, activeItem: name, results: [] });
+
+  handleRecentRelease = (e, { name }) => {
+    spotifyApi.getNewReleases().then(response => {
+      this.setState({
+        selected: name,
+        activeItem: name,
+        results: response.albums.items
+      });
+    });
+  };
 
   render() {
     const { activeItem } = this.state;
-
     const showResults = this.state.results.map((val, i) => {
       const { popularity, uri } = val;
       return <Chart uri={uri} />;
@@ -101,7 +113,7 @@ class Discover extends Component {
           <Menu.Item
             name="New Releases"
             active={activeItem === "New Releases"}
-            onClick={this.handleItemClick}
+            onClick={this.handleRecentRelease}
           />
           <Menu.Menu position="right">
             <Menu.Item>

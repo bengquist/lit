@@ -3,7 +3,7 @@
   justify-content: space-between;
   align-items: center;
   margin: 10px;
-  border: 1px solid black;
+  background: #c7c7c7;
 }
 
 .toggle {
