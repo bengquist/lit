@@ -65,7 +65,7 @@ class Discover extends Component {
   searchHandler = e => {
     this.setState({ search: e.target.value });
     const activateHandler = this.changeHandler();
-    _.debounce(activateHandler, 1000)();
+    _.debounce(activateHandler, 1500)();
   };
 
   handleItemClick = (e, { name }) =>
@@ -125,7 +125,7 @@ class Discover extends Component {
             </Menu.Item>
           </Menu.Menu>
         </Menu>
-        {showResults}
+        <div className="results">{showResults}</div>
       </div>
       // // <div className="discover">
       // //   <div className="input">

@@ -1,11 +1,20 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import TimelinePosts from "../TimelinePosts/TimelinePosts";
 import "./Timeline.css";
 
 class Timeline extends Component {
   render() {
     const timelinePosts = this.props.posts.map((val, i) => {
-      return <p key={i}>{val.timestamp}</p>;
+      const { uri, timestamp, comment } = val;
+      return (
+        <TimelinePosts
+          key={i}
+          uri={uri}
+          comment={comment}
+          timestamp={timestamp}
+        />
+      );
     });
 
     return (

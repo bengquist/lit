@@ -52,10 +52,10 @@ export function setUser(user) {
   };
 }
 
-export function getAllPosts() {
+export function getAllPosts(userID) {
   return {
     type: GET_POSTS,
-    payload: axios.get("/api/posts")
+    payload: axios.get(`/api/posts/${userID}`)
   };
 }
 

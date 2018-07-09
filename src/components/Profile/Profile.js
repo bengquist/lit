@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { Link } from "react-router-dom";
 import ProfilePosts from "../ProfilePosts/ProfilePosts";
 import "./Profile.css";
 
@@ -15,7 +14,8 @@ class Profile extends Component {
         song_name,
         genre,
         uri,
-        profile_img
+        profile_img,
+        comment
       } = val;
 
       return (
@@ -30,20 +30,14 @@ class Profile extends Component {
           user={user_name}
           uri={uri}
           profileImg={profile_img}
+          comment={comment}
         />
       );
     });
 
     return (
       <div className="profile">
-        <div className="middle">
-          {/* <Link to="/profile/recent">
-            <p>Recent</p>
-          </Link>
-          <Link to="/profile/trending">
-            <p>Trending</p>
-          </Link> */}
-        </div>
+        <div className="middle" />
         {userPosts}
       </div>
     );

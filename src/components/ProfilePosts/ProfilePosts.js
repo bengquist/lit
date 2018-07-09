@@ -12,7 +12,8 @@ const ProfilePosts = props => {
     songName,
     genre,
     uri,
-    profileImg
+    profileImg,
+    comment
   } = props;
 
   return (
@@ -23,9 +24,7 @@ const ProfilePosts = props => {
         frameBorder="0"
       />
       <div className="info">
-        <h1>{artistName}</h1>
-        <h2>{songName}</h2>
-        <h3>{genre}</h3>
+        <p>{comment}</p>
       </div>
 
       <div className="user">

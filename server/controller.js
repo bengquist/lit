@@ -1,36 +1,10 @@
-const Validator = require("validator");
-const bcrypt = require("bcrypt");
-
 const _ = require("lodash");
-
-const validateInput = data => {
-  let errors = {};
-
-  if (Validator.isEmpty(data.email)) {
-    errors.email = "Email is required";
-  } else if (!Validator.isEmail(data.email)) {
-    errors.email = "Email is invalid";
-  } else if (Validator.isEmpty(data.password)) {
-    errors.password = "Password is required";
-  } else if (Validator.isEmpty(data.passwordConfirmation)) {
-    errors.passwordConfirmation = "Password confirmation is required";
-  } else if (!Validator.equals(data.password, data.passwordConfirmation)) {
-    errors.passwordConfirmation = "Passwords do not match";
-  } else if (Validator.isEmpty(data.username)) {
-    errors.username = "Username is required";
-  } else {
-    errors = {};
-  }
-
-  return {
-    errors,
-    isValid: _.isEmpty(errors)
-  };
-};
 
 module.exports = {
   getAllPosts: (req, res, next) => {
     const db = req.app.get("db");
+    const { userID } = req.params;
+    console.log(userID);
 
     db.getAllPosts().then(posts => {
       res.status(200).send(posts);
@@ -40,11 +14,9 @@ module.exports = {
   addToProfile: (req, res, next) => {
     const db = req.app.get("db");
 
-    const { uri, userID } = req.body;
+    const { uri, userID, comment } = req.body;
 
-    console.log(uri, userID);
-
-    db.addToProfile([uri, userID]).then(posts => {
+    db.addToProfile([uri, userID, comment]).then(posts => {
       res.status(200).send(posts);
     });
   },
@@ -73,29 +45,19 @@ module.exports = {
   addUser: (req, res, next) => {
     const db = req.app.get("db");
     const { name, email, profileImg } = req.body;
-    console.log(profileImg);
 
-    db.checkUser([email]).then(user => {
+    db.users.where("email=$1", [email]).then(user => {
       if (!_.isEmpty(user)) {
-        console.log("already stored");
+        console.log("logged " + user);
         db.getUser([email]).then(user => {
           res.status(200).send(user);
         });
       } else {
         db.addUser([email, name, profileImg]).then(user => {
+          console.log("adding " + user);
           res.status(200).send(user);
         });
       }
     });
-    // if (isValid) {
-    //   const { username, password, email } = req.body.userInfo;
-    //   const password_digest = bcrypt.hashSync(password, 10);
-
-    //   db.addUser([email, username, password_digest]).then(users => {
-    //     res.status(200).send({ success: true });
-    //   });
-    // } else {
-    //   res.status(200).json(errors);
-    // }
   }
 };

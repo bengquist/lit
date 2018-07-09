@@ -28,8 +28,10 @@ class App extends Component {
     token && spotifyApi.setAccessToken(token);
 
     this.props.setToken(token);
-    this.props.getAllPosts();
+
     this.props.setUser({ name, email, profileImg });
+    console.log(this.props);
+    this.props.getAllPosts();
   }
 
   getHashParams() {
@@ -49,7 +51,6 @@ class App extends Component {
     if (this.props.state.user) {
       var profileImg = this.props.state.user.profile_img;
     }
-    console.log(this.props);
 
     return (
       <div className="App">

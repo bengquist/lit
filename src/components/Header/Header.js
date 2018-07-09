@@ -20,7 +20,7 @@ class Header extends Component {
           </Link>
         </div>
         <div className="user-login">
-          <i className="fas fa-bell" />
+          {/* <i className="fas fa-bell" /> */}
           <Link to="/profile">
             <img
               className="profile_img"

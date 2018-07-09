@@ -43,7 +43,7 @@ app.get("/login", function(req, res) {
 
   // your application requests authorization
   let scope = "user-read-private user-read-email user-read-playback-state";
-  console.log("yoooooooo");
+
   res.redirect(
     "https://accounts.spotify.com/authorize?" +
       querystring.stringify({
@@ -164,7 +164,7 @@ massive(process.env.CONNECTION_STRING).then(db => {
 });
 
 // posts
-app.get("/api/posts", ctrl.getAllPosts);
+app.get("/api/posts/:userID", ctrl.getAllPosts);
 app.post("/api/profileposts", ctrl.addToProfile);
 app.delete("/api/profilepost/:id", ctrl.deleteFromProfile);
 app.put("/api/profilepost/:id", ctrl.editProfilePost);
