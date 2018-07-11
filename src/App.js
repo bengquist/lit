@@ -23,14 +23,12 @@ class App extends Component {
     const name = params["name"];
     const email = params["email"];
     const profileImg = params["profile_img"];
-    console.log(token);
 
     token && spotifyApi.setAccessToken(token);
 
     this.props.setToken(token);
 
     this.props.setUser({ name, email, profileImg });
-    console.log(this.props);
     this.props.getAllPosts();
   }
 
