@@ -1,11 +1,12 @@
 const _ = require("lodash");
 
 module.exports = {
-  getAllPosts: (req, res, next) => {
+  getProfilePosts: (req, res, next) => {
     const db = req.app.get("db");
     const { userID } = req.params;
+    console.log(userID);
 
-    db.getAllPosts().then(posts => {
+    db.getAllPosts([userID]).then(posts => {
       res.status(200).send(posts);
     });
   },
@@ -34,12 +35,29 @@ module.exports = {
     const db = req.app.get("db");
 
     const { id } = req.params;
-    const { comment } = req.body;
+    const { comment, userID } = req.body;
 
-    db.editProfilePost([id, comment]).then(posts => {
-      console.log(posts);
+    db.editProfilePost([id, comment, userID]).then(posts => {
       res.status(200).send(posts);
     });
+  },
+
+  getTimelinePosts: (req, res, next) => {
+    const db = req.app.get("db");
+
+    const { userID } = req.params;
+    let timelinePosts = [];
+
+    db.getFollowing([userID])
+      .then(friends => {
+        return Promise.all(
+          friends.map(({ friend_id }) => db.getTimelinePosts(friend_id))
+        );
+      })
+      .then(timelinePosts => {
+        console.log(timelinePosts);
+        res.status(200).send(timelinePosts);
+      });
   },
 
   addUser: (req, res, next) => {
@@ -53,10 +71,11 @@ module.exports = {
           res.status(200).send(user);
         });
       } else {
-        db.addUser([email, name, profileImg]).then(user => {
-          console.log("adding " + user);
-          res.status(200).send(user);
-        });
+        email &&
+          db.addUser([email, name, profileImg]).then(user => {
+            console.log("adding " + user);
+            res.status(200).send(user);
+          });
       }
     });
   }

@@ -22,6 +22,7 @@ class ProfilePosts extends Component {
   }
 
   render() {
+    console.log(this.props);
     const {
       userID,
       postID,
@@ -52,7 +53,7 @@ class ProfilePosts extends Component {
           <p
             onClick={() => {
               this.editToggle();
-              this.props.editProfilePost(postID, this.state.input);
+              this.props.editProfilePost(postID, this.state.input, userID);
             }}
           >
             Confirm
@@ -89,6 +90,6 @@ class ProfilePosts extends Component {
 }
 
 export default connect(
-  null,
+  state => state,
   { deleteFromProfile, editProfilePost }
 )(ProfilePosts);

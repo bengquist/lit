@@ -3,14 +3,16 @@ import { SSL_OP_NO_SESSION_RESUMPTION_ON_RENEGOTIATION } from "constants";
 
 const initialState = {
   user: {},
-  posts: [],
+  profilePosts: [],
+  timelinePosts: [],
   token: "",
   errors: [],
   message: {}
 };
 
 const SET_USER = "SET_USER";
-const GET_POSTS = "GET_POSTS";
+const GET_PROFILE_POSTS = "GET_PROFILE_POSTS";
+const GET_TIMELINE_POSTS = "GET_TIMELINE_POSTS";
 const SET_TOKEN = "SET_TOKEN";
 const SET_LOGIN = "SET_LOGIN";
 const ADD_TO_PROFILE = "ADD_TO_PROFILE";
@@ -22,21 +24,21 @@ const ADD_FLASH_MESSAGE = "ADD_FLASH_MESSAGE";
 export default function reducer(state = initialState, action) {
   switch (action.type) {
     case SET_USER + "_FULFILLED":
-      console.log(action.payload.data[0]);
       return { ...state, user: action.payload.data[0] };
-    case GET_POSTS + "_FULFILLED":
-      return { ...state, posts: action.payload.data };
+    case GET_PROFILE_POSTS + "_FULFILLED":
+      return { ...state, profilePosts: action.payload.data };
+    case GET_TIMELINE_POSTS + "_FULFILLED":
+      return { ...state, timelinePosts: action.payload.data };
     case SET_LOGIN:
       return { ...state, loggedIn: action.payload };
     case SET_TOKEN:
       return { ...state, token: action.payload };
     case ADD_TO_PROFILE + "_FULFILLED":
-      return { ...state, posts: action.payload.data };
+      return { ...state, profilePosts: action.payload.data };
     case DELETE_FROM_PROFILE + "_FULFILLED":
-      return { ...state, posts: action.payload.data };
+      return { ...state, profilePosts: action.payload.data };
     case EDIT_PROFILE_POST + "_FULFILLED":
-      console.log(action.payload.data);
-      return { ...state, posts: action.payload.data };
+      return { ...state, profilePosts: action.payload.data };
     case USER_SIGN_UP + "_FULFILLED":
       return { ...state, errors: action.payload.data };
     case ADD_FLASH_MESSAGE:
@@ -53,10 +55,17 @@ export function setUser(user) {
   };
 }
 
-export function getAllPosts(userID) {
+export function getProfilePosts(userID) {
   return {
-    type: GET_POSTS,
+    type: GET_PROFILE_POSTS,
     payload: axios.get(`/api/posts/${userID}`)
+  };
+}
+
+export function getTimelinePosts(userID) {
+  return {
+    type: GET_TIMELINE_POSTS,
+    payload: axios.get(`/api/timelineposts/${userID}`)
   };
 }
 
@@ -74,10 +83,10 @@ export function deleteFromProfile(postID) {
   };
 }
 
-export function editProfilePost(postID, comment) {
+export function editProfilePost(postID, comment, userID) {
   return {
     type: EDIT_PROFILE_POST,
-    payload: axios.put(`/api/profilepost/${postID}`, { comment })
+    payload: axios.put(`/api/profilepost/${postID}`, { comment, userID })
   };
 }
 

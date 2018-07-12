@@ -1,23 +1,35 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { getTimelinePosts } from "../../ducks/reducers/reducer";
 import TimelinePosts from "../TimelinePosts/TimelinePosts";
 import "./Timeline.css";
 
 class Timeline extends Component {
+  componentDidMount() {
+    this.props.getTimelinePosts(this.props.user.user_id);
+  }
+
   render() {
-    const timelinePosts = this.props.posts.map((val, i) => {
+    let timeline = [];
+
+    this.props.timelinePosts.forEach(posts => {
+      posts.forEach(post => timeline.push(post));
+    });
+
+    console.log(timeline);
+
+    const timelinePosts = timeline.map((val, i) => {
+      console.log(val);
       const { uri, timestamp, comment, profile_img, username } = val;
       return (
-        <div>
-          <TimelinePosts
-            key={i}
-            uri={uri}
-            comment={comment}
-            profileImg={profile_img}
-            username={username}
-            timestamp={timestamp}
-          />
-        </div>
+        <TimelinePosts
+          key={i}
+          uri={uri}
+          comment={comment}
+          profileImg={profile_img}
+          username={username}
+          timestamp={timestamp}
+        />
       );
     });
 
@@ -29,4 +41,7 @@ class Timeline extends Component {
   }
 }
 
-export default connect(state => state)(Timeline);
+export default connect(
+  state => state,
+  { getTimelinePosts }
+)(Timeline);

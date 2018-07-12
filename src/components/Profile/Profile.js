@@ -1,11 +1,17 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { getProfilePosts } from "../../ducks/reducers/reducer";
 import ProfilePosts from "../ProfilePosts/ProfilePosts";
 import "./Profile.css";
 
 class Profile extends Component {
+  componentDidMount() {
+    this.props.getProfilePosts(this.props.user.user_id);
+  }
+
   render() {
-    let userPosts = this.props.posts.map(val => {
+    console.log(this.props);
+    let userPosts = this.props.profilePosts.map(val => {
       const {
         post_id,
         user_id,
@@ -15,8 +21,6 @@ class Profile extends Component {
         comment,
         timestamp
       } = val;
-
-      console.log(val);
 
       return (
         <ProfilePosts
@@ -41,11 +45,7 @@ class Profile extends Component {
   }
 }
 
-function mapStateToProps(state) {
-  const { posts } = state;
-  return {
-    posts
-  };
-}
-
-export default connect(mapStateToProps)(Profile);
+export default connect(
+  state => state,
+  { getProfilePosts }
+)(Profile);

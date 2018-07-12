@@ -106,9 +106,9 @@ app.get("/callback", function(req, res) {
         request.get(options, function(error, response, body) {
           name = body.display_name;
           email = body.email;
-          profile_img = body.images[0].url;
+          body.images[0] && (profile_img = body.images[0].url);
           res.redirect(
-            "http://localhost:3000/#/home/" +
+            "http://localhost:3000/#/" +
               querystring.stringify({
                 access_token: access_token,
                 refresh_token: refresh_token,
@@ -163,11 +163,14 @@ massive(process.env.CONNECTION_STRING).then(db => {
   app.set("db", db);
 });
 
-// posts
-app.get("/api/posts/:userID", ctrl.getAllPosts);
+// profile posts
+app.get("/api/posts/:userID", ctrl.getProfilePosts);
 app.post("/api/profileposts", ctrl.addToProfile);
 app.delete("/api/profilepost/:id", ctrl.deleteFromProfile);
 app.put("/api/profilepost/:id", ctrl.editProfilePost);
+
+// timeline posts
+app.get("/api/timelineposts/:userID", ctrl.getTimelinePosts);
 
 //users
 app.post("/api/users", ctrl.addUser);

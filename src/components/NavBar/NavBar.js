@@ -6,14 +6,14 @@ const NavBar = props => {
   return (
     <div className="navbar">
       <div className="logo">
-        <Link to="/home/">
+        <Link to="/">
           <h1>
             l<i className="fas fa-fire" />t
           </h1>
         </Link>
       </div>
       <div className="header">
-        <Link to="/home/profile">
+        <Link to="/profile">
           <img
             className="profile_img"
             src={props.profileImg}
@@ -21,8 +21,8 @@ const NavBar = props => {
           />
         </Link>
       </div>
-      <Link to="/home/">Timeline</Link>
-      <Link to="/home/discover">Discover</Link>
+      <Link to="/">Timeline</Link>
+      <Link to="/discover">Discover</Link>
     </div>
   );
 };

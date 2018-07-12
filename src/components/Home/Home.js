@@ -3,12 +3,7 @@ import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import NavBar from "../NavBar/NavBar";
 import routes from "../../routes";
-import {
-  getAllPosts,
-  setToken,
-  setUser,
-  isLoggedIn
-} from "../../ducks/reducers/reducer";
+import { setToken, setUser, isLoggedIn } from "../../ducks/reducers/reducer";
 import "../../reset.css";
 import "./Home.css";
 
@@ -28,7 +23,6 @@ class App extends Component {
     this.props.setToken(token);
 
     this.props.setUser({ name, email, profileImg });
-    this.props.getAllPosts();
   }
 
   getHashParams() {
@@ -69,6 +63,6 @@ function mapStateToProps(state) {
 export default withRouter(
   connect(
     mapStateToProps,
-    { getAllPosts, setToken, setUser, isLoggedIn }
+    { setToken, setUser, isLoggedIn }
   )(App)
 );
