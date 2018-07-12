@@ -1,21 +1,28 @@
 .navbar {
+  display: inline-flex;
+  flex-direction: column;
   width: 20%;
-  height: 80vh;
+  height: 100vh;
   background: #012831;
-  
   font-size: 20px;
-  box-shadow: 1px 0 10px #012831;
-}
-
-.links {
-  padding: 20px 0;
-  color: #82ABB5;
-}
-
-.links:hover {
-  color: rgb(203, 229, 236);
 }
 
 a {
   text-decoration: none;
+}
+
+.logo {
+  margin-left: 15px;
+  font-size: 70px;
+  letter-spacing: 8px;
+}
+
+.logo:hover {
+  cursor: pointer;
+}
+
+.profile_img {
+  height: 70px;
+  width: 70px;
+  border-radius: 50%;
 }

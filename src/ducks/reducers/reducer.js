@@ -35,6 +35,7 @@ export default function reducer(state = initialState, action) {
     case DELETE_FROM_PROFILE + "_FULFILLED":
       return { ...state, posts: action.payload.data };
     case EDIT_PROFILE_POST + "_FULFILLED":
+      console.log(action.payload.data);
       return { ...state, posts: action.payload.data };
     case USER_SIGN_UP + "_FULFILLED":
       return { ...state, errors: action.payload.data };
@@ -60,7 +61,6 @@ export function getAllPosts(userID) {
 }
 
 export function addToProfile(data) {
-  console.log(data);
   return {
     type: ADD_TO_PROFILE,
     payload: axios.post("/api/profileposts", data)
@@ -77,7 +77,7 @@ export function deleteFromProfile(postID) {
 export function editProfilePost(postID, comment) {
   return {
     type: EDIT_PROFILE_POST,
-    payload: axios.put(`/api/profilepost${postID}`, { comment })
+    payload: axios.put(`/api/profilepost/${postID}`, { comment })
   };
 }
 

@@ -23,6 +23,7 @@ class Discover extends Component {
     }
 
     spotifyApi.getNewReleases().then(response => {
+      console.log(this.props.token);
       this.setState({ results: response.albums.items });
     });
   }
@@ -72,6 +73,7 @@ class Discover extends Component {
     this.setState({ selected: name, activeItem: name, results: [] });
 
   handleRecentRelease = (e, { name }) => {
+    console.log("New Release clicked");
     spotifyApi.getNewReleases().then(response => {
       this.setState({
         selected: name,

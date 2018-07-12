@@ -4,7 +4,6 @@ module.exports = {
   getAllPosts: (req, res, next) => {
     const db = req.app.get("db");
     const { userID } = req.params;
-    console.log(userID);
 
     db.getAllPosts().then(posts => {
       res.status(200).send(posts);
@@ -38,6 +37,7 @@ module.exports = {
     const { comment } = req.body;
 
     db.editProfilePost([id, comment]).then(posts => {
+      console.log(posts);
       res.status(200).send(posts);
     });
   },

@@ -1,34 +1,32 @@
 import React, { Component } from "react";
-import { withRouter, Switch, Route, Redirect } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
-import Login from "./components/Login/Login";
-import Home from "./components/Home/Home";
+import NavBar from "../NavBar/NavBar";
+import routes from "../../routes";
 import {
   getAllPosts,
   setToken,
   setUser,
   isLoggedIn
-} from "./ducks/reducers/reducer";
-import "./reset.css";
-import "./App.css";
+} from "../../ducks/reducers/reducer";
+import "../../reset.css";
+import "./Home.css";
 
 import SpotifyWebApi from "spotify-web-api-js";
 const spotifyApi = new SpotifyWebApi();
 
 class App extends Component {
-  state = {
-    loggedIn: true
-  };
-
   componentDidMount() {
     const params = this.getHashParams();
-    const token = params["/home/access_token"];
+    const token = params["/access_token"];
     const name = params["name"];
     const email = params["email"];
     const profileImg = params["profile_img"];
 
     token && spotifyApi.setAccessToken(token);
-    !token && this.setState({ loggedIn: false });
+
+    this.props.setToken(token);
+
     this.props.setUser({ name, email, profileImg });
     this.props.getAllPosts();
   }
@@ -47,19 +45,16 @@ class App extends Component {
   }
 
   render() {
-    console.log(this.state);
+    if (this.props.state.user) {
+      var profileImg = this.props.state.user.profile_img;
+    }
 
     return (
       <div className="App">
-        <Switch>
-          <Route path="/login" component={Login} />
-          <Route
-            path="/home"
-            render={() =>
-              !this.state.loggedIn ? <Redirect to="/login" /> : <Home />
-            }
-          />
-        </Switch>
+        <div className="body">
+          <NavBar profileImg={profileImg} />
+          {routes}
+        </div>
       </div>
     );
   }

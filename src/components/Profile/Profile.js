@@ -9,28 +9,25 @@ class Profile extends Component {
       const {
         post_id,
         user_id,
-        user_name,
-        artist_name,
-        song_name,
-        genre,
+        username,
         uri,
         profile_img,
-        comment
+        comment,
+        timestamp
       } = val;
+
+      console.log(val);
 
       return (
         <ProfilePosts
           key={post_id}
           postID={post_id}
           userID={user_id}
-          userName={user_name}
-          artistName={artist_name}
-          songName={song_name}
-          genre={genre}
-          user={user_name}
+          userName={username}
           uri={uri}
           profileImg={profile_img}
           comment={comment}
+          timestamp={timestamp}
         />
       );
     });

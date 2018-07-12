@@ -1,49 +1,94 @@
-import React from "react";
+import React, { Component } from "react";
 import { connect } from "react-redux";
-import { deleteFromProfile } from "../../ducks/reducers/reducer";
+import {
+  deleteFromProfile,
+  editProfilePost
+} from "../../ducks/reducers/reducer";
+import { Form, TextArea } from "semantic-ui-react";
 import "./ProfilePosts.css";
 
-const ProfilePosts = props => {
-  const {
-    userID,
-    postID,
-    userName,
-    artistName,
-    songName,
-    genre,
-    uri,
-    profileImg,
-    comment
-  } = props;
+class ProfilePosts extends Component {
+  state = {
+    edit: false,
+    input: ""
+  };
 
-  return (
-    <div className="posts">
-      <iframe
-        src={`https://embed.spotify.com/?uri=${uri}`}
-        height="80"
-        frameBorder="0"
-      />
-      <div className="info">
-        <p>{comment}</p>
-      </div>
+  editToggle(cmt) {
+    this.setState({ edit: !this.state.edit, input: cmt });
+  }
 
-      <div className="user">
-        <div className="toggle">
-          <div onClick={() => props.editProfilePost(postID)}>
-            <i className="fas fa-edit" />
-          </div>
-          <div onClick={() => props.deleteFromProfile(postID)}>
-            <i className="fas fa-trash-alt" />
-          </div>
+  inputHandler(e) {
+    this.setState({ input: e });
+  }
+
+  render() {
+    const {
+      userID,
+      postID,
+      userName,
+      uri,
+      profileImg,
+      comment,
+      timestamp
+    } = this.props;
+    const { edit } = this.state;
+    let editToggle;
+
+    if (!edit) {
+      editToggle = (
+        <div>
+          <p>{comment}</p>
+          <p onClick={() => this.editToggle(comment)}>Edit</p>
         </div>
-        <img className="profile-img" src={profileImg} alt="" />
-        <p>{userName}</p>
+      );
+    } else {
+      editToggle = (
+        <div>
+          <TextArea
+            value={this.state.input}
+            onChange={event => this.inputHandler(event.target.value)}
+          />
+          <p onClick={() => this.editToggle()}>Cancel</p>
+          <p
+            onClick={() => {
+              this.editToggle();
+              this.props.editProfilePost(postID, this.state.input);
+            }}
+          >
+            Confirm
+          </p>
+        </div>
+      );
+    }
+
+    return (
+      <div className="posts">
+        <iframe
+          src={`https://embed.spotify.com/?uri=${uri}`}
+          height="80"
+          frameBorder="0"
+        />
+        <div className="info">
+          <p>{editToggle}</p>
+          <p>{timestamp}</p>
+        </div>
+
+        <div className="user">
+          <div className="toggle">
+            <i
+              onClick={() => this.props.deleteFromProfile(postID)}
+              className="fas fa-trash-alt"
+            />
+          </div>
+          <img className="profile-img" src={profileImg} alt="" />
+          <p>{userName}</p>
+        </div>
       </div>
-    </div>
-  );
-};
+    );
+  }
+}
 
 export default connect(
   null,
-  { deleteFromProfile }
+  { deleteFromProfile, editProfilePost }
 )(ProfilePosts);

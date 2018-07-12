@@ -1,5 +1,3 @@
-.timeline p {
-  width: 80vw;
-  color: #000;
-  border: none;
+.timeline {
+  width: 80%;
 }
