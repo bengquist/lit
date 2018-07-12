@@ -14,6 +14,81 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.1/semantic.min.css"></link>
 
+    <style>
+      .fade-enter {
+        opacity: 0;
+      }
+
+      .fade-enter-active {
+        opacity: 1;
+        transition: opacity 300ms ease-out;
+      }
+
+      .fade-leave {
+        opacity: 1;
+      }
+
+      .fade-leave-active {
+        opacity: 0;
+        transition: opacity 300ms ease-out;
+      }
+
+      .fade-appear {
+        opacity: 0;
+      }
+
+      .fade-appear-active {
+        opacity: 1;
+        transition: opacity 500ms ease-out;
+      }
+
+      .slide-enter {
+        transform: translateX(-100%);
+      }
+
+      .slide-enter-active {
+        animation: slide-in 300ms ease-out forwards;
+      }
+
+      .slide-leave {
+        transform: translateX(0%);
+      }
+
+      .slide-leave-active {
+        animation: slide-out 300ms ease-out forwards;
+      }
+
+      .slide-appear {
+        transform: translateX(-100%);
+      }
+
+      .slide-appear-active {
+        animation: slide-in 300ms ease-out forwards;
+      }
+
+      @keyframes slide-in {
+        from {
+          opacity: 0;
+          transform: translateX(-100%);
+        }
+        to {
+          opacity: 1;
+          transform: translateX(0%);
+        }
+      }
+
+      @keyframes slide-out {
+        from {
+          opacity: 1;
+          transform: translateX(0%);
+        }
+        to {
+          opacity: 0;
+          transform: translateX(100%);
+        }
+      }
+    </style>
+
 
     <!--
       Notice the use of %PUBLIC_URL% in the tags above.

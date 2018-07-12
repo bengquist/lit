@@ -7,9 +7,9 @@ const NavBar = props => {
     <div className="navbar">
       <div className="logo">
         <Link to="/">
-          <h1>
-            l<i className="fas fa-fire" />t
-          </h1>
+          l<div logo-flame>
+            i<i className="fas fa-fire" />
+          </div>t
         </Link>
       </div>
       <div className="header">

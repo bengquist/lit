@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import ReactCSSTransitionGroup from "react-addons-css-transition-group";
 import Chart from "../Chart/Chart";
 import "./Discover.css";
 import _ from "lodash";
@@ -23,7 +24,6 @@ class Discover extends Component {
     }
 
     spotifyApi.getNewReleases().then(response => {
-      console.log(this.props.token);
       this.setState({ results: response.albums.items });
     });
   }
@@ -73,7 +73,6 @@ class Discover extends Component {
     this.setState({ selected: name, activeItem: name, results: [] });
 
   handleRecentRelease = (e, { name }) => {
-    console.log("New Release clicked");
     spotifyApi.getNewReleases().then(response => {
       this.setState({
         selected: name,
@@ -127,7 +126,17 @@ class Discover extends Component {
             </Menu.Item>
           </Menu.Menu>
         </Menu>
-        <div className="results">{showResults}</div>
+        <div className="results">
+          <ReactCSSTransitionGroup
+            transitionName="fade"
+            transitionEnterTimeout={300}
+            transitionLeaveTimeout={300}
+            transitionAppear={true}
+            transitionAppearTimeout={500}
+          >
+            {showResults}
+          </ReactCSSTransitionGroup>
+        </div>
       </div>
       // // <div className="discover">
       // //   <div className="input">

@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { getProfilePosts } from "../../ducks/reducers/reducer";
 import ProfilePosts from "../ProfilePosts/ProfilePosts";
+import ReactCSSTransitionGroup from "react-addons-css-transition-group";
 import "./Profile.css";
 
 class Profile extends Component {
@@ -39,7 +40,15 @@ class Profile extends Component {
     return (
       <div className="profile">
         <div className="middle" />
-        {userPosts}
+        <ReactCSSTransitionGroup
+          transitionName="slide"
+          transitionEnterTimeout={300}
+          transitionLeaveTimeout={300}
+          transitionAppear={true}
+          transitionAppearTimeout={500}
+        >
+          {userPosts}
+        </ReactCSSTransitionGroup>
       </div>
     );
   }

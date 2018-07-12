@@ -24,9 +24,9 @@ module.exports = {
   deleteFromProfile: (req, res, next) => {
     const db = req.app.get("db");
 
-    const { id } = req.params;
+    const { postID, userID } = req.params;
 
-    db.deleteFromProfile([id]).then(posts => {
+    db.deleteFromProfile([postID, userID]).then(posts => {
       res.status(200).send(posts);
     });
   },

@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import ReactCSSTransitionGroup from "react-addons-css-transition-group";
 import { getTimelinePosts } from "../../ducks/reducers/reducer";
 import TimelinePosts from "../TimelinePosts/TimelinePosts";
 import "./Timeline.css";
@@ -35,7 +36,17 @@ class Timeline extends Component {
 
     return (
       <div className="timeline">
-        <div>{timelinePosts}</div>
+        <div>
+          <ReactCSSTransitionGroup
+            transitionName="fade"
+            transitionEnterTimeout={300}
+            transitionLeaveTimeout={300}
+            transitionAppear={true}
+            transitionAppearTimeout={500}
+          >
+            {timelinePosts}
+          </ReactCSSTransitionGroup>
+        </div>
       </div>
     );
   }

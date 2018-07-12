@@ -77,7 +77,7 @@ class ProfilePosts extends Component {
         <div className="user">
           <div className="toggle">
             <i
-              onClick={() => this.props.deleteFromProfile(postID)}
+              onClick={() => this.props.deleteFromProfile(postID, userID)}
               className="fas fa-trash-alt"
             />
           </div>

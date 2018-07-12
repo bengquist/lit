@@ -76,10 +76,10 @@ export function addToProfile(data) {
   };
 }
 
-export function deleteFromProfile(postID) {
+export function deleteFromProfile(postID, userID) {
   return {
     type: DELETE_FROM_PROFILE,
-    payload: axios.delete(`/api/profilepost/${postID}`)
+    payload: axios.delete(`/api/profilepost/${postID}/${userID}`)
   };
 }
 

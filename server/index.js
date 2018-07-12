@@ -166,7 +166,7 @@ massive(process.env.CONNECTION_STRING).then(db => {
 // profile posts
 app.get("/api/posts/:userID", ctrl.getProfilePosts);
 app.post("/api/profileposts", ctrl.addToProfile);
-app.delete("/api/profilepost/:id", ctrl.deleteFromProfile);
+app.delete("/api/profilepost/:postID/:userID", ctrl.deleteFromProfile);
 app.put("/api/profilepost/:id", ctrl.editProfilePost);
 
 // timeline posts

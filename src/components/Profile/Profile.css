@@ -1,5 +1,8 @@
 .profile {
   width: 80%;
-  color: #000;
   border: none;
+}
+
+.middle {
+  width: 80%;
 }

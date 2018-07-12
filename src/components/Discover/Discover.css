@@ -3,18 +3,6 @@
   margin-top: 10px;
 }
 
-.discover p {
-  color: #000;
-  border: none;
-}
-
-.input {
-  display: flex;
-  justify-content: space-between;
-  width: 50%;
-  margin: 0 auto;
-}
-
 .search-header {
   width: 80%;
 }
