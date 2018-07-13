@@ -92,26 +92,30 @@ class Discover extends Component {
     return (
       <div className="discover">
         <Menu
-          style={{ margin: 0 + " auto" }}
+          style={{ margin: 0 + " auto", backgroundColor: "#1d212a" }}
           className="search-header"
           secondary
         >
           <Menu.Item
+            style={{ color: "#fff" }}
             name="Artists"
             active={activeItem === "Artists"}
             onClick={this.handleItemClick}
           />
           <Menu.Item
+            style={{ color: "#fff" }}
             name="Tracks"
             active={activeItem === "Tracks"}
             onClick={this.handleItemClick}
           />
           <Menu.Item
+            style={{ color: "#fff" }}
             name="Albums"
             active={activeItem === "Albums"}
             onClick={this.handleItemClick}
           />
           <Menu.Item
+            style={{ color: "#fff" }}
             name="New Releases"
             active={activeItem === "New Releases"}
             onClick={this.handleRecentRelease}
@@ -138,29 +142,6 @@ class Discover extends Component {
           </ReactCSSTransitionGroup>
         </div>
       </div>
-      // // <div className="discover">
-      // //   <div className="input">
-      // //     <p>Recent Releases</p>
-      // //     <div>
-      // //       <Input
-      // //         icon="search"
-      // //         onChange={event => this.searchHandler(event)}
-      // //         type="text"
-      // //         placeholder="Search Artist, Song, Genre..."
-      // //       />
-      // //       <select
-      // //         onChange={event => this.selectHandler(event)}
-      // //         name="type"
-      // //         id="type"
-      // //       >
-      // //         <option value="Artists">Artist</option>
-      // //         <option value="Tracks">Song</option>
-      // //         <option value="Albums">Album</option>
-      // //       </select>
-      // //     </div>
-      //   <div>
-      //   {showResults}
-      // </div>
     );
   }
 }

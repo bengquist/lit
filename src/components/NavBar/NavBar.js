@@ -7,9 +7,11 @@ const NavBar = props => {
     <div className="navbar">
       <div className="logo">
         <Link to="/">
-          l<div logo-flame>
-            i<i className="fas fa-fire" />
-          </div>t
+          <h1>
+            l
+            <i className="fas fa-fire" />
+            t
+          </h1>
         </Link>
       </div>
       <div className="header">
@@ -21,8 +23,16 @@ const NavBar = props => {
           />
         </Link>
       </div>
-      <Link to="/">Timeline</Link>
-      <Link to="/discover">Discover</Link>
+      <div className="links">
+        <Link to="/">
+          <i class="fas fa-sliders-h" /> Timeline
+        </Link>
+      </div>
+      <div className="links">
+        <Link to="/discover">
+          <i class="fas fa-globe" /> Discover
+        </Link>
+      </div>
     </div>
   );
 };

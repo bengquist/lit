@@ -4,5 +4,10 @@
 }
 
 .search-header {
-  width: 80%;
+  width: 100%;
+  position: sticky;
+  top: -1px;
+  margin-top: 0;
+  padding: 5px;
+  z-index: 2;
 }

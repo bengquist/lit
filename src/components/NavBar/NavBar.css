@@ -3,28 +3,70 @@
   flex-direction: column;
   position: sticky;
   top: 0;
-  width: 20%;
+  width: 15%;
   height: 100vh;
-  background: #012831;
+  background: linear-gradient(#1d212a, #06080a);
+  opacity: .8;
   font-size: 20px;
 }
 
-a {
-  text-decoration: none;
-}
-
 .logo {
-  margin-left: 15px;
+  margin-top: 10px;
   font-size: 70px;
   letter-spacing: 8px;
 }
 
-.logo:hover {
-  cursor: pointer;
+.logo i {
+  color: #1DB954;
+}
+
+.logo h1 {
+  color: #FFFFFF;
 }
 
 .profile_img {
+  margin-top: 30px;
   height: 70px;
   width: 70px;
   border-radius: 50%;
+  opacity: .65;
+}
+
+.profile_img:hover {
+  animation: img-hover .5s forwards;
+}
+
+.links, .links a {
+  margin-top: 40px;
+  color: #595B5F;
+}
+
+.links a:hover {
+  animation: nav-hover 1s forwards;
+}
+
+i {
+  color: #595B5F;
+}
+
+i:active {
+  color: #1DB954;
+}
+
+@keyframes nav-hover {
+  0% {
+    color: #595B5F;
+  }
+  100% {
+    color: #fff;
+  }
+}
+
+@keyframes img-hover {
+  0% {
+    opacity: .65;
+  }
+  100% {
+    opacity: 1;
+  }
 }

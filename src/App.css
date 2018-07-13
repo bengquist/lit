@@ -1,7 +1,8 @@
 .App {
   text-align: center;
   font-family: 'Paytone One', sans-serif;
-  background: #225764;
+  background: linear-gradient(to bottom, #3B4356, #060709);
+  background-attachment: fixed;
   height: 100%;
 }
 
