@@ -3,7 +3,12 @@ import { Loader } from "semantic-ui-react";
 import "./TimelinePosts.css";
 
 const TimelinePosts = props => {
-  const { uri, comment, timestamp, profileImg, username } = props;
+  let { uri, comment, timestamp, profileImg, username } = props;
+  timestamp = timestamp.replace("T", " ");
+  const splitTime = timestamp.split("T");
+  const date = splitTime[0];
+  const time = splitTime[1];
+  console.log(date, time);
 
   return (
     <div className="posts">
@@ -24,17 +29,16 @@ const TimelinePosts = props => {
         <Loader
           style={{
             position: "absolute",
-            zIndex: 0,
             left: 0,
             right: 0,
-            top: 150,
+            top: 155,
             zIndex: 0
           }}
           active
           inline="centered"
         />
         <iframe
-          className="iframe"
+          title="spotify"
           src={`https://embed.spotify.com/?uri=${uri}`}
           height="80"
           frameborder="0"

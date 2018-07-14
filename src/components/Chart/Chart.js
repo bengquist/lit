@@ -15,10 +15,8 @@ class Chart extends Component {
   };
 
   render() {
-    const { collapsed } = this.state;
     const { uri } = this.props;
     const userID = this.props.user.user_id;
-    const profileImg = this.props.user.profile_img;
 
     return (
       <div className="chart">
@@ -34,7 +32,7 @@ class Chart extends Component {
           inline="centered"
         />
         <iframe
-          display={this.state.display}
+          title="spotify"
           src={`https://embed.spotify.com/?uri=${uri}`}
           frameBorder="0"
           height="80"

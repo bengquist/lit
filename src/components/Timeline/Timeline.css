@@ -1,6 +1,8 @@
 .timeline {
-  display: grid;
-  grid-template-columns: 100%;
+  /* display: grid;
+  grid-template-columns: 100%; */
+  display: flex;
+  flex-direction: column;
   width: 85%;
   margin: o auto;
 }

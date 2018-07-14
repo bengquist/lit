@@ -67,10 +67,10 @@ class Discover extends Component {
         };
       case "People":
         return () => {
-          spotifyApi;
           this.props.searchUsers(this.state.search);
           console.log(this.props.state.users);
         };
+      default:
     }
   };
 
@@ -106,7 +106,7 @@ class Discover extends Component {
     const userID = this.props.state.user.user_id;
 
     const showResults = this.state.results.map((val, i) => {
-      const { popularity, uri } = val;
+      const { uri } = val;
       return (
         <ReactCSSTransitionGroup
           transitionName="fade"
@@ -136,7 +136,7 @@ class Discover extends Component {
             <p>{username}</p>
             <i
               onClick={() => {
-                userID != user_id && this.props.followUser(userID, user_id);
+                userID !== user_id && this.props.followUser(userID, user_id);
               }}
               class="far fa-plus-square"
             />

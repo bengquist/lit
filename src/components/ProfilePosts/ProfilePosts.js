@@ -4,7 +4,7 @@ import {
   deleteFromProfile,
   editProfilePost
 } from "../../ducks/reducers/reducer";
-import { Form, TextArea } from "semantic-ui-react";
+import { TextArea } from "semantic-ui-react";
 import "./ProfilePosts.css";
 
 class ProfilePosts extends Component {
@@ -65,6 +65,7 @@ class ProfilePosts extends Component {
     return (
       <div className="posts">
         <iframe
+          title="spotify"
           src={`https://embed.spotify.com/?uri=${uri}`}
           height="80"
           frameBorder="0"

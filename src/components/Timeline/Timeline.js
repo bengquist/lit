@@ -17,10 +17,7 @@ class Timeline extends Component {
       posts.forEach(post => timeline.push(post));
     });
 
-    console.log(timeline);
-
     const timelinePosts = timeline.map((val, i) => {
-      console.log(val);
       const { uri, timestamp, comment, profile_img, username } = val;
 
       return (

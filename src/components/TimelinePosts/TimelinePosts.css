@@ -1,15 +1,18 @@
 .posts {
+  font-family: 'Montserrat', sans-serif;
   background: linear-gradient(to top, #22A053, rgba(104, 156, 130, 0.25));
   display: flex;
   justify-content: space-between;
-  width: 50%;
-  margin: 10px;
+  width: 60%;
   padding: 10px;
   position: relative;
+  margin: 10px auto;
+  min-height: 100%;
 }
 
-.iframe {
+.info > iframe {
   z-index: 1;
+  position: relative;
 }
 
 .user {
