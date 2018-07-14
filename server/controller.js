@@ -55,7 +55,6 @@ module.exports = {
         );
       })
       .then(timelinePosts => {
-        console.log(timelinePosts);
         res.status(200).send(timelinePosts);
       });
   },
@@ -66,17 +65,35 @@ module.exports = {
 
     db.users.where("email=$1", [email]).then(user => {
       if (!_.isEmpty(user)) {
-        console.log("logged " + user);
         db.getUser([email]).then(user => {
           res.status(200).send(user);
         });
       } else {
         email &&
           db.addUser([email, name, profileImg]).then(user => {
-            console.log("adding " + user);
             res.status(200).send(user);
           });
       }
+    });
+  },
+
+  searchUsers: (req, res, next) => {
+    const db = req.app.get("db");
+    let { user } = req.params;
+    let newUser = user.charAt(0).toUpperCase() + user.slice(1) + "%";
+
+    db.searchUser([newUser]).then(user => {
+      res.status(200).send(user);
+    });
+  },
+
+  followUser: (req, res, next) => {
+    const db = req.app.get("db");
+    const { userID } = req.params;
+    const { followID } = req.body;
+
+    db.followUser([userID, followID]).then(user => {
+      res.status(200).send(user);
     });
   }
 };

@@ -165,15 +165,17 @@ massive(process.env.CONNECTION_STRING).then(db => {
 
 // profile posts
 app.get("/api/posts/:userID", ctrl.getProfilePosts);
-app.post("/api/profileposts", ctrl.addToProfile);
-app.delete("/api/profilepost/:postID/:userID", ctrl.deleteFromProfile);
-app.put("/api/profilepost/:id", ctrl.editProfilePost);
+app.post("/api/profile/posts", ctrl.addToProfile);
+app.delete("/api/profile/post/:postID/:userID", ctrl.deleteFromProfile);
+app.put("/api/profile/post/:id", ctrl.editProfilePost);
 
 // timeline posts
-app.get("/api/timelineposts/:userID", ctrl.getTimelinePosts);
+app.get("/api/timeline/posts/:userID", ctrl.getTimelinePosts);
 
 //users
+app.get("/api/users/:user", ctrl.searchUsers);
 app.post("/api/users", ctrl.addUser);
+app.post("/api/users/:userID", ctrl.followUser);
 
 app.listen(port, () => {
   console.log(`Listening on port:3001`);

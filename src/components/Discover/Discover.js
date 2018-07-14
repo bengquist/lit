@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import ReactCSSTransitionGroup from "react-addons-css-transition-group";
 import Chart from "../Chart/Chart";
+import { searchUsers, followUser } from "../../ducks/reducers/reducer";
 import "./Discover.css";
 import _ from "lodash";
 
@@ -26,6 +27,10 @@ class Discover extends Component {
     spotifyApi.getNewReleases().then(response => {
       this.setState({ results: response.albums.items });
     });
+  }
+
+  componentWillUnmount() {
+    this.props.searchUsers("");
   }
 
   changeHandler = () => {
@@ -60,39 +65,95 @@ class Discover extends Component {
             })
             .catch(() => this.setState({ results: [] }));
         };
+      case "People":
+        return () => {
+          spotifyApi;
+          this.props.searchUsers(this.state.search);
+          console.log(this.props.state.users);
+        };
     }
   };
 
   searchHandler = e => {
     this.setState({ search: e.target.value });
     const activateHandler = this.changeHandler();
-    _.debounce(activateHandler, 1500)();
+    _.debounce(activateHandler, 500)();
   };
 
-  handleItemClick = (e, { name }) =>
-    this.setState({ selected: name, activeItem: name, results: [] });
+  handleItemClick = (e, { name }) => {
+    this.props.searchUsers("");
+    this.setState({
+      selected: name,
+      activeItem: name,
+      results: [],
+      search: ""
+    });
+  };
 
   handleRecentRelease = (e, { name }) => {
     spotifyApi.getNewReleases().then(response => {
       this.setState({
         selected: name,
         activeItem: name,
-        results: response.albums.items
+        results: response.albums.items,
+        search: ""
       });
     });
   };
 
   render() {
     const { activeItem } = this.state;
+    const userID = this.props.state.user.user_id;
+
     const showResults = this.state.results.map((val, i) => {
       const { popularity, uri } = val;
-      return <Chart uri={uri} />;
+      return (
+        <ReactCSSTransitionGroup
+          transitionName="fade"
+          transitionEnterTimeout={300}
+          transitionLeaveTimeout={300}
+          transitionAppear={true}
+          transitionAppearTimeout={500}
+        >
+          <Chart uri={uri} />
+        </ReactCSSTransitionGroup>
+      );
+    });
+
+    const userResults = this.props.state.users.map(val => {
+      const { username, profile_img, user_id } = val;
+
+      return (
+        <ReactCSSTransitionGroup
+          transitionName="fade"
+          transitionEnterTimeout={300}
+          transitionLeaveTimeout={300}
+          transitionAppear={true}
+          transitionAppearTimeout={500}
+        >
+          <div className="single-user-result">
+            <img src={profile_img} alt="" />
+            <p>{username}</p>
+            <i
+              onClick={() => {
+                userID != user_id && this.props.followUser(userID, user_id);
+              }}
+              class="far fa-plus-square"
+            />
+          </div>
+        </ReactCSSTransitionGroup>
+      );
     });
 
     return (
       <div className="discover">
         <Menu
-          style={{ margin: 0 + " auto", backgroundColor: "#1d212a" }}
+          style={{
+            margin: "30px auto",
+            backgroundColor: "#1d212a",
+            boxShadow: "0 4px 2px -2px #268C52",
+            height: "70px"
+          }}
           className="search-header"
           secondary
         >
@@ -121,26 +182,28 @@ class Discover extends Component {
             onClick={this.handleRecentRelease}
           />
           <Menu.Menu position="right">
-            <Menu.Item>
+            <Menu.Item
+              style={{ color: "#fff" }}
+              name="People"
+              active={activeItem === "People"}
+              onClick={this.handleRecentRelease}
+            />
+            <Menu.Item
+              style={{ position: "relative", display: "inline-block" }}
+            >
               <Input
+                value={this.state.search}
+                style={{ width: "350px" }}
                 onChange={event => this.searchHandler(event)}
                 icon="search"
                 placeholder="Search..."
               />
+              <div className="user-results">{userResults}</div>
             </Menu.Item>
           </Menu.Menu>
         </Menu>
-        <div className="results">
-          <ReactCSSTransitionGroup
-            transitionName="fade"
-            transitionEnterTimeout={300}
-            transitionLeaveTimeout={300}
-            transitionAppear={true}
-            transitionAppearTimeout={500}
-          >
-            {showResults}
-          </ReactCSSTransitionGroup>
-        </div>
+
+        <div className="results">{showResults}</div>
       </div>
     );
   }
@@ -152,4 +215,7 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps)(Discover);
+export default connect(
+  mapStateToProps,
+  { searchUsers, followUser }
+)(Discover);

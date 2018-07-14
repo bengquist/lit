@@ -1,3 +1,41 @@
 .posts {
-  width: 98%;
+  background: linear-gradient(to top, #22A053, rgba(104, 156, 130, 0.25));
+  display: flex;
+  justify-content: space-between;
+  width: 50%;
+  margin: 10px;
+  padding: 10px;
+  position: relative;
+}
+
+.iframe {
+  z-index: 1;
+}
+
+.user {
+  margin: 10px;
+}
+
+.user-name {
+  color: #000;
+  display: inline;
+}
+
+.timestamp {
+  display: inline;
+  color: #C6CED4;
+}
+
+.comment {
+  margin-top: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #CFD8DE;
+  border-radius: 4px;
+  padding: 12px;
+}
+
+.arrow > i {
+  margin: 30px;
+  color: #fff;
+  font-size: 40px;
 }

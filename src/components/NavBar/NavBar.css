@@ -1,6 +1,7 @@
 .navbar {
-  display: inline-flex;
+  display: flex;
   flex-direction: column;
+  justify-content: flex-start;
   position: sticky;
   top: 0;
   width: 15%;
@@ -17,7 +18,7 @@
 }
 
 .logo i {
-  color: #1DB954;
+  color: #22A053;
 }
 
 .logo h1 {
@@ -42,15 +43,27 @@
 }
 
 .links a:hover {
-  animation: nav-hover 1s forwards;
+  animation: nav-hover .5s forwards;
 }
 
 i {
   color: #595B5F;
 }
 
-i:active {
-  color: #1DB954;
+.logout {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding-bottom: 30px;
+}
+
+a, a:hover {
+  color: #fff;
+}
+
+.active {
+  color: #22A053;
 }
 
 @keyframes nav-hover {

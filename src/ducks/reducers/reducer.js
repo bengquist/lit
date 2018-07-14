@@ -6,8 +6,7 @@ const initialState = {
   profilePosts: [],
   timelinePosts: [],
   token: "",
-  errors: [],
-  message: {}
+  users: []
 };
 
 const SET_USER = "SET_USER";
@@ -18,8 +17,8 @@ const SET_LOGIN = "SET_LOGIN";
 const ADD_TO_PROFILE = "ADD_TO_PROFILE";
 const DELETE_FROM_PROFILE = "DELETE_FROM_PROFILE";
 const EDIT_PROFILE_POST = "EDIT_PROFILE_POST";
-const USER_SIGN_UP = "USER_SIGN_UP";
-const ADD_FLASH_MESSAGE = "ADD_FLASH_MESSAGE";
+const SEARCH_USERS = "SEARCH_USERS";
+const FOLLOW_USER = "FOLLOW_USER";
 
 export default function reducer(state = initialState, action) {
   switch (action.type) {
@@ -39,54 +38,24 @@ export default function reducer(state = initialState, action) {
       return { ...state, profilePosts: action.payload.data };
     case EDIT_PROFILE_POST + "_FULFILLED":
       return { ...state, profilePosts: action.payload.data };
-    case USER_SIGN_UP + "_FULFILLED":
-      return { ...state, errors: action.payload.data };
-    case ADD_FLASH_MESSAGE:
-      return { ...state, message: action.payload };
+    case SEARCH_USERS + "_FULFILLED":
+      return { ...state, users: action.payload.data };
+    case SEARCH_USERS + "_REJECTED":
+      return { ...state, users: [] };
+    case FOLLOW_USER + "_FULFILLED":
+      console.log(action.payload.data);
+      return { ...state };
     default:
       return state;
   }
 }
 
+// users
+
 export function setUser(user) {
   return {
     type: SET_USER,
     payload: axios.post("/api/users", user)
-  };
-}
-
-export function getProfilePosts(userID) {
-  return {
-    type: GET_PROFILE_POSTS,
-    payload: axios.get(`/api/posts/${userID}`)
-  };
-}
-
-export function getTimelinePosts(userID) {
-  return {
-    type: GET_TIMELINE_POSTS,
-    payload: axios.get(`/api/timelineposts/${userID}`)
-  };
-}
-
-export function addToProfile(data) {
-  return {
-    type: ADD_TO_PROFILE,
-    payload: axios.post("/api/profileposts", data)
-  };
-}
-
-export function deleteFromProfile(postID, userID) {
-  return {
-    type: DELETE_FROM_PROFILE,
-    payload: axios.delete(`/api/profilepost/${postID}/${userID}`)
-  };
-}
-
-export function editProfilePost(postID, comment, userID) {
-  return {
-    type: EDIT_PROFILE_POST,
-    payload: axios.put(`/api/profilepost/${postID}`, { comment, userID })
   };
 }
 
@@ -104,18 +73,57 @@ export function setToken(token) {
   };
 }
 
-export function userSignupRequest(userInfo) {
-  console.log(userInfo);
+// profile
 
+export function getProfilePosts(userID) {
   return {
-    type: USER_SIGN_UP,
-    payload: axios.post("/api/users", { userInfo })
+    type: GET_PROFILE_POSTS,
+    payload: axios.get(`/api/posts/${userID}`)
   };
 }
 
-export function addFlashMessage(message) {
+export function addToProfile(data) {
   return {
-    type: ADD_FLASH_MESSAGE,
-    payload: message
+    type: ADD_TO_PROFILE,
+    payload: axios.post("/api/profile/posts", data)
+  };
+}
+
+export function deleteFromProfile(postID, userID) {
+  return {
+    type: DELETE_FROM_PROFILE,
+    payload: axios.delete(`/api/profile/post/${postID}/${userID}`)
+  };
+}
+
+export function editProfilePost(postID, comment, userID) {
+  return {
+    type: EDIT_PROFILE_POST,
+    payload: axios.put(`/api/profile/post/${postID}`, { comment, userID })
+  };
+}
+
+// timeline
+
+export function getTimelinePosts(userID) {
+  return {
+    type: GET_TIMELINE_POSTS,
+    payload: axios.get(`/api/timeline/posts/${userID}`)
+  };
+}
+
+// discover
+
+export function searchUsers(user) {
+  return {
+    type: SEARCH_USERS,
+    payload: axios.get(`/api/users/${user}`)
+  };
+}
+
+export function followUser(userID, followID) {
+  return {
+    type: FOLLOW_USER,
+    payload: axios.post(`/api/users/${userID}`, { followID })
   };
 }

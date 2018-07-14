@@ -3,15 +3,7 @@ import { connect } from "react-redux";
 import { addToProfile } from "../../ducks/reducers/reducer";
 import "./Chart.css";
 
-import {
-  Form,
-  TextArea,
-  Button,
-  Icon,
-  Dimmer,
-  Loader,
-  Segment
-} from "semantic-ui-react";
+import { Form, TextArea, Button, Icon, Loader } from "semantic-ui-react";
 
 class Chart extends Component {
   state = {
@@ -30,6 +22,17 @@ class Chart extends Component {
 
     return (
       <div className="chart">
+        <Loader
+          style={{
+            position: "absolute",
+            zIndex: 0,
+            left: 0,
+            right: 0,
+            top: 20
+          }}
+          active
+          inline="centered"
+        />
         <iframe
           display={this.state.display}
           src={`https://embed.spotify.com/?uri=${uri}`}
@@ -37,22 +40,23 @@ class Chart extends Component {
           height="80"
         />
 
-        <Form>
-          <TextArea
-            onChange={event => this.commentHandler(event)}
-            autoHeight
-            value={this.state.comment}
-            placeholder="Why do you like this?"
-            style={{
-              height: 50,
-              width: 600,
-              margin: 5,
-              backgroundColor: "#fff"
-            }}
-          />
-        </Form>
         <div className="toggle">
+          <Form>
+            <TextArea
+              onChange={event => this.commentHandler(event)}
+              autoHeight
+              value={this.state.comment}
+              placeholder="Why do you like this?"
+              style={{
+                height: 50,
+                width: "95%",
+                margin: 5,
+                backgroundColor: "#fff"
+              }}
+            />
+          </Form>
           <Button
+            style={{ margin: "5px" }}
             onClick={() =>
               this.props.addToProfile({
                 uri,

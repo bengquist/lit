@@ -1,13 +1,50 @@
 .discover {
-  width: 80%;
-  margin-top: 10px;
+  width: 85%;
 }
 
 .search-header {
   width: 100%;
   position: sticky;
   top: -1px;
-  margin-top: 0;
   padding: 5px;
   z-index: 2;
+}
+
+.results {
+  display: grid;
+  grid-template-columns: 25% 25% 25% 25%;
+}
+
+.user-results {
+  margin-top: 7px;
+  position: absolute;
+  background: #a6a6a6;
+  width: 92%;
+  font-size: 20px;
+  border-radius: 2px;
+}
+
+.single-user-result {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 60px;
+  width: 90%;
+  margin: 0 auto;
+  border-bottom: 1px solid #000;
+  padding: 0 12px;
+}
+
+.single-user-result > img {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+}
+
+.singe-user-result i:hover {
+  cursor: pointer;
+}
+
+p {
+  color: #fff;
 }

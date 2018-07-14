@@ -1,14 +1,38 @@
 .chart {
+  position: relative;
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
-  align-items: center;
-  margin: 10px;
-  background: #c7c7c7;
+  align-content: center;
+  margin: 15px;
+  background: linear-gradient(to top, #22A053, rgba(104, 156, 130, 0.25));
+  width: 90%;
+  border-radius: 5px;
+  box-shadow: 0 0 20px 2px #131313;
+  height: 180px;
+}
+
+.chart:hover {
+  animation: enlarge 250ms forwards
+}
+
+.chart > iframe {
+  z-index: 1;
 }
 
 .toggle {
+  display: flex;
+  justify-content: space-between;
   font-size: 30px;
-  flex-direction: column;
-  letter-spacing: 10px;
-  margin-right: 40px;
+}
+
+@keyframes enlarge {
+  from {
+    height: 180px;
+    width: 90%;
+  }
+  to {
+    height: 88%;
+    width: 91%;
+  }
 }

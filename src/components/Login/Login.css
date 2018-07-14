@@ -7,13 +7,11 @@
   text-decoration: none;
   outline: none;
   color: #fff;
-  background-color: #4CAF50;
+  background-color: #268C52;
   border: none;
   border-radius: 15px;
-  box-shadow: 0 9px #999;
+  box-shadow: 0 9px rgb(88, 145, 113);
 }
-
-.login-btn:hover {background-color: #3e8e41}
 
 .login-btn:active {
   background-color: #3e8e41;

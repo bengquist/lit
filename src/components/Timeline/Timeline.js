@@ -22,33 +22,28 @@ class Timeline extends Component {
     const timelinePosts = timeline.map((val, i) => {
       console.log(val);
       const { uri, timestamp, comment, profile_img, username } = val;
+
       return (
-        <TimelinePosts
-          key={i}
-          uri={uri}
-          comment={comment}
-          profileImg={profile_img}
-          username={username}
-          timestamp={timestamp}
-        />
+        <ReactCSSTransitionGroup
+          transitionName="fade"
+          transitionEnterTimeout={300}
+          transitionLeaveTimeout={300}
+          transitionAppear={true}
+          transitionAppearTimeout={500}
+        >
+          <TimelinePosts
+            key={i}
+            uri={uri}
+            comment={comment}
+            profileImg={profile_img}
+            username={username}
+            timestamp={timestamp}
+          />
+        </ReactCSSTransitionGroup>
       );
     });
 
-    return (
-      <div className="timeline">
-        <div>
-          <ReactCSSTransitionGroup
-            transitionName="fade"
-            transitionEnterTimeout={300}
-            transitionLeaveTimeout={300}
-            transitionAppear={true}
-            transitionAppearTimeout={500}
-          >
-            {timelinePosts}
-          </ReactCSSTransitionGroup>
-        </div>
-      </div>
-    );
+    return <div className="timeline">{timelinePosts}</div>;
   }
 }
 
