@@ -10,9 +10,14 @@
   min-height: 100%;
 }
 
+.profile-img:hover {
+  cursor: pointer;
+}
+
 .info > iframe {
   z-index: 1;
   position: relative;
+  margin-top: 20px;
 }
 
 .user {
@@ -38,7 +43,7 @@
 }
 
 .arrow > i {
-  margin: 30px;
+  margin: 20px;
   color: #fff;
   font-size: 40px;
 }

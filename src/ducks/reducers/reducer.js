@@ -42,7 +42,6 @@ export default function reducer(state = initialState, action) {
     case SEARCH_USERS + "_REJECTED":
       return { ...state, users: [] };
     case FOLLOW_USER + "_FULFILLED":
-      console.log(action.payload.data);
       return { ...state };
     default:
       return state;
@@ -71,7 +70,6 @@ export function setToken(token) {
     payload: token
   };
 }
-
 // profile
 
 export function getProfilePosts(userID) {

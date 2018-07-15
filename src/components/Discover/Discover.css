@@ -41,10 +41,15 @@
   border-radius: 50%;
 }
 
-.singe-user-result i:hover {
+.fa-plus-square:hover {
   cursor: pointer;
 }
 
 p {
   color: #fff;
 }
+
+#bg-active {
+  background: linear-gradient(to top, #22A053, rgba(104, 156, 130, 0.7));
+}
+

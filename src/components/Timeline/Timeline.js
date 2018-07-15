@@ -6,7 +6,7 @@ import TimelinePosts from "../TimelinePosts/TimelinePosts";
 import "./Timeline.css";
 
 class Timeline extends Component {
-  componentDidMount() {
+  componentWillMount() {
     this.props.getTimelinePosts(this.props.user.user_id);
   }
 
@@ -18,7 +18,7 @@ class Timeline extends Component {
     });
 
     const timelinePosts = timeline.map((val, i) => {
-      const { uri, timestamp, comment, profile_img, username } = val;
+      const { uri, timestamp, comment, profile_img, username, user_id } = val;
 
       return (
         <ReactCSSTransitionGroup
@@ -27,6 +27,7 @@ class Timeline extends Component {
           transitionLeaveTimeout={300}
           transitionAppear={true}
           transitionAppearTimeout={500}
+          key={i}
         >
           <TimelinePosts
             key={i}
@@ -35,6 +36,7 @@ class Timeline extends Component {
             profileImg={profile_img}
             username={username}
             timestamp={timestamp}
+            userID={user_id}
           />
         </ReactCSSTransitionGroup>
       );

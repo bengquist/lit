@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import ReactCSSTransitionGroup from "react-addons-css-transition-group";
 import Chart from "../Chart/Chart";
 import { searchUsers, followUser } from "../../ducks/reducers/reducer";
+import classnames from "classnames";
 import "./Discover.css";
 import _ from "lodash";
 
@@ -27,6 +28,15 @@ class Discover extends Component {
     spotifyApi.getNewReleases().then(response => {
       this.setState({ results: response.albums.items });
     });
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    if (this.state !== nextState) {
+      console.log(this.props, nextProps);
+      return true;
+    } else {
+      return false;
+    }
   }
 
   componentWillUnmount() {
@@ -91,6 +101,7 @@ class Discover extends Component {
   };
 
   handleRecentRelease = (e, { name }) => {
+    this.props.searchUsers("");
     spotifyApi.getNewReleases().then(response => {
       this.setState({
         selected: name,
@@ -110,17 +121,18 @@ class Discover extends Component {
       return (
         <ReactCSSTransitionGroup
           transitionName="fade"
-          transitionEnterTimeout={300}
-          transitionLeaveTimeout={300}
+          transitionEnterTimeout={500}
+          transitionLeaveTimeout={500}
           transitionAppear={true}
           transitionAppearTimeout={500}
+          key={i}
         >
           <Chart uri={uri} />
         </ReactCSSTransitionGroup>
       );
     });
 
-    const userResults = this.props.state.users.map(val => {
+    const userResults = this.props.state.users.map((val, i) => {
       const { username, profile_img, user_id } = val;
 
       return (
@@ -129,7 +141,8 @@ class Discover extends Component {
           transitionEnterTimeout={300}
           transitionLeaveTimeout={300}
           transitionAppear={true}
-          transitionAppearTimeout={500}
+          transitionAppearTimeout={300}
+          key={i}
         >
           <div className="single-user-result">
             <img src={profile_img} alt="" />
@@ -138,7 +151,7 @@ class Discover extends Component {
               onClick={() => {
                 userID !== user_id && this.props.followUser(userID, user_id);
               }}
-              class="far fa-plus-square"
+              className="far fa-plus-square"
             />
           </div>
         </ReactCSSTransitionGroup>
@@ -162,24 +175,28 @@ class Discover extends Component {
             name="Artists"
             active={activeItem === "Artists"}
             onClick={this.handleItemClick}
+            id={activeItem === "Artists" ? "bg-active" : null}
           />
           <Menu.Item
             style={{ color: "#fff" }}
             name="Tracks"
             active={activeItem === "Tracks"}
             onClick={this.handleItemClick}
+            id={activeItem === "Tracks" ? "bg-active" : null}
           />
           <Menu.Item
             style={{ color: "#fff" }}
             name="Albums"
             active={activeItem === "Albums"}
             onClick={this.handleItemClick}
+            id={activeItem === "Albums" ? "bg-active" : null}
           />
           <Menu.Item
             style={{ color: "#fff" }}
             name="New Releases"
             active={activeItem === "New Releases"}
             onClick={this.handleRecentRelease}
+            id={activeItem === "New Releases" ? "bg-active" : null}
           />
           <Menu.Menu position="right">
             <Menu.Item
@@ -187,6 +204,7 @@ class Discover extends Component {
               name="People"
               active={activeItem === "People"}
               onClick={this.handleRecentRelease}
+              id={activeItem === "People" ? "bg-active" : null}
             />
             <Menu.Item
               style={{ position: "relative", display: "inline-block" }}

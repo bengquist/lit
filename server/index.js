@@ -176,6 +176,7 @@ app.get("/api/timeline/posts/:userID", ctrl.getTimelinePosts);
 app.get("/api/users/:user", ctrl.searchUsers);
 app.post("/api/users", ctrl.addUser);
 app.post("/api/users/:userID", ctrl.followUser);
+app.get("/api/user/posts/:userID", ctrl.getProfilePosts);
 
 app.listen(port, () => {
   console.log(`Listening on port:3001`);

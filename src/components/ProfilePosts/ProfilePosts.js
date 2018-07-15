@@ -22,7 +22,6 @@ class ProfilePosts extends Component {
   }
 
   render() {
-    console.log(this.props);
     const {
       userID,
       postID,
