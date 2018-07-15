@@ -26,15 +26,22 @@ class TimelinePosts extends Component {
         const { uri, comment, timestamp } = val;
 
         return (
-          <div>
+          <div className="profile-view">
             <iframe
               title="spotify"
+              className="profile-iframe"
               src={`https://embed.spotify.com/?uri=${uri}`}
               frameBorder="0"
               height="80"
             />
-            <h2>{comment}</h2>
-            <h2>{timestamp}</h2>
+            <div className="profile-info">
+              <h2 className="profile-comment">
+                Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+                Asperiores eligendi esse quaerat eveniet, explicabo quae sequi
+                et qui eum repellendus?
+              </h2>
+              <h2 className="profile-time">{timestamp}</h2>
+            </div>
           </div>
         );
       }));
@@ -47,17 +54,22 @@ class TimelinePosts extends Component {
               <img className="profile-img" src={profileImg} alt="profile_img" />
             }
           >
-            <Modal.Header>{username}</Modal.Header>
+            <Modal.Header id="modal">{username}</Modal.Header>
             <Modal.Content image scrolling>
-              <Image size="medium" src={profileImg} wrapped />
+              <Image
+                id="profile-view-img"
+                size="large"
+                src={profileImg}
+                wrapped
+              />
 
               <Modal.Description>
                 <Header>Posts</Header>
                 {profileView}
               </Modal.Description>
             </Modal.Content>
-            <Modal.Actions>
-              <Button primary>
+            <Modal.Actions id="modal">
+              <Button onClick={() => alert("added")} id="profile-button">
                 Follow <Icon name="chevron right" />
               </Button>
             </Modal.Actions>
@@ -65,8 +77,8 @@ class TimelinePosts extends Component {
         </div>
         <div className="info">
           <div className="banner">
-            <p className="user-name">{username} </p>
-            <span className="timestamp">- {timestamp}</span>
+            <p className="user-name">{username}</p>
+            <span className="timestamp">{timestamp}</span>
           </div>
 
           <Loader

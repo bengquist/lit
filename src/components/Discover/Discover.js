@@ -28,11 +28,11 @@ class Discover extends Component {
     spotifyApi.getNewReleases().then(response => {
       this.setState({ results: response.albums.items });
     });
+    console.log(this.props);
   }
 
   shouldComponentUpdate(nextProps, nextState) {
     if (this.state !== nextState) {
-      console.log(this.props, nextProps);
       return true;
     } else {
       return false;

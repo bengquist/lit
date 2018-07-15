@@ -14,6 +14,11 @@
   cursor: pointer;
 }
 
+.banner {
+  display: flex;
+  justify-content: space-between;
+}
+
 .info > iframe {
   z-index: 1;
   position: relative;
@@ -31,19 +36,55 @@
 
 .timestamp {
   display: inline;
-  color: #C6CED4;
+  color: rgb(198, 212, 198);
 }
 
 .comment {
   margin-top: 10px;
   margin-bottom: 20px;
-  border: 1px solid #CFD8DE;
   border-radius: 4px;
   padding: 12px;
+  text-align: left;
 }
 
 .arrow > i {
   margin: 20px;
   color: #fff;
   font-size: 40px;
+}
+
+.profile-view {
+  border-bottom: 1px solid rgb(194, 194, 194);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 5px auto;
+}
+
+.profile-comment {
+  color: #000;
+}
+
+.profile-time {
+  margin-top: 15px;
+  text-align: right;
+  color: rgb(168, 168, 168);
+}
+
+.profile-info {
+  margin: 0 20px;
+}
+
+#profile-view-img {
+  position: sticky;
+  top: 0;
+}
+
+#modal {
+  background-color: rgb(230, 240, 233);
+}
+
+#profile-button {
+  background: rgba(34, 160, 82, 1);
+  color: #fff;
 }

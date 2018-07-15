@@ -4,7 +4,6 @@ module.exports = {
   getProfilePosts: (req, res, next) => {
     const db = req.app.get("db");
     const { userID } = req.params;
-    console.log(userID);
 
     db.getAllPosts([userID]).then(posts => {
       res.status(200).send(posts);
