@@ -1,7 +1,4 @@
 .profile {
-  width: 85%;
-}
-
-.middle {
-  width: 80%;
+  width: 60%;
+  margin: 0 auto;
 }

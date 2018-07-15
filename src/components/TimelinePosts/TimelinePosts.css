@@ -7,7 +7,6 @@
   padding: 10px;
   position: relative;
   margin: 10px auto;
-  min-height: 100%;
 }
 
 .profile-img:hover {
@@ -47,10 +46,20 @@
   text-align: left;
 }
 
+.arrow {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
 .arrow > i {
-  margin: 20px;
   color: #fff;
-  font-size: 40px;
+  font-size: 30px;
+  margin: 15px 0;
+}
+
+.arrow > i:hover {
+  cursor: pointer;
 }
 
 .profile-view {

@@ -39,7 +39,6 @@ class Profile extends Component {
 
     return (
       <div className="profile">
-        <div className="middle" />
         <ReactCSSTransitionGroup
           transitionName="slide"
           transitionEnterTimeout={300}

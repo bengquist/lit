@@ -30,7 +30,7 @@ class NavBar extends Component {
     return (
       <div className="navbar">
         <div className="logo">
-          <Link to="/">
+          <Link onClick={() => this.clickActive(1)} to="/">
             <h1>
               l
               <i className="fas fa-fire" />
@@ -39,7 +39,7 @@ class NavBar extends Component {
           </Link>
         </div>
         <div className="header">
-          <Link to="/profile">
+          <Link onClick={() => this.clickActive(3)} to="/profile">
             <img
               className="profile_img"
               src={this.props.profileImg}

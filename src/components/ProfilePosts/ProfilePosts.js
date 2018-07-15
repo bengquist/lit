@@ -10,8 +10,13 @@ import "./ProfilePosts.css";
 class ProfilePosts extends Component {
   state = {
     edit: false,
-    input: ""
+    input: "",
+    toggle: false
   };
+
+  toggle() {
+    this.setState({ toggle: !this.state.toggle });
+  }
 
   editToggle(cmt) {
     this.setState({ edit: !this.state.edit, input: cmt });
@@ -33,12 +38,16 @@ class ProfilePosts extends Component {
     } = this.props;
     const { edit } = this.state;
     let editToggle;
+    let toggle;
 
     if (!edit) {
       editToggle = (
         <div>
-          <p>{comment}</p>
-          <p onClick={() => this.editToggle(comment)}>Edit</p>
+          <p className="comment">
+            {comment} Lorem ipsum dolor sit amet consectetur adipisicing elit.
+            Maxime repudiandae aperiam vero eaque magni quisquam aliquid nihil
+            facere dicta possimus!
+          </p>
         </div>
       );
     } else {
@@ -48,6 +57,7 @@ class ProfilePosts extends Component {
             value={this.state.input}
             onChange={event => this.inputHandler(event.target.value)}
           />
+
           <p onClick={() => this.editToggle()}>Cancel</p>
           <p
             onClick={() => {
@@ -61,28 +71,44 @@ class ProfilePosts extends Component {
       );
     }
 
+    if (this.state.toggle) {
+      toggle = (
+        <div className="profile-toggle">
+          <p className="toggle-item" onClick={() => this.editToggle(comment)}>
+            Edit
+          </p>
+          <p
+            className="toggle-item"
+            onClick={() => this.props.deleteFromProfile(postID, userID)}
+          >
+            Delete
+          </p>
+        </div>
+      );
+    }
+
     return (
-      <div className="posts">
-        <iframe
-          title="spotify"
-          src={`https://embed.spotify.com/?uri=${uri}`}
-          height="80"
-          frameBorder="0"
-        />
+      <div className="profile-posts">
+        <img className="profile-img" src={profileImg} alt="" />
         <div className="info">
-          <p>{editToggle}</p>
-          <p>{timestamp}</p>
+          <div className="profile-info">
+            <p>{userName}</p>
+            <p>{timestamp}</p>
+          </div>
+
+          <iframe
+            title="spotify"
+            src={`https://embed.spotify.com/?uri=${uri}`}
+            height="80"
+            frameBorder="0"
+          />
+
+          {editToggle}
         </div>
 
-        <div className="user">
-          <div className="toggle">
-            <i
-              onClick={() => this.props.deleteFromProfile(postID, userID)}
-              className="fas fa-trash-alt"
-            />
-          </div>
-          <img className="profile-img" src={profileImg} alt="" />
-          <p>{userName}</p>
+        <div className="toggle-items">
+          <i onClick={() => this.toggle()} className="fas fa-angle-down" />
+          <div className="toggle-options">{toggle}</div>
         </div>
       </div>
     );

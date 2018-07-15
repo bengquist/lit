@@ -47,7 +47,7 @@ class Chart extends Component {
               placeholder="Why do you like this?"
               style={{
                 height: 50,
-                width: "95%",
+                width: 200,
                 margin: 5,
                 backgroundColor: "#fff"
               }}
