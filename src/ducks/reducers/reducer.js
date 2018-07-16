@@ -5,8 +5,7 @@ const initialState = {
   profilePosts: [],
   timelinePosts: [],
   token: "",
-  users: [],
-  alreadyLiked: false
+  users: []
 };
 
 const SET_USER = "SET_USER";
@@ -21,6 +20,7 @@ const SEARCH_USERS = "SEARCH_USERS";
 const FOLLOW_USER = "FOLLOW_USER";
 const UNFOLLOW_USER = "UNFOLLOW_USER";
 const LIKE_POST = "LIKE_POST";
+const UNLIKE_POST = "UNLIKE_POST";
 
 export default function reducer(state = initialState, action) {
   switch (action.type) {
@@ -49,8 +49,11 @@ export default function reducer(state = initialState, action) {
     case UNFOLLOW_USER + "_FULFILLED":
       return { ...state, timelinePosts: action.payload.data };
     case LIKE_POST + "_FULFILLED":
-      console.log(action.payload.data);
-      return { ...state, alreadyLiked: action.payload.data };
+      console.log("liked" + action.payload.data);
+      return { ...state };
+    case UNLIKE_POST + "_FULFILLED":
+      console.log("unlike" + action.payload.data);
+      return { ...state };
     default:
       return state;
   }
@@ -124,6 +127,13 @@ export function likePost(userID, postID) {
   };
 }
 
+export function unlikePost(userID, postID) {
+  return {
+    type: UNLIKE_POST,
+    payload: axios.delete(`/api/posts/${postID}/${userID}`)
+  };
+}
+
 // discover
 
 export function searchUsers(user) {
@@ -141,7 +151,6 @@ export function followUser(userID, followID) {
 }
 
 export function unfollowUser(userID, unfollowID) {
-  console.log(userID, unfollowID);
   return {
     type: UNFOLLOW_USER,
     payload: axios.delete(`/api/users/${userID}/${unfollowID}`)

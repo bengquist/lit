@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Button, Header, Icon, Image, Modal, Loader } from "semantic-ui-react";
-import { connect } from "react-redux";
+import classnames from "classnames";
 import axios from "axios";
 import "./TimelinePosts.css";
 
@@ -15,15 +15,17 @@ class TimelinePosts extends Component {
     let { userID, likes, postID, loggedInUserID } = this.props;
     axios
       .get(`/api/posts/${userID}`)
-      .then(posts => this.setState({ posts: posts.data, likes }));
-
-    axios
-      .get(`/api/post/${loggedInUserID}/${postID}`)
-      .then(alreadyLiked => this.setState({ alreadyLiked }));
+      .then(posts => this.setState({ posts: posts.data, likes }))
+      .then(() => {
+        axios
+          .get(`/api/post/${loggedInUserID}/${postID}`)
+          .then(alreadyLiked =>
+            this.setState({ alreadyLiked: alreadyLiked.data })
+          );
+      });
   }
 
   render() {
-    console.log(this.props);
     let {
       uri,
       comment,
@@ -32,10 +34,10 @@ class TimelinePosts extends Component {
       username,
       unfollowUser,
       likePost,
+      unlikePost,
       loggedInUserID,
       userID,
-      postID,
-      likes
+      postID
     } = this.props;
 
     timestamp = timestamp.replace("T", " ");
@@ -132,11 +134,25 @@ class TimelinePosts extends Component {
         </div>
         <div className="arrow">
           <i
+            className={classnames("fa-arrow-alt-circle-up", {
+              fas: this.state.alreadyLiked,
+              far: !this.state.alreadyLiked
+            })}
             onClick={() => {
-              this.setState({ likes: this.state.likes + 1 });
-              likePost(userID, postID);
+              if (!this.state.alreadyLiked) {
+                likePost(loggedInUserID, postID);
+                this.setState({
+                  likes: this.state.likes + 1,
+                  alreadyLiked: !this.state.alreadyLiked
+                });
+              } else {
+                unlikePost(loggedInUserID, postID);
+                this.setState({
+                  likes: this.state.likes - 1,
+                  alreadyLiked: !this.state.alreadyLiked
+                });
+              }
             }}
-            className="far fa-arrow-alt-circle-up"
           />
           <p>{this.state.likes}</p>
           <i className="far fa-comments" />
@@ -146,4 +162,4 @@ class TimelinePosts extends Component {
   }
 }
 
-export default connect(({ alreadyLiked }) => ({ alreadyLiked }))(TimelinePosts);
+export default TimelinePosts;

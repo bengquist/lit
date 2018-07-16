@@ -86,6 +86,10 @@
   margin: 15px 0 15px 15px;
 }
 
+.arrow > .liked {
+  color: black;
+}
+
 #profile-view-img {
   position: sticky;
   top: 0;

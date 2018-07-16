@@ -65,9 +65,19 @@ module.exports = {
 
     db.likePost([postID, userID])
       .then(likedPosts => {
-        res.status(200).send(false);
+        res.status(200).send();
       })
-      .catch(err => res.status(200).send(true));
+      .catch(err => console.log(err));
+  },
+
+  unlikePost: (req, res, next) => {
+    const db = req.app.get("db");
+
+    const { postID, userID } = req.params;
+
+    db.unlikePost([postID, userID])
+      .then(likedPosts => res.sendStatus(200))
+      .catch(err => console.log(err));
   },
 
   checkLike: (req, res, next) => {
@@ -75,9 +85,17 @@ module.exports = {
 
     const { userID, postID } = req.params;
 
-    db.checkLike([userID, postID]).then(alreadyLiked =>
-      res.status(200).send(alreadyLiked)
-    );
+    db.likes
+      .where("user_id=$1 AND post_id=$2", [userID, postID])
+      .then(alreadyLiked => {
+        console.log(alreadyLiked);
+
+        if (!_.isEmpty(alreadyLiked)) {
+          res.status(200).send(true);
+        } else {
+          res.status(200).send(false);
+        }
+      });
   },
 
   addUser: (req, res, next) => {

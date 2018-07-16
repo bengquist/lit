@@ -4,7 +4,8 @@ import ReactCSSTransitionGroup from "react-addons-css-transition-group";
 import {
   getTimelinePosts,
   unfollowUser,
-  likePost
+  likePost,
+  unlikePost
 } from "../../ducks/reducers/reducer";
 import TimelinePosts from "../TimelinePosts/TimelinePosts";
 import "./Timeline.css";
@@ -59,6 +60,7 @@ class Timeline extends Component {
             loggedInUserID={this.props.user.user_id}
             unfollowUser={this.props.unfollowUser}
             likePost={this.props.likePost}
+            unlikePost={this.props.unlikePost}
             likes={likes}
           />
         </ReactCSSTransitionGroup>
@@ -71,5 +73,5 @@ class Timeline extends Component {
 
 export default connect(
   state => state,
-  { getTimelinePosts, unfollowUser, likePost }
+  { getTimelinePosts, unfollowUser, likePost, unlikePost }
 )(Timeline);
