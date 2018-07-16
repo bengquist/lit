@@ -28,7 +28,6 @@ class Discover extends Component {
     spotifyApi.getNewReleases().then(response => {
       this.setState({ results: response.albums.items });
     });
-    console.log(this.props);
   }
 
   shouldComponentUpdate(nextProps, nextState) {
@@ -78,7 +77,6 @@ class Discover extends Component {
       case "People":
         return () => {
           this.props.searchUsers(this.state.search);
-          console.log(this.props.state.users);
         };
       default:
     }

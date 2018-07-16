@@ -42,19 +42,16 @@ class Chart extends Component {
           <Form>
             <TextArea
               onChange={event => this.commentHandler(event)}
-              autoHeight
               value={this.state.comment}
               placeholder="Why do you like this?"
               style={{
-                height: 50,
-                width: 200,
-                margin: 5,
+                height: "100%",
                 backgroundColor: "#fff"
               }}
             />
           </Form>
           <Button
-            style={{ margin: "5px" }}
+            style={{ marginLeft: "5px" }}
             onClick={() =>
               this.props.addToProfile({
                 uri,

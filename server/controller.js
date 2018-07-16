@@ -57,6 +57,29 @@ module.exports = {
       });
   },
 
+  likePost: (req, res, next) => {
+    const db = req.app.get("db");
+
+    const { postID } = req.params;
+    const { userID } = req.body;
+
+    db.likePost([postID, userID])
+      .then(likedPosts => {
+        res.status(200).send(false);
+      })
+      .catch(err => res.status(200).send(true));
+  },
+
+  checkLike: (req, res, next) => {
+    const db = req.app.get("db");
+
+    const { userID, postID } = req.params;
+
+    db.checkLike([userID, postID]).then(alreadyLiked =>
+      res.status(200).send(alreadyLiked)
+    );
+  },
+
   addUser: (req, res, next) => {
     const db = req.app.get("db");
     const { name, email, profileImg } = req.body;

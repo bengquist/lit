@@ -5,7 +5,8 @@ const initialState = {
   profilePosts: [],
   timelinePosts: [],
   token: "",
-  users: []
+  users: [],
+  alreadyLiked: false
 };
 
 const SET_USER = "SET_USER";
@@ -19,6 +20,7 @@ const EDIT_PROFILE_POST = "EDIT_PROFILE_POST";
 const SEARCH_USERS = "SEARCH_USERS";
 const FOLLOW_USER = "FOLLOW_USER";
 const UNFOLLOW_USER = "UNFOLLOW_USER";
+const LIKE_POST = "LIKE_POST";
 
 export default function reducer(state = initialState, action) {
   switch (action.type) {
@@ -46,6 +48,9 @@ export default function reducer(state = initialState, action) {
       return { ...state };
     case UNFOLLOW_USER + "_FULFILLED":
       return { ...state, timelinePosts: action.payload.data };
+    case LIKE_POST + "_FULFILLED":
+      console.log(action.payload.data);
+      return { ...state, alreadyLiked: action.payload.data };
     default:
       return state;
   }
@@ -109,6 +114,13 @@ export function getTimelinePosts(userID) {
   return {
     type: GET_TIMELINE_POSTS,
     payload: axios.get(`/api/timeline/posts/${userID}`)
+  };
+}
+
+export function likePost(userID, postID) {
+  return {
+    type: LIKE_POST,
+    payload: axios.put(`/api/posts/${postID}`, { userID })
   };
 }
 

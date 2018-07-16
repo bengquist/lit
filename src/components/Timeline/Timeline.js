@@ -1,7 +1,11 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import ReactCSSTransitionGroup from "react-addons-css-transition-group";
-import { getTimelinePosts, unfollowUser } from "../../ducks/reducers/reducer";
+import {
+  getTimelinePosts,
+  unfollowUser,
+  likePost
+} from "../../ducks/reducers/reducer";
 import TimelinePosts from "../TimelinePosts/TimelinePosts";
 import "./Timeline.css";
 
@@ -23,7 +27,16 @@ class Timeline extends Component {
     });
 
     const timelinePosts = timeline.map((val, i) => {
-      const { uri, timestamp, comment, profile_img, username, user_id } = val;
+      const {
+        uri,
+        timestamp,
+        comment,
+        profile_img,
+        username,
+        user_id,
+        post_id,
+        likes
+      } = val;
 
       return (
         <ReactCSSTransitionGroup
@@ -36,6 +49,7 @@ class Timeline extends Component {
         >
           <TimelinePosts
             key={i}
+            postID={post_id}
             uri={uri}
             comment={comment}
             profileImg={profile_img}
@@ -44,6 +58,8 @@ class Timeline extends Component {
             userID={user_id}
             loggedInUserID={this.props.user.user_id}
             unfollowUser={this.props.unfollowUser}
+            likePost={this.props.likePost}
+            likes={likes}
           />
         </ReactCSSTransitionGroup>
       );
@@ -55,5 +71,5 @@ class Timeline extends Component {
 
 export default connect(
   state => state,
-  { getTimelinePosts, unfollowUser }
+  { getTimelinePosts, unfollowUser, likePost }
 )(Timeline);

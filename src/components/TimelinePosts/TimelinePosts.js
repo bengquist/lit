@@ -1,21 +1,29 @@
 import React, { Component } from "react";
 import { Button, Header, Icon, Image, Modal, Loader } from "semantic-ui-react";
+import { connect } from "react-redux";
 import axios from "axios";
 import "./TimelinePosts.css";
 
 class TimelinePosts extends Component {
   state = {
-    posts: []
+    posts: [],
+    likes: 0,
+    alreadyLiked: false
   };
 
   componentDidMount() {
-    let { userID } = this.props;
+    let { userID, likes, postID, loggedInUserID } = this.props;
     axios
       .get(`/api/posts/${userID}`)
-      .then(posts => this.setState({ posts: posts.data }));
+      .then(posts => this.setState({ posts: posts.data, likes }));
+
+    axios
+      .get(`/api/post/${loggedInUserID}/${postID}`)
+      .then(alreadyLiked => this.setState({ alreadyLiked }));
   }
 
   render() {
+    console.log(this.props);
     let {
       uri,
       comment,
@@ -23,8 +31,11 @@ class TimelinePosts extends Component {
       profileImg,
       username,
       unfollowUser,
+      likePost,
       loggedInUserID,
-      userID
+      userID,
+      postID,
+      likes
     } = this.props;
 
     timestamp = timestamp.replace("T", " ");
@@ -120,7 +131,14 @@ class TimelinePosts extends Component {
           </p>
         </div>
         <div className="arrow">
-          <i className="far fa-arrow-alt-circle-up" />
+          <i
+            onClick={() => {
+              this.setState({ likes: this.state.likes + 1 });
+              likePost(userID, postID);
+            }}
+            className="far fa-arrow-alt-circle-up"
+          />
+          <p>{this.state.likes}</p>
           <i className="far fa-comments" />
         </div>
       </div>
@@ -128,4 +146,4 @@ class TimelinePosts extends Component {
   }
 }
 
-export default TimelinePosts;
+export default connect(({ alreadyLiked }) => ({ alreadyLiked }))(TimelinePosts);

@@ -171,6 +171,8 @@ app.put("/api/profile/post/:id", ctrl.editProfilePost);
 
 // timeline posts
 app.get("/api/timeline/posts/:userID", ctrl.getTimelinePosts);
+app.put("/api/posts/:postID", ctrl.likePost);
+app.get("/api/post/:userID/:postID", ctrl.checkLike);
 
 //users
 app.get("/api/users/:user", ctrl.searchUsers);
