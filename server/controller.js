@@ -45,7 +45,6 @@ module.exports = {
     const db = req.app.get("db");
 
     const { userID } = req.params;
-    let timelinePosts = [];
 
     db.getFollowing([userID])
       .then(friends => {
@@ -93,6 +92,23 @@ module.exports = {
 
     db.followUser([userID, followID]).then(user => {
       res.status(200).send(user);
+    });
+  },
+
+  unfollowUser: (req, res, next) => {
+    const db = req.app.get("db");
+    const { userID, unfollowID } = req.params;
+
+    db.unfollowUser([userID, unfollowID]).then(() => {
+      db.getFollowing([userID])
+        .then(friends => {
+          return Promise.all(
+            friends.map(({ friend_id }) => db.getTimelinePosts(friend_id))
+          );
+        })
+        .then(timelinePosts => {
+          res.status(200).send(timelinePosts);
+        });
     });
   }
 };

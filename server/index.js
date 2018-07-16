@@ -176,6 +176,7 @@ app.get("/api/timeline/posts/:userID", ctrl.getTimelinePosts);
 app.get("/api/users/:user", ctrl.searchUsers);
 app.post("/api/users", ctrl.addUser);
 app.post("/api/users/:userID", ctrl.followUser);
+app.delete(`/api/users/:userID/:unfollowID`, ctrl.unfollowUser);
 app.get("/api/user/posts/:userID", ctrl.getProfilePosts);
 
 app.listen(port, () => {

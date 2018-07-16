@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import ReactCSSTransitionGroup from "react-addons-css-transition-group";
-import { getTimelinePosts } from "../../ducks/reducers/reducer";
+import { getTimelinePosts, unfollowUser } from "../../ducks/reducers/reducer";
 import TimelinePosts from "../TimelinePosts/TimelinePosts";
 import "./Timeline.css";
 
@@ -9,6 +9,11 @@ class Timeline extends Component {
   componentWillMount() {
     this.props.getTimelinePosts(this.props.user.user_id);
   }
+
+  // shouldComponentUpdate(nextProps, nextState) {
+  //   console.log(this.props, nextProps);
+  //   return false;
+  // }
 
   render() {
     let timeline = [];
@@ -37,6 +42,8 @@ class Timeline extends Component {
             username={username}
             timestamp={timestamp}
             userID={user_id}
+            loggedInUserID={this.props.user.user_id}
+            unfollowUser={this.props.unfollowUser}
           />
         </ReactCSSTransitionGroup>
       );
@@ -48,5 +55,5 @@ class Timeline extends Component {
 
 export default connect(
   state => state,
-  { getTimelinePosts }
+  { getTimelinePosts, unfollowUser }
 )(Timeline);

@@ -18,6 +18,7 @@ const DELETE_FROM_PROFILE = "DELETE_FROM_PROFILE";
 const EDIT_PROFILE_POST = "EDIT_PROFILE_POST";
 const SEARCH_USERS = "SEARCH_USERS";
 const FOLLOW_USER = "FOLLOW_USER";
+const UNFOLLOW_USER = "UNFOLLOW_USER";
 
 export default function reducer(state = initialState, action) {
   switch (action.type) {
@@ -43,6 +44,8 @@ export default function reducer(state = initialState, action) {
       return { ...state, users: [] };
     case FOLLOW_USER + "_FULFILLED":
       return { ...state };
+    case UNFOLLOW_USER + "_FULFILLED":
+      return { ...state, timelinePosts: action.payload.data };
     default:
       return state;
   }
@@ -122,5 +125,13 @@ export function followUser(userID, followID) {
   return {
     type: FOLLOW_USER,
     payload: axios.post(`/api/users/${userID}`, { followID })
+  };
+}
+
+export function unfollowUser(userID, unfollowID) {
+  console.log(userID, unfollowID);
+  return {
+    type: UNFOLLOW_USER,
+    payload: axios.delete(`/api/users/${userID}/${unfollowID}`)
   };
 }

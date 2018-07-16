@@ -27,7 +27,7 @@ class ProfilePosts extends Component {
   }
 
   render() {
-    const {
+    let {
       userID,
       postID,
       userName,
@@ -36,6 +36,8 @@ class ProfilePosts extends Component {
       comment,
       timestamp
     } = this.props;
+
+    timestamp = timestamp.replace("T", " ");
     const { edit } = this.state;
     let editToggle;
     let toggle;

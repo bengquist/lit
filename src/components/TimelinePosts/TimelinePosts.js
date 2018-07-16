@@ -16,14 +16,24 @@ class TimelinePosts extends Component {
   }
 
   render() {
-    let { uri, comment, timestamp, profileImg, username } = this.props;
+    let {
+      uri,
+      comment,
+      timestamp,
+      profileImg,
+      username,
+      unfollowUser,
+      loggedInUserID,
+      userID
+    } = this.props;
 
     timestamp = timestamp.replace("T", " ");
     let profileView;
 
     this.state.posts &&
       (profileView = this.state.posts.map(val => {
-        const { uri, comment, timestamp } = val;
+        let { uri, comment, timestamp } = val;
+        timestamp = timestamp.replace("T", " ");
 
         return (
           <div className="profile-view">
@@ -34,13 +44,14 @@ class TimelinePosts extends Component {
               frameBorder="0"
               height="80"
             />
-            <div className="profile-info">
+            <div className="profile-view-info">
               <h2 className="profile-comment">
+                {comment}
                 Lorem ipsum, dolor sit amet consectetur adipisicing elit.
                 Asperiores eligendi esse quaerat eveniet, explicabo quae sequi
                 et qui eum repellendus?
               </h2>
-              <h2 className="profile-time">{timestamp}</h2>
+              <h2 className="profile-view-time">{timestamp}</h2>
             </div>
           </div>
         );
@@ -69,8 +80,12 @@ class TimelinePosts extends Component {
               </Modal.Description>
             </Modal.Content>
             <Modal.Actions id="modal">
-              <Button onClick={() => alert("added")} id="profile-button">
-                Follow <Icon name="chevron right" />
+              <Button
+                style={{ backgroundColor: "#DC3545" }}
+                onClick={() => unfollowUser(loggedInUserID, userID)}
+                id="profile-button"
+              >
+                Unfollow <Icon name="chevron right" />
               </Button>
             </Modal.Actions>
           </Modal>

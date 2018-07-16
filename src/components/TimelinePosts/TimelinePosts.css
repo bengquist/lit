@@ -7,6 +7,7 @@
   padding: 10px;
   position: relative;
   margin: 10px auto;
+  border-radius: 10px;
 }
 
 .profile-img:hover {
@@ -50,11 +51,12 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
+  margin: 0 5px;
 }
 
 .arrow > i {
   color: #fff;
-  font-size: 30px;
+  font-size: 32px;
   margin: 15px 0;
 }
 
@@ -74,14 +76,14 @@
   color: #000;
 }
 
-.profile-time {
-  margin-top: 15px;
+.profile-view-time {
+  margin: 15px 0 15px 15px;
   text-align: right;
   color: rgb(168, 168, 168);
 }
 
-.profile-info {
-  margin: 0 20px;
+.profile-view-info {
+  margin: 15px 0 15px 15px;
 }
 
 #profile-view-img {

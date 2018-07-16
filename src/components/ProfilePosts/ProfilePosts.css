@@ -5,6 +5,7 @@
   margin: 20px;
   padding: 10px;
   font-family: 'Montserrat', sans-serif;
+  border-radius: 10px;
 }
 
 .info {
@@ -45,6 +46,10 @@
 
 .toggle-item {
   background: #fff;
+}
+
+.toggle-item:hover {
+  cursor: pointer;
 }
 
 .fa-angle-down {

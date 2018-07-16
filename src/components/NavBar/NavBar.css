@@ -46,6 +46,10 @@
   animation: nav-hover .5s forwards;
 }
 
+.links a:focus {
+  color: #fff;
+}
+
 i {
   color: #595B5F;
 }
