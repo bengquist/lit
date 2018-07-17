@@ -11,14 +11,13 @@ import TimelinePosts from "../TimelinePosts/TimelinePosts";
 import "./Timeline.css";
 
 class Timeline extends Component {
-  componentWillMount() {
+  componentDidMount() {
     this.props.getTimelinePosts(this.props.user.user_id);
   }
 
-  // shouldComponentUpdate(nextProps, nextState) {
-  //   console.log(this.props, nextProps);
-  //   return false;
-  // }
+  componentWillUnmount() {
+    this.props.getTimelinePosts(this.props.user.user_id);
+  }
 
   render() {
     let timeline = [];

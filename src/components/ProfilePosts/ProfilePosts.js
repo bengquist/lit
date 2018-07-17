@@ -4,7 +4,7 @@ import {
   deleteFromProfile,
   editProfilePost
 } from "../../ducks/reducers/reducer";
-import { TextArea } from "semantic-ui-react";
+import { TextArea, Button, Icon } from "semantic-ui-react";
 import "./ProfilePosts.css";
 
 class ProfilePosts extends Component {
@@ -37,7 +37,6 @@ class ProfilePosts extends Component {
       timestamp
     } = this.props;
 
-    timestamp = timestamp.replace("T", " ");
     const { edit } = this.state;
     let editToggle;
     let toggle;
@@ -45,30 +44,44 @@ class ProfilePosts extends Component {
     if (!edit) {
       editToggle = (
         <div>
-          <p className="comment">
-            {comment} Lorem ipsum dolor sit amet consectetur adipisicing elit.
-            Maxime repudiandae aperiam vero eaque magni quisquam aliquid nihil
-            facere dicta possimus!
-          </p>
+          <p className="comment">{comment}</p>
         </div>
       );
     } else {
       editToggle = (
-        <div>
+        <div className="toggle-content">
           <TextArea
+            id="text-area"
+            autoHeight
             value={this.state.input}
             onChange={event => this.inputHandler(event.target.value)}
           />
 
-          <p onClick={() => this.editToggle()}>Cancel</p>
-          <p
-            onClick={() => {
-              this.editToggle();
-              this.props.editProfilePost(postID, this.state.input, userID);
-            }}
-          >
-            Confirm
-          </p>
+          <div className="toggle-btns">
+            <Button
+              style={{ backgroundColor: "#DC3545", color: "#fff" }}
+              onClick={() => this.editToggle()}
+              animated="vertical"
+            >
+              <Button.Content hidden>Cancel</Button.Content>
+              <Button.Content visible>
+                <Icon style={{ color: "#fff" }} name="cancel" />
+              </Button.Content>
+            </Button>
+            <Button
+              style={{ marginTop: "5px" }}
+              onClick={() => {
+                this.editToggle();
+                this.props.editProfilePost(postID, this.state.input, userID);
+              }}
+              animated="vertical"
+            >
+              <Button.Content hidden>Confirm</Button.Content>
+              <Button.Content visible>
+                <Icon name="check" />
+              </Button.Content>
+            </Button>
+          </div>
         </div>
       );
     }
@@ -76,12 +89,21 @@ class ProfilePosts extends Component {
     if (this.state.toggle) {
       toggle = (
         <div className="profile-toggle">
-          <p className="toggle-item" onClick={() => this.editToggle(comment)}>
+          <p
+            className="toggle-item"
+            onClick={() => {
+              this.toggle();
+              this.editToggle(comment);
+            }}
+          >
             Edit
           </p>
           <p
             className="toggle-item"
-            onClick={() => this.props.deleteFromProfile(postID, userID)}
+            onClick={() => {
+              this.toggle();
+              this.props.deleteFromProfile(postID, userID);
+            }}
           >
             Delete
           </p>
@@ -95,7 +117,7 @@ class ProfilePosts extends Component {
         <div className="info">
           <div className="profile-info">
             <p>{userName}</p>
-            <p>{timestamp}</p>
+            <p className="timestamp">{timestamp}</p>
           </div>
 
           <iframe

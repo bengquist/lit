@@ -12,6 +12,10 @@
   height: 180px;
 }
 
+.chart:hover {
+  animation: shrink .5s both;
+}
+
 .chart > iframe {
   z-index: 1;
 }
@@ -21,4 +25,31 @@
   grid-template-columns: 75% 25%;
   padding: 5px;
   font-size: 30px;
+}
+
+iframe {
+  animation: iframe-fade 2s forwards ease-in;
+  width: 80%;
+}
+
+#discover-iframe {
+  width: 100%;
+}
+
+@keyframes iframe-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes shrink {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.1);
+  }
 }

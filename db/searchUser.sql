@@ -1,3 +1,3 @@
 SELECT *
 FROM users
-WHERE username LIKE $1;
+WHERE LOWER(username) LIKE LOWER($1);

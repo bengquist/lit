@@ -34,7 +34,7 @@
 }
 
 .profile_img:hover {
-  animation: img-hover .5s forwards;
+  animation: img-hover .5s both;
 }
 
 .links, .links a {
@@ -43,7 +43,7 @@
 }
 
 .links a:hover {
-  animation: nav-hover .5s forwards;
+  animation: nav-hover .2s both;
 }
 
 .links a:focus {
@@ -82,8 +82,10 @@ a, a:hover {
 @keyframes img-hover {
   0% {
     opacity: .65;
+    transform: scale(1);
   }
   100% {
     opacity: 1;
+    transform: scale(1.2);
   }
 }

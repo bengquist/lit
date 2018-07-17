@@ -85,7 +85,7 @@ class Discover extends Component {
   searchHandler = e => {
     this.setState({ search: e.target.value });
     const activateHandler = this.changeHandler();
-    _.debounce(activateHandler, 500)();
+    _.debounce(activateHandler, 300)();
   };
 
   handleItemClick = (e, { name }) => {

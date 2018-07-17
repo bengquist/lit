@@ -31,7 +31,9 @@ class Chart extends Component {
           active
           inline="centered"
         />
+
         <iframe
+          id={"discover-iframe"}
           title="spotify"
           src={`https://embed.spotify.com/?uri=${uri}`}
           frameBorder="0"

@@ -35,7 +35,7 @@ export default function reducer(state = initialState, action) {
     case SET_TOKEN:
       return { ...state, token: action.payload };
     case ADD_TO_PROFILE + "_FULFILLED":
-      return { ...state, profilePosts: action.payload.data };
+      return { ...state };
     case DELETE_FROM_PROFILE + "_FULFILLED":
       return { ...state, profilePosts: action.payload.data };
     case EDIT_PROFILE_POST + "_FULFILLED":
@@ -49,10 +49,8 @@ export default function reducer(state = initialState, action) {
     case UNFOLLOW_USER + "_FULFILLED":
       return { ...state, timelinePosts: action.payload.data };
     case LIKE_POST + "_FULFILLED":
-      console.log("liked" + action.payload.data);
       return { ...state };
     case UNLIKE_POST + "_FULFILLED":
-      console.log("unlike" + action.payload.data);
       return { ...state };
     default:
       return state;

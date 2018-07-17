@@ -5,9 +5,11 @@ module.exports = {
     const db = req.app.get("db");
     const { userID } = req.params;
 
-    db.getAllPosts([userID]).then(posts => {
-      res.status(200).send(posts);
-    });
+    db.getAllPosts([userID])
+      .then(posts => {
+        res.status(200).send(posts);
+      })
+      .catch(err => console.log(err));
   },
 
   addToProfile: (req, res, next) => {
@@ -85,43 +87,43 @@ module.exports = {
 
     const { userID, postID } = req.params;
 
-    db.likes
-      .where("user_id=$1 AND post_id=$2", [userID, postID])
-      .then(alreadyLiked => {
-        console.log(alreadyLiked);
+    db.checkLike([userID, postID]).then(alreadyLiked => {
+      console.log(alreadyLiked);
 
-        if (!_.isEmpty(alreadyLiked)) {
-          res.status(200).send(true);
-        } else {
-          res.status(200).send(false);
-        }
-      });
+      if (!_.isEmpty(alreadyLiked)) {
+        res.status(200).send(true);
+      } else {
+        res.status(200).send(false);
+      }
+    });
   },
 
   addUser: (req, res, next) => {
     const db = req.app.get("db");
     const { name, email, profileImg } = req.body;
 
-    db.users.where("email=$1", [email]).then(user => {
-      if (!_.isEmpty(user)) {
-        db.getUser([email]).then(user => {
-          res.status(200).send(user);
-        });
-      } else {
-        email &&
-          db.addUser([email, name, profileImg]).then(user => {
+    db.users
+      .where("email=$1", [email])
+      .then(user => {
+        if (!_.isEmpty(user)) {
+          db.getUser([email]).then(user => {
             res.status(200).send(user);
           });
-      }
-    });
+        } else {
+          email &&
+            db.addUser([email, name, profileImg]).then(user => {
+              res.status(200).send(user);
+            });
+        }
+      })
+      .catch(err => console.log(err));
   },
 
   searchUsers: (req, res, next) => {
     const db = req.app.get("db");
     let { user } = req.params;
-    let newUser = user.charAt(0).toUpperCase() + user.slice(1) + "%";
 
-    db.searchUser([newUser]).then(user => {
+    db.searchUser([`${user}%`]).then(user => {
       res.status(200).send(user);
     });
   },

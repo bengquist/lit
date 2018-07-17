@@ -17,6 +17,7 @@
 .banner {
   display: flex;
   justify-content: space-between;
+  margin-bottom: 20px;
 }
 
 .info > iframe {
@@ -30,7 +31,6 @@
 }
 
 .user-name {
-  color: #000;
   display: inline;
 }
 
@@ -40,10 +40,9 @@
 }
 
 .comment {
-  margin-top: 10px;
-  margin-bottom: 20px;
+  margin: 20px 0;
   border-radius: 4px;
-  padding: 12px;
+  padding: 30px;
   text-align: left;
 }
 

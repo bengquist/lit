@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Button, Header, Icon, Image, Modal, Loader } from "semantic-ui-react";
+import moment from "moment";
 import classnames from "classnames";
 import axios from "axios";
 import "./TimelinePosts.css";
@@ -13,9 +14,12 @@ class TimelinePosts extends Component {
 
   componentDidMount() {
     let { userID, likes, postID, loggedInUserID } = this.props;
+
     axios
       .get(`/api/posts/${userID}`)
-      .then(posts => this.setState({ posts: posts.data, likes }))
+      .then(posts => {
+        this.setState({ posts: posts.data, likes });
+      })
       .then(() => {
         axios
           .get(`/api/post/${loggedInUserID}/${postID}`)
@@ -37,16 +41,15 @@ class TimelinePosts extends Component {
       unlikePost,
       loggedInUserID,
       userID,
-      postID
+      postID,
+      likes
     } = this.props;
 
-    timestamp = timestamp.replace("T", " ");
     let profileView;
 
     this.state.posts &&
       (profileView = this.state.posts.map(val => {
         let { uri, comment, timestamp } = val;
-        timestamp = timestamp.replace("T", " ");
 
         return (
           <div className="profile-view">
@@ -58,12 +61,7 @@ class TimelinePosts extends Component {
               height="80"
             />
             <div className="profile-view-info">
-              <h2 className="profile-comment">
-                {comment}
-                Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                Asperiores eligendi esse quaerat eveniet, explicabo quae sequi
-                et qui eum repellendus?
-              </h2>
+              <h2 className="profile-comment">{comment}</h2>
               <h2 className="profile-view-time">{timestamp}</h2>
             </div>
           </div>
@@ -114,7 +112,7 @@ class TimelinePosts extends Component {
               position: "absolute",
               left: 0,
               right: 0,
-              top: 70,
+              top: 85,
               zIndex: 0
             }}
             active
@@ -126,13 +124,10 @@ class TimelinePosts extends Component {
             height="80"
             frameBorder="0"
           />
-          <p className="comment">
-            {comment} Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-            Voluptates eum fugiat beatae sunt nemo accusamus. Autem explicabo
-            impedit commodi nisi?
-          </p>
+          <p className="comment">{comment}</p>
         </div>
         <div className="arrow">
+          <p>{this.state.likes}</p>
           <i
             className={classnames("fa-arrow-alt-circle-up", {
               fas: this.state.alreadyLiked,
@@ -154,7 +149,7 @@ class TimelinePosts extends Component {
               }
             }}
           />
-          <p>{this.state.likes}</p>
+
           <i className="far fa-comments" />
         </div>
       </div>

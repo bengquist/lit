@@ -23,6 +23,7 @@
   justify-content: space-between;
   width: 100%;
   margin-left: 0;
+  margin-bottom: 20px;
 }
 
 .toggle-items {
@@ -52,6 +53,17 @@
   cursor: pointer;
 }
 
+.toggle-content {
+  margin: 20px 0;
+  display: flex;
+  justify-content: center;
+}
+
+.toggle-btns {
+  display: flex;
+  flex-direction: column;
+}
+
 .fa-angle-down {
   color: #fff;
   
@@ -59,4 +71,15 @@
 
 .fa-angle-down:hover {
   cursor: pointer;
+}
+
+#text-area {
+  width: 100%;
+  margin-right: 8px;
+  opacity: .9;
+  border-radius: 5px;
+}
+
+#text-area:focus {
+  opacity: 1;
 }
