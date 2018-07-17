@@ -11,7 +11,7 @@ import TimelinePosts from "../TimelinePosts/TimelinePosts";
 import "./Timeline.css";
 
 class Timeline extends Component {
-  componentDidMount() {
+  componentWillMount() {
     this.props.getTimelinePosts(this.props.user.user_id);
   }
 

@@ -46,10 +46,6 @@
   animation: nav-hover .2s both;
 }
 
-.links a:focus {
-  color: #fff;
-}
-
 i {
   color: #595B5F;
 }
@@ -66,8 +62,12 @@ a, a:hover {
   color: #fff;
 }
 
-.active {
+.active > i {
   color: #22A053;
+}
+
+.active > span {
+  color: #fff;
 }
 
 @keyframes nav-hover {

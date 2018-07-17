@@ -5,8 +5,8 @@ import "./NavBar.css";
 
 class NavBar extends Component {
   state = {
-    timeline: false,
-    discover: true
+    timeline: true,
+    discover: false
   };
 
   clickActive(e) {
@@ -20,13 +20,6 @@ class NavBar extends Component {
   }
 
   render() {
-    let discoverLink = classnames("fas fa-globe", {
-      active: this.state.discover
-    });
-    let timelineLink = classnames("fas fa-sliders-h", {
-      active: this.state.timeline
-    });
-
     return (
       <div className="navbar">
         <div className="logo">
@@ -48,13 +41,25 @@ class NavBar extends Component {
           </Link>
         </div>
         <div className="links">
-          <Link onClick={() => this.clickActive(1)} to="/">
-            <i className={discoverLink} /> Timeline
+          <Link
+            className={classnames(null, {
+              active: this.state.discover
+            })}
+            onClick={() => this.clickActive(1)}
+            to="/"
+          >
+            <i className="fas fa-globe" /> <span>Timeline</span>
           </Link>
         </div>
         <div className="links">
-          <Link onClick={() => this.clickActive(2)} to="/discover">
-            <i className={timelineLink} /> Discover
+          <Link
+            className={classnames(null, {
+              active: this.state.timeline
+            })}
+            onClick={() => this.clickActive(2)}
+            to="/discover"
+          >
+            <i className="fas fa-sliders-h" /> <span>Discover</span>
           </Link>
         </div>
         <div className="logout">
