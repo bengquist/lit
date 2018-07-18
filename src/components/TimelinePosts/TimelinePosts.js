@@ -15,12 +15,16 @@ import "./TimelinePosts.css";
 
 class TimelinePosts extends Component {
   state = {
-    open: false,
+    loggedInUserID: 0,
+    commentID: 0,
+    postID: 0,
     posts: [],
     likes: 0,
     alreadyLiked: false,
     commentInput: "",
-    comments: []
+    initialComments: [],
+    comments: [],
+    commentLoader: true
   };
 
   componentDidMount() {
@@ -29,7 +33,12 @@ class TimelinePosts extends Component {
     axios
       .get(`/api/posts/${userID}`)
       .then(posts => {
-        this.setState({ posts: posts.data, likes });
+        this.setState({
+          posts: posts.data,
+          likes,
+          loggedInUserID,
+          postID
+        });
       })
       .then(() => {
         axios
@@ -40,12 +49,18 @@ class TimelinePosts extends Component {
       })
       .then(() => {
         axios.get(`/api/comments/${postID}`).then(comments => {
-          console.log(comments.data);
+          let largestNum = 0;
+
+          comments.data.forEach(val => {
+            if (val.comment_id > largestNum) {
+              largestNum = val.comment_id;
+            }
+          });
+
           this.setState({
-            comment: comments.data.comment,
-            timestamp: comments.data.timestamp,
-            username: comments.data.user_name,
-            profileImg: comments.data.profile_img
+            comments: comments.data,
+            initialComments: comments.data,
+            commentID: largestNum
           });
         });
       });
@@ -56,11 +71,41 @@ class TimelinePosts extends Component {
   };
 
   addComment = (username, profileImg) => {
-    this.setState({
-      comments: [
-        ...this.state.comments,
-        { comment: this.state.commentInput, username, profileImg }
-      ]
+    this.setState(
+      {
+        commentInput: "",
+        commentID: this.state.commentID + 1,
+        comments: [
+          ...this.state.comments,
+          {
+            comment: this.state.commentInput,
+            user_id: this.state.loggedInUserID,
+            comment_id: this.state.commentID + 1,
+            username,
+            profileImg
+          }
+        ]
+      },
+      () => {
+        let newComments = this.state.comments.filter(
+          (val, i) => val[i] === this.state.initialComments[i]
+        );
+        axios.put(
+          `/api/comments/${this.state.postID}/${this.state.loggedInUserID}`,
+          {
+            comments: newComments
+          }
+        );
+      }
+    );
+  };
+
+  deleteComment = commentID => {
+    let newComments = this.state.comments.filter(
+      val => commentID !== val.comment_id
+    );
+    this.setState({ comments: newComments }, () => {
+      axios.delete(`/api/comments/${commentID}`);
     });
   };
 
@@ -74,6 +119,7 @@ class TimelinePosts extends Component {
       unfollowUser,
       likePost,
       unlikePost,
+      loggedInUsername,
       loggedInUserID,
       loggedInUserImg,
       userID,
@@ -108,18 +154,30 @@ class TimelinePosts extends Component {
 
     // map through comments
     const usersComments = this.state.comments.map((val, i) => {
-      console.log(val);
+      const { comment_id } = val;
+
       return (
         <Comment>
-          <Comment.Avatar src={val.profileImg} />
+          <Comment.Avatar src={val.profile_img || val.profileImg} />
           <Comment.Content>
             <Comment.Author as="a">{val.username}</Comment.Author>
             <Comment.Metadata>
               <div>{val.timestamp}</div>
             </Comment.Metadata>
+
             <Comment.Text>{val.comment}</Comment.Text>
             <Comment.Actions>
-              <Comment.Action>Reply</Comment.Action>
+              {val.user_id === loggedInUserID && (
+                <div className="personal-toggle">
+                  <span
+                    onClick={() => this.deleteComment(comment_id)}
+                    className="personal-toggle-item"
+                  >
+                    {" "}
+                    Delete
+                  </span>
+                </div>
+              )}
             </Comment.Actions>
           </Comment.Content>
         </Comment>
@@ -130,16 +188,8 @@ class TimelinePosts extends Component {
       <div className="posts">
         <div className="user">
           <Modal
-            open={open}
-            closeOnEscape={false}
-            closeOnDimmerClick={true}
             trigger={
-              <img
-                onClick={() => this.setState({ open: true })}
-                className="profile-img"
-                src={profileImg}
-                alt="profile_img"
-              />
+              <img className="profile-img" src={profileImg} alt="profile_img" />
             }
           >
             <Modal.Header id="modal">{username}</Modal.Header>
@@ -161,7 +211,6 @@ class TimelinePosts extends Component {
                 style={{ backgroundColor: "#DC3545" }}
                 onClick={() => {
                   unfollowUser(loggedInUserID, userID);
-                  this.setState({ open: false });
                 }}
                 id="profile-button"
               >
@@ -205,7 +254,13 @@ class TimelinePosts extends Component {
                 style={{ height: "100px" }}
               />
               <Button
-                onClick={() => this.addComment(loggedInUserID, loggedInUserImg)}
+                onClick={() =>
+                  this.addComment(
+                    loggedInUsername,
+                    loggedInUserImg,
+                    loggedInUserID
+                  )
+                }
                 content="Add Reply"
                 labelPosition="left"
                 icon="edit"
@@ -214,7 +269,6 @@ class TimelinePosts extends Component {
           </Comment.Group>
         </div>
         <div className="arrow">
-          <p>{this.state.likes}</p>
           <i
             className={classnames("fa-arrow-alt-circle-up", {
               fas: this.state.alreadyLiked,
@@ -236,6 +290,7 @@ class TimelinePosts extends Component {
               }
             }}
           />
+          <p>{this.state.likes}</p>
         </div>
       </div>
     );

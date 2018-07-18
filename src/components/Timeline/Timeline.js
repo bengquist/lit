@@ -23,10 +23,14 @@ class Timeline extends Component {
     let timeline = [];
 
     this.props.timelinePosts.forEach(posts => {
-      posts.forEach(post => timeline.push(post));
+      posts.forEach(post => {
+        console.log(post);
+        timeline.push(post);
+      });
     });
 
     const timelinePosts = timeline.map((val, i) => {
+      console.log(val);
       const {
         uri,
         timestamp,
@@ -56,6 +60,7 @@ class Timeline extends Component {
             username={username}
             timestamp={timestamp}
             userID={user_id}
+            loggedInUsername={this.props.user.username}
             loggedInUserID={this.props.user.user_id}
             loggedInUserImg={this.props.user.profile_img}
             unfollowUser={this.props.unfollowUser}

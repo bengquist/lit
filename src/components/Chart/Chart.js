@@ -3,7 +3,14 @@ import { connect } from "react-redux";
 import { addToProfile } from "../../ducks/reducers/reducer";
 import "./Chart.css";
 
-import { Form, TextArea, Button, Icon, Loader } from "semantic-ui-react";
+import {
+  Form,
+  TextArea,
+  Button,
+  Icon,
+  Loader,
+  Progress
+} from "semantic-ui-react";
 
 class Chart extends Component {
   state = {
@@ -17,6 +24,25 @@ class Chart extends Component {
   render() {
     const { uri } = this.props;
     const userID = this.props.user.user_id;
+    let popularity = 0;
+    this.props.popularity && (popularity = this.props.popularity);
+    let error = false;
+    let warning = false;
+    let success = false;
+
+    if (popularity > 80) {
+      error = false;
+      warning = false;
+      success = true;
+    } else if (popularity < 80 && popularity > 40) {
+      error = false;
+      warning = true;
+      success = false;
+    } else {
+      error = true;
+      warning = false;
+      success = false;
+    }
 
     return (
       <div className="chart">
@@ -39,6 +65,15 @@ class Chart extends Component {
           frameBorder="0"
           height="80"
         />
+        {popularity !== 0 && (
+          <Progress
+            percent={popularity}
+            success={success}
+            warning={warning}
+            error={error}
+            progress
+          />
+        )}
 
         <div className="toggle">
           <Form>

@@ -49,14 +49,15 @@
 .arrow {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  margin: 0 5px;
+  justify-content: flex-start;
+  margin: 0 10px;
+  margin-left: 15px;
 }
 
 .arrow > i {
   color: #fff;
-  font-size: 32px;
-  margin: 15px 0;
+  font-size: 34px;
+  margin: 0 0 15px 0;
 }
 
 .arrow > i:hover {
@@ -87,6 +88,19 @@
 
 .arrow > .liked {
   color: black;
+}
+
+.personal-toggle {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.personal-toggle-item {
+  margin: 0 2px;
+}
+
+.personal-toggle-item:hover {
+  cursor: pointer;
 }
 
 #profile-view-img {

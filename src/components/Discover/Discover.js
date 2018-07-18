@@ -88,7 +88,7 @@ class Discover extends Component {
   searchHandler = e => {
     this.setState({ search: e.target.value });
     const activateHandler = this.changeHandler();
-    _.debounce(activateHandler, 300)();
+    _.debounce(activateHandler, 800)();
   };
 
   handleItemClick = (e, { name }) => {
@@ -119,6 +119,9 @@ class Discover extends Component {
 
     const showResults = this.state.results.map((val, i) => {
       const { uri } = val;
+      let popularity = "";
+      val.popularity && (popularity = val.popularity);
+
       return (
         <ReactCSSTransitionGroup
           transitionName="fade"
@@ -128,7 +131,7 @@ class Discover extends Component {
           transitionAppearTimeout={500}
           key={i}
         >
-          <Chart uri={uri} />
+          <Chart uri={uri} popularity={popularity} />
         </ReactCSSTransitionGroup>
       );
     });

@@ -115,6 +115,35 @@ module.exports = {
       .catch(err => console.log(err));
   },
 
+  addComments: (req, res, next) => {
+    const db = req.app.get("db");
+
+    const { postID, userID } = req.params;
+    const { comments } = req.body;
+
+    for (let i = 0; i < comments.length; i++) {
+      db.comments
+        .insert({
+          user_id: userID,
+          post_id: postID,
+          comment: comments[i].comment
+        })
+        .catch(err => console.log(err));
+    }
+
+    res.sendStatus(200);
+  },
+
+  deleteComment: (req, res, next) => {
+    const db = req.app.get("db");
+
+    const { commentID } = req.params;
+
+    db.comments
+      .destroy({ comment_id: commentID })
+      .then(() => res.sendStatus(200));
+  },
+
   addUser: (req, res, next) => {
     const db = req.app.get("db");
     const { name, email, profileImg } = req.body;

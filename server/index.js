@@ -183,6 +183,8 @@ app.get("/api/user/posts/:userID", ctrl.getProfilePosts);
 
 // comments
 app.get("/api/comments/:postID", ctrl.getComments);
+app.put("/api/comments/:postID/:userID", ctrl.addComments);
+app.delete("/api/comments/:commentID", ctrl.deleteComment);
 
 app.listen(port, () => {
   console.log(`Listening on port:3001`);
