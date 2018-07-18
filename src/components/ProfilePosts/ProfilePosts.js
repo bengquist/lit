@@ -122,7 +122,7 @@ class ProfilePosts extends Component {
 
           <iframe
             title="spotify"
-            src={`https://embed.spotify.com/?uri=${uri}`}
+            src={`https://open.spotify.com/embed?uri=${uri}`}
             height="80"
             frameBorder="0"
           />

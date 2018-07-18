@@ -13,9 +13,8 @@ const cors = require("cors");
 const ctrl = require("./controller");
 
 const port = 3001;
-const client_id = process.env.CLIENT_ID || "6e3ee6e2ee1740ecb04b03559f11d794"; // Your client id
-const client_secret =
-  process.env.CLIENT_SECRET || "b45a5bc5a2684ab3b553101ba2a8fd43"; // Your secret
+const client_id = process.env.CLIENT_ID; // Your client id
+const client_secret = process.env.CLIENT_SECRET; // Your secret
 const redirect_uri = "http://localhost:3001/callback"; // Or Your redirect uri
 
 let generateRandomString = function(length) {
@@ -181,6 +180,9 @@ app.post("/api/users", ctrl.addUser);
 app.post("/api/users/:userID", ctrl.followUser);
 app.delete(`/api/users/:userID/:unfollowID`, ctrl.unfollowUser);
 app.get("/api/user/posts/:userID", ctrl.getProfilePosts);
+
+// comments
+app.get("/api/comments/:postID", ctrl.getComments);
 
 app.listen(port, () => {
   console.log(`Listening on port:3001`);

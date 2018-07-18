@@ -55,7 +55,10 @@ class Discover extends Component {
         return () => {
           spotifyApi
             .searchTracks(this.state.search)
-            .then(tracks => this.setState({ results: tracks.tracks.items }))
+            .then(tracks => {
+              console.log(tracks);
+              this.setState({ results: tracks.tracks.items });
+            })
             .catch(() => this.setState({ results: [] }));
         };
       case "Albums":

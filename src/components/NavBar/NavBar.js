@@ -33,11 +33,7 @@ class NavBar extends Component {
         </div>
         <div className="header">
           <Link onClick={() => this.clickActive(3)} to="/profile">
-            <img
-              className="profile_img"
-              src={this.props.profileImg}
-              alt="Profile Img"
-            />
+            <img className="profile_img" src={this.props.profileImg} />
           </Link>
         </div>
         <div className="links">

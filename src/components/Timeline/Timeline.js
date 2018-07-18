@@ -57,6 +57,7 @@ class Timeline extends Component {
             timestamp={timestamp}
             userID={user_id}
             loggedInUserID={this.props.user.user_id}
+            loggedInUserImg={this.props.user.profile_img}
             unfollowUser={this.props.unfollowUser}
             likePost={this.props.likePost}
             unlikePost={this.props.unlikePost}

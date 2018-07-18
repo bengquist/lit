@@ -1,15 +1,26 @@
 import React, { Component } from "react";
-import { Button, Header, Icon, Image, Modal, Loader } from "semantic-ui-react";
-import moment from "moment";
+import {
+  Button,
+  Header,
+  Icon,
+  Image,
+  Modal,
+  Loader,
+  Comment,
+  Form
+} from "semantic-ui-react";
 import classnames from "classnames";
 import axios from "axios";
 import "./TimelinePosts.css";
 
 class TimelinePosts extends Component {
   state = {
+    open: false,
     posts: [],
     likes: 0,
-    alreadyLiked: false
+    alreadyLiked: false,
+    commentInput: "",
+    comments: []
   };
 
   componentDidMount() {
@@ -26,8 +37,32 @@ class TimelinePosts extends Component {
           .then(alreadyLiked =>
             this.setState({ alreadyLiked: alreadyLiked.data })
           );
+      })
+      .then(() => {
+        axios.get(`/api/comments/${postID}`).then(comments => {
+          console.log(comments.data);
+          this.setState({
+            comment: comments.data.comment,
+            timestamp: comments.data.timestamp,
+            username: comments.data.user_name,
+            profileImg: comments.data.profile_img
+          });
+        });
       });
   }
+
+  commentHandler = event => {
+    this.setState({ commentInput: event });
+  };
+
+  addComment = (username, profileImg) => {
+    this.setState({
+      comments: [
+        ...this.state.comments,
+        { comment: this.state.commentInput, username, profileImg }
+      ]
+    });
+  };
 
   render() {
     let {
@@ -40,19 +75,22 @@ class TimelinePosts extends Component {
       likePost,
       unlikePost,
       loggedInUserID,
+      loggedInUserImg,
       userID,
-      postID,
-      likes
+      postID
     } = this.props;
+
+    const { open } = this.state;
 
     let profileView;
 
+    // map through users posts for modal
     this.state.posts &&
-      (profileView = this.state.posts.map(val => {
+      (profileView = this.state.posts.map((val, i) => {
         let { uri, comment, timestamp } = val;
 
         return (
-          <div className="profile-view">
+          <div key={i} className="profile-view">
             <iframe
               title="spotify"
               className="profile-iframe"
@@ -68,12 +106,40 @@ class TimelinePosts extends Component {
         );
       }));
 
+    // map through comments
+    const usersComments = this.state.comments.map((val, i) => {
+      console.log(val);
+      return (
+        <Comment>
+          <Comment.Avatar src={val.profileImg} />
+          <Comment.Content>
+            <Comment.Author as="a">{val.username}</Comment.Author>
+            <Comment.Metadata>
+              <div>{val.timestamp}</div>
+            </Comment.Metadata>
+            <Comment.Text>{val.comment}</Comment.Text>
+            <Comment.Actions>
+              <Comment.Action>Reply</Comment.Action>
+            </Comment.Actions>
+          </Comment.Content>
+        </Comment>
+      );
+    });
+
     return (
       <div className="posts">
         <div className="user">
           <Modal
+            open={open}
+            closeOnEscape={false}
+            closeOnDimmerClick={true}
             trigger={
-              <img className="profile-img" src={profileImg} alt="profile_img" />
+              <img
+                onClick={() => this.setState({ open: true })}
+                className="profile-img"
+                src={profileImg}
+                alt="profile_img"
+              />
             }
           >
             <Modal.Header id="modal">{username}</Modal.Header>
@@ -93,7 +159,10 @@ class TimelinePosts extends Component {
             <Modal.Actions id="modal">
               <Button
                 style={{ backgroundColor: "#DC3545" }}
-                onClick={() => unfollowUser(loggedInUserID, userID)}
+                onClick={() => {
+                  unfollowUser(loggedInUserID, userID);
+                  this.setState({ open: false });
+                }}
                 id="profile-button"
               >
                 Unfollow <Icon name="chevron right" />
@@ -125,6 +194,24 @@ class TimelinePosts extends Component {
             frameBorder="0"
           />
           <p className="comment">{comment}</p>
+          <Comment.Group style={{ width: "80%", margin: "0 auto" }}>
+            <Header as="h3" dividing />
+            {usersComments}
+
+            <Form reply>
+              <Form.TextArea
+                value={this.state.commentInput}
+                onChange={e => this.commentHandler(e.target.value)}
+                style={{ height: "100px" }}
+              />
+              <Button
+                onClick={() => this.addComment(loggedInUserID, loggedInUserImg)}
+                content="Add Reply"
+                labelPosition="left"
+                icon="edit"
+              />
+            </Form>
+          </Comment.Group>
         </div>
         <div className="arrow">
           <p>{this.state.likes}</p>
@@ -149,8 +236,6 @@ class TimelinePosts extends Component {
               }
             }}
           />
-
-          <i className="far fa-comments" />
         </div>
       </div>
     );

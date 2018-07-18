@@ -17,9 +17,11 @@ module.exports = {
 
     const { uri, userID, comment } = req.body;
 
-    db.addToProfile([uri, userID, comment]).then(posts => {
-      res.status(200).send(posts);
-    });
+    db.addToProfile([uri, userID, comment])
+      .then(posts => {
+        res.status(200).send(posts);
+      })
+      .catch(err => console.log(err));
   },
 
   deleteFromProfile: (req, res, next) => {
@@ -27,9 +29,11 @@ module.exports = {
 
     const { postID, userID } = req.params;
 
-    db.deleteFromProfile([postID, userID]).then(posts => {
-      res.status(200).send(posts);
-    });
+    db.deleteFromProfile([postID, userID])
+      .then(posts => {
+        res.status(200).send(posts);
+      })
+      .catch(err => console.log(err));
   },
 
   editProfilePost: (req, res, next) => {
@@ -38,9 +42,11 @@ module.exports = {
     const { id } = req.params;
     const { comment, userID } = req.body;
 
-    db.editProfilePost([id, comment, userID]).then(posts => {
-      res.status(200).send(posts);
-    });
+    db.editProfilePost([id, comment, userID])
+      .then(posts => {
+        res.status(200).send(posts);
+      })
+      .catch(err => console.log(err));
   },
 
   getTimelinePosts: (req, res, next) => {
@@ -56,7 +62,8 @@ module.exports = {
       })
       .then(timelinePosts => {
         res.status(200).send(timelinePosts);
-      });
+      })
+      .catch(err => console.log(err));
   },
 
   likePost: (req, res, next) => {
@@ -87,15 +94,25 @@ module.exports = {
 
     const { userID, postID } = req.params;
 
-    db.checkLike([userID, postID]).then(alreadyLiked => {
-      console.log(alreadyLiked);
+    db.checkLike([userID, postID])
+      .then(alreadyLiked => {
+        if (!_.isEmpty(alreadyLiked)) {
+          res.status(200).send(true);
+        } else {
+          res.status(200).send(false);
+        }
+      })
+      .catch(err => console.log(err));
+  },
 
-      if (!_.isEmpty(alreadyLiked)) {
-        res.status(200).send(true);
-      } else {
-        res.status(200).send(false);
-      }
-    });
+  getComments: (req, res, next) => {
+    const db = req.app.get("db");
+
+    const { postID } = req.params;
+
+    db.getComments([postID])
+      .then(comments => res.status(200).send(comments))
+      .catch(err => console.log(err));
   },
 
   addUser: (req, res, next) => {
@@ -123,9 +140,11 @@ module.exports = {
     const db = req.app.get("db");
     let { user } = req.params;
 
-    db.searchUser([`${user}%`]).then(user => {
-      res.status(200).send(user);
-    });
+    db.searchUser([`${user}%`])
+      .then(user => {
+        res.status(200).send(user);
+      })
+      .catch(err => console.log(err));
   },
 
   followUser: (req, res, next) => {
@@ -133,9 +152,11 @@ module.exports = {
     const { userID } = req.params;
     const { followID } = req.body;
 
-    db.followUser([userID, followID]).then(user => {
-      res.status(200).send(user);
-    });
+    db.followUser([userID, followID])
+      .then(user => {
+        res.status(200).send(user);
+      })
+      .catch(err => console.log(err));
   },
 
   unfollowUser: (req, res, next) => {
@@ -151,7 +172,8 @@ module.exports = {
         })
         .then(timelinePosts => {
           res.status(200).send(timelinePosts);
-        });
+        })
+        .catch(err => console.log(err));
     });
   }
 };
