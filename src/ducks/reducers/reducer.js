@@ -4,8 +4,7 @@ const initialState = {
   user: {},
   profilePosts: [],
   timelinePosts: [],
-  token: "",
-  users: []
+  token: ""
 };
 
 const SET_USER = "SET_USER";
@@ -16,7 +15,6 @@ const SET_LOGIN = "SET_LOGIN";
 const ADD_TO_PROFILE = "ADD_TO_PROFILE";
 const DELETE_FROM_PROFILE = "DELETE_FROM_PROFILE";
 const EDIT_PROFILE_POST = "EDIT_PROFILE_POST";
-const SEARCH_USERS = "SEARCH_USERS";
 const FOLLOW_USER = "FOLLOW_USER";
 const UNFOLLOW_USER = "UNFOLLOW_USER";
 const LIKE_POST = "LIKE_POST";
@@ -40,10 +38,6 @@ export default function reducer(state = initialState, action) {
       return { ...state, profilePosts: action.payload.data };
     case EDIT_PROFILE_POST + "_FULFILLED":
       return { ...state, profilePosts: action.payload.data };
-    case SEARCH_USERS + "_FULFILLED":
-      return { ...state, users: action.payload.data };
-    case SEARCH_USERS + "_REJECTED":
-      return { ...state, users: [] };
     case FOLLOW_USER + "_FULFILLED":
       return { ...state };
     case UNFOLLOW_USER + "_FULFILLED":
@@ -133,13 +127,6 @@ export function unlikePost(userID, postID) {
 }
 
 // discover
-
-export function searchUsers(user) {
-  return {
-    type: SEARCH_USERS,
-    payload: axios.get(`/api/users/${user}`)
-  };
-}
 
 export function followUser(userID, followID) {
   return {

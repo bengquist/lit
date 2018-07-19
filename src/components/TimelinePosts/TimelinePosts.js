@@ -10,7 +10,9 @@ import {
   Form
 } from "semantic-ui-react";
 import classnames from "classnames";
+import moment from "moment";
 import axios from "axios";
+import ReactCSSTransitionGroup from "react-addons-css-transition-group";
 import "./TimelinePosts.css";
 
 class TimelinePosts extends Component {
@@ -109,6 +111,10 @@ class TimelinePosts extends Component {
     });
   };
 
+  unFollowUserPosts = userID => {
+    let newPosts = this.state.posts.map(val => console.log(val));
+  };
+
   render() {
     let {
       uri,
@@ -126,7 +132,9 @@ class TimelinePosts extends Component {
       postID
     } = this.props;
 
-    const { open } = this.state;
+    timestamp = moment(timestamp)
+      .startOf()
+      .fromNow();
 
     let profileView;
 
@@ -134,6 +142,9 @@ class TimelinePosts extends Component {
     this.state.posts &&
       (profileView = this.state.posts.map((val, i) => {
         let { uri, comment, timestamp } = val;
+        timestamp = moment(timestamp)
+          .startOf()
+          .fromNow();
 
         return (
           <div key={i} className="profile-view">
@@ -155,32 +166,44 @@ class TimelinePosts extends Component {
     // map through comments
     const usersComments = this.state.comments.map((val, i) => {
       const { comment_id } = val;
+      timestamp = moment(val.timestamp)
+        .startOf()
+        .fromNow();
 
       return (
-        <Comment>
-          <Comment.Avatar src={val.profile_img || val.profileImg} />
-          <Comment.Content>
-            <Comment.Author as="a">{val.username}</Comment.Author>
-            <Comment.Metadata>
-              <div>{val.timestamp}</div>
-            </Comment.Metadata>
+        <ReactCSSTransitionGroup
+          key={i}
+          transitionName="slide"
+          transitionEnterTimeout={300}
+          transitionLeaveTimeout={300}
+          transitionAppear={true}
+          transitionAppearTimeout={500}
+        >
+          <Comment>
+            <Comment.Avatar src={val.profile_img || val.profileImg} />
+            <Comment.Content>
+              <Comment.Author as="a">{val.username}</Comment.Author>
+              <Comment.Metadata>
+                <div>{timestamp}</div>
+              </Comment.Metadata>
 
-            <Comment.Text>{val.comment}</Comment.Text>
-            <Comment.Actions>
-              {val.user_id === loggedInUserID && (
-                <div className="personal-toggle">
-                  <span
-                    onClick={() => this.deleteComment(comment_id)}
-                    className="personal-toggle-item"
-                  >
-                    {" "}
-                    Delete
-                  </span>
-                </div>
-              )}
-            </Comment.Actions>
-          </Comment.Content>
-        </Comment>
+              <Comment.Text>{val.comment}</Comment.Text>
+              <Comment.Actions>
+                {val.user_id === loggedInUserID && (
+                  <div className="personal-toggle">
+                    <span
+                      onClick={() => this.deleteComment(comment_id)}
+                      className="personal-toggle-item"
+                    >
+                      {" "}
+                      Delete
+                    </span>
+                  </div>
+                )}
+              </Comment.Actions>
+            </Comment.Content>
+          </Comment>
+        </ReactCSSTransitionGroup>
       );
     });
 
@@ -211,6 +234,7 @@ class TimelinePosts extends Component {
                 style={{ backgroundColor: "#DC3545" }}
                 onClick={() => {
                   unfollowUser(loggedInUserID, userID);
+                  this.unFollowUserPosts(userID);
                 }}
                 id="profile-button"
               >

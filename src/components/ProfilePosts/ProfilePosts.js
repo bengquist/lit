@@ -4,7 +4,8 @@ import {
   deleteFromProfile,
   editProfilePost
 } from "../../ducks/reducers/reducer";
-import { TextArea, Button, Icon } from "semantic-ui-react";
+import { TextArea, Button, Icon, Loader } from "semantic-ui-react";
+import moment from "moment";
 import "./ProfilePosts.css";
 
 class ProfilePosts extends Component {
@@ -36,6 +37,10 @@ class ProfilePosts extends Component {
       comment,
       timestamp
     } = this.props;
+
+    timestamp = moment(timestamp)
+      .startOf()
+      .fromNow();
 
     const { edit } = this.state;
     let editToggle;
@@ -120,6 +125,17 @@ class ProfilePosts extends Component {
             <p className="timestamp">{timestamp}</p>
           </div>
 
+          <Loader
+            style={{
+              position: "absolute",
+              left: 0,
+              right: 0,
+              top: 85,
+              zIndex: 0
+            }}
+            active
+            inline="centered"
+          />
           <iframe
             title="spotify"
             src={`https://open.spotify.com/embed?uri=${uri}`}

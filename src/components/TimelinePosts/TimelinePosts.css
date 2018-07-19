@@ -66,10 +66,15 @@
 
 .profile-view {
   border-bottom: 1px solid rgb(194, 194, 194);
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: 60% 40%;
   align-items: center;
   margin: 5px auto;
+}
+
+.profile-view > iframe {
+  animation: iframe-fade 2s forwards ease-in;
+  width: 100%;
 }
 
 .profile-comment {

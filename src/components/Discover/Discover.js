@@ -2,7 +2,8 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import ReactCSSTransitionGroup from "react-addons-css-transition-group";
 import Chart from "../Chart/Chart";
-import { searchUsers, followUser } from "../../ducks/reducers/reducer";
+import { followUser } from "../../ducks/reducers/reducer";
+import axios from "axios";
 import classnames from "classnames";
 import "./Discover.css";
 import _ from "lodash";
@@ -17,6 +18,7 @@ class Discover extends Component {
     search: "",
     selected: "New Releases",
     results: [],
+    users: [],
     activeItem: "New Releases"
   };
 
@@ -30,17 +32,13 @@ class Discover extends Component {
     });
   }
 
-  shouldComponentUpdate(nextProps, nextState) {
-    if (this.state !== nextState) {
-      return true;
-    } else {
-      return false;
-    }
-  }
-
-  componentWillUnmount() {
-    this.props.searchUsers("");
-  }
+  // shouldComponentUpdate(nextProps, nextState) {
+  //   if (this.state !== nextState) {
+  //     return true;
+  //   } else {
+  //     return false;
+  //   }
+  // }
 
   changeHandler = () => {
     switch (this.state.selected) {
@@ -78,21 +76,30 @@ class Discover extends Component {
             .catch(() => this.setState({ results: [] }));
         };
       case "People":
+        console.log(this.state.search);
         return () => {
-          this.props.searchUsers(this.state.search);
+          axios.get(`/api/users/${this.state.search}`).then(users => {
+            console.log(users);
+            this.setState({ users: users.data });
+          });
         };
       default:
     }
   };
 
   searchHandler = e => {
-    this.setState({ search: e.target.value });
-    const activateHandler = this.changeHandler();
-    _.debounce(activateHandler, 800)();
+    this.setState({ search: e.target.value }, () => {
+      const activateHandler = this.changeHandler();
+
+      _.debounce(activateHandler, 500)();
+
+      if (this.state.search.length === 0) {
+        this.setState({ users: [] });
+      }
+    });
   };
 
   handleItemClick = (e, { name }) => {
-    this.props.searchUsers("");
     this.setState({
       selected: name,
       activeItem: name,
@@ -102,7 +109,6 @@ class Discover extends Component {
   };
 
   handleRecentRelease = (e, { name }) => {
-    this.props.searchUsers("");
     spotifyApi.getNewReleases().then(response => {
       this.setState({
         selected: name,
@@ -136,29 +142,22 @@ class Discover extends Component {
       );
     });
 
-    const userResults = this.props.state.users.map((val, i) => {
+    const userResults = this.state.users.map((val, i) => {
       const { username, profile_img, user_id } = val;
 
       return (
-        <ReactCSSTransitionGroup
-          transitionName="fade"
-          transitionEnterTimeout={300}
-          transitionLeaveTimeout={300}
-          transitionAppear={true}
-          transitionAppearTimeout={300}
-          key={i}
-        >
-          <div className="single-user-result">
-            <img src={profile_img} alt="" />
-            <p>{username}</p>
-            <i
-              onClick={() => {
-                userID !== user_id && this.props.followUser(userID, user_id);
-              }}
-              className="far fa-plus-square"
-            />
-          </div>
-        </ReactCSSTransitionGroup>
+        <div className="single-user-result">
+          <img src={profile_img} alt="" />
+          <p>{username}</p>
+          <i
+            onClick={() => {
+              if (userID !== user_id) {
+                this.props.followUser(userID, user_id);
+              }
+            }}
+            className="far fa-plus-square"
+          />
+        </div>
       );
     });
 
@@ -239,5 +238,5 @@ function mapStateToProps(state) {
 
 export default connect(
   mapStateToProps,
-  { searchUsers, followUser }
+  { followUser }
 )(Discover);

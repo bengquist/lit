@@ -33,6 +33,7 @@
   margin: 0 auto;
   border-bottom: 1px solid #000;
   padding: 0 12px;
+  animation: userShow .5s both;
 }
 
 .single-user-result > img {
@@ -51,4 +52,13 @@ p {
 
 #bg-active {
   background: linear-gradient(to top, #22A053, rgba(104, 156, 130, 0.7));
+}
+
+@keyframes userShow {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }

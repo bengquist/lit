@@ -11,6 +11,10 @@ import TimelinePosts from "../TimelinePosts/TimelinePosts";
 import "./Timeline.css";
 
 class Timeline extends Component {
+  state = {
+    profileViewPosts: []
+  };
+
   componentWillMount() {
     this.props.getTimelinePosts(this.props.user.user_id);
   }
@@ -24,7 +28,6 @@ class Timeline extends Component {
 
     this.props.timelinePosts.forEach(posts => {
       posts.forEach(post => {
-        console.log(post);
         timeline.push(post);
       });
     });
