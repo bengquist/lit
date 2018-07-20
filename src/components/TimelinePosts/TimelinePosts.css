@@ -110,6 +110,11 @@
   cursor: pointer;
 }
 
+.modal {
+  transform: translateX(-100%);
+  animation: modalSlide .3s both;
+}
+
 #profile-view-img {
   position: sticky;
   top: 0;
@@ -124,4 +129,8 @@
 #profile-button {
   background: rgba(34, 160, 82, 1);
   color: #fff;
+}
+
+@keyframes modalSlide {
+  100% { transform: translateX(0%); }
 }

@@ -51,7 +51,7 @@ class Timeline extends Component {
           transitionEnterTimeout={300}
           transitionLeaveTimeout={300}
           transitionAppear={true}
-          transitionAppearTimeout={500}
+          transitionAppearTimeout={300}
           key={i}
         >
           <TimelinePosts

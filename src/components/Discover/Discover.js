@@ -4,7 +4,7 @@ import ReactCSSTransitionGroup from "react-addons-css-transition-group";
 import Chart from "../Chart/Chart";
 import { followUser } from "../../ducks/reducers/reducer";
 import axios from "axios";
-import classnames from "classnames";
+import { withAlert } from "react-alert";
 import "./Discover.css";
 import _ from "lodash";
 
@@ -153,7 +153,11 @@ class Discover extends Component {
             onClick={() => {
               if (userID !== user_id) {
                 this.props.followUser(userID, user_id);
+                this.props.alert.show(`You are now following ${username}`);
+              } else {
+                this.props.alert.show(`You are already following ${username}`);
               }
+              this.setState({ users: [] });
             }}
             className="far fa-plus-square"
           />
@@ -236,7 +240,9 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(
-  mapStateToProps,
-  { followUser }
-)(Discover);
+export default withAlert(
+  connect(
+    mapStateToProps,
+    { followUser }
+  )(Discover)
+);

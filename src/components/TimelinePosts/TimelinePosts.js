@@ -229,6 +229,7 @@ class TimelinePosts extends Component {
             alt="profile_img"
           />
           <Modal
+            id="modal"
             open={this.state.open}
             closeOnEscape={closeOnEscape}
             onClose={this.close}
