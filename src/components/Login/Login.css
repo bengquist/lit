@@ -1,16 +1,17 @@
 .login-btn {
   display: inline-block;
-  padding: 40px 75px;
+  padding: 30px 60px;
   font-size: 24px;
   cursor: pointer;
   text-align: center;
   text-decoration: none;
   outline: none;
   color: #fff;
-  background-color: #268C52;
+  background: linear-gradient(to top, #22A053, rgba(104, 156, 130, 0.5));
   border: none;
   border-radius: 15px;
   box-shadow: 0 9px rgb(88, 145, 113);
+  margin-top: 20px;
 }
 
 .login-btn:active {
@@ -25,8 +26,18 @@
 
 .login-bg {
   height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
-.login {
-  padding-top: 50vh;
+.login-logo {
+  /* align-self: flex-start; */
+  font-size: 100px;
+  margin: 0 auto;
+}
+
+.login-logo > i {
+  color:#22A053;
 }

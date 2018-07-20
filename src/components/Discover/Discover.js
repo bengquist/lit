@@ -124,7 +124,7 @@ class Discover extends Component {
     const userID = this.props.state.user.user_id;
 
     const showResults = this.state.results.map((val, i) => {
-      const { uri } = val;
+      const { uri, name } = val;
       let popularity = "";
       val.popularity && (popularity = val.popularity);
 
@@ -137,7 +137,7 @@ class Discover extends Component {
           transitionAppearTimeout={500}
           key={i}
         >
-          <Chart uri={uri} popularity={popularity} />
+          <Chart uri={uri} name={name} popularity={popularity} />
         </ReactCSSTransitionGroup>
       );
     });

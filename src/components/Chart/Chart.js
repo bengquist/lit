@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { addToProfile } from "../../ducks/reducers/reducer";
+import { withAlert } from "react-alert";
 import "./Chart.css";
 
 import {
@@ -22,7 +23,7 @@ class Chart extends Component {
   };
 
   render() {
-    const { uri } = this.props;
+    const { uri, name } = this.props;
     const userID = this.props.user.user_id;
     let popularity = 0;
     this.props.popularity && (popularity = this.props.popularity);
@@ -89,13 +90,14 @@ class Chart extends Component {
           </Form>
           <Button
             style={{ marginLeft: "5px" }}
-            onClick={() =>
+            onClick={() => {
               this.props.addToProfile({
                 uri,
                 userID,
                 comment: this.state.comment
-              })
-            }
+              });
+              this.props.alert.show(`Added "${name}" to your profile!`);
+            }}
             animated
           >
             <Button.Content visible>Add</Button.Content>
@@ -109,7 +111,9 @@ class Chart extends Component {
   }
 }
 
-export default connect(
-  state => state,
-  { addToProfile }
-)(Chart);
+export default withAlert(
+  connect(
+    state => state,
+    { addToProfile }
+  )(Chart)
+);

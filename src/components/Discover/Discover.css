@@ -28,12 +28,11 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 60px;
   width: 90%;
   margin: 0 auto;
   border-bottom: 1px solid #000;
   padding: 0 12px;
-  animation: userShow .5s both;
+  animation: userShow .3s both;
 }
 
 .single-user-result > img {
@@ -56,49 +55,9 @@ p {
 
 @keyframes userShow {
   from {
-    opacity: 0;
+    height: 0;
   }
   to {
-    opacity: 1;
+    height: 60px;
   }
-}
-
-/* Fly up */
-.ns-effect-genie {
-	top: auto;
-	bottom: 30px;
-	background: #1c2e2d;
-	box-shadow: 0 7px 6px rgba(0,0,0,0.2), 2px 4px 6px rgba(0,0,0,0.5);
-}
-
-.ns-effect-genie .ns-close::after,
-.ns-effect-genie .ns-close::before {
-	background: #0eada0;
-}
-
-.ns-effect-genie .ns-close:hover::after,
-.ns-effect-genie .ns-close:hover::before {
-	background: #fff;
-}
-
-.ns-effect-genie.ns-show,
-.ns-effect-genie.ns-hide {
-	-webkit-animation-name: animGenie;
-	animation-name: animGenie;
-	-webkit-animation-duration: 0.4s;
-	animation-duration: 0.4s;
-}
-
-@-webkit-keyframes animGenie {
-	0% { opacity:0; -webkit-transform: translate3d(0,calc(200% + 30px),0) scale3d(0,1,1); -webkit-animation-timing-function: ease-in; }
-	40% { opacity:0.5; -webkit-transform: translate3d(0,0,0) scale3d(0.02,1.1,1); -webkit-animation-timing-function: ease-out; }
-	70% { opacity:0.6; -webkit-transform: translate3d(0,-40px,0) scale3d(0.8,1.1,1); }
-	100% { opacity:1; -webkit-transform: translate3d(0,0,0) scale3d(1,1,1); }
-}
-
-@keyframes animGenie {
-	0% { opacity:0; -webkit-transform: translate3d(0,calc(200% + 30px),0) scale3d(0,1,1); -webkit-animation-timing-function: ease-in; transform: translate3d(0,calc(200% + 30px),0) scale3d(0,1,1); animation-timing-function: ease-in; }
-	40% { opacity:0.5; -webkit-transform: translate3d(0,0,0) scale3d(0.02,1.1,1); -webkit-animation-timing-function: ease-out; transform: translate3d(0,0,0) scale3d(0.02,1.1,1); animation-timing-function: ease-out; }
-	70% { opacity:0.6; -webkit-transform: translate3d(0,-40px,0) scale3d(0.8,1.1,1); transform: translate3d(0,-40px,0) scale3d(0.8,1.1,1); }
-	100% { opacity:1; -webkit-transform: translate3d(0,0,0) scale3d(1,1,1); transform: translate3d(0,0,0) scale3d(1,1,1); }
 }
