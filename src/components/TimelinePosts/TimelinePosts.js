@@ -26,7 +26,8 @@ class TimelinePosts extends Component {
     commentInput: "",
     initialComments: [],
     comments: [],
-    commentLoader: true
+    commentLoader: true,
+    open: false
   };
 
   componentDidMount() {
@@ -67,6 +68,12 @@ class TimelinePosts extends Component {
         });
       });
   }
+
+  closeConfigShow = closeOnEscape => () => {
+    this.setState({ closeOnEscape, open: true });
+  };
+
+  close = () => this.setState({ open: false });
 
   commentHandler = event => {
     this.setState({ commentInput: event });
@@ -111,10 +118,6 @@ class TimelinePosts extends Component {
     });
   };
 
-  unFollowUserPosts = userID => {
-    let newPosts = this.state.posts.map(val => console.log(val));
-  };
-
   render() {
     let {
       uri,
@@ -129,7 +132,8 @@ class TimelinePosts extends Component {
       loggedInUserID,
       loggedInUserImg,
       userID,
-      postID
+      postID,
+      closeOnEscape
     } = this.props;
 
     timestamp = moment(timestamp)
@@ -210,19 +214,28 @@ class TimelinePosts extends Component {
     return (
       <div className="posts">
         <div className="user">
-          <Modal
-            trigger={
-              <img className="profile-img" src={profileImg} alt="profile_img" />
+          <img
+            onClick={() =>
+              this.setState({ open: true }, () => {
+                axios.get(`/api/posts/${userID}`).then(posts => {
+                  this.setState({
+                    posts: posts.data
+                  });
+                });
+              })
             }
+            className="profile-img"
+            src={profileImg}
+            alt="profile_img"
+          />
+          <Modal
+            open={this.state.open}
+            closeOnEscape={closeOnEscape}
+            onClose={this.close}
           >
             <Modal.Header id="modal">{username}</Modal.Header>
             <Modal.Content image scrolling>
-              <Image
-                id="profile-view-img"
-                size="large"
-                src={profileImg}
-                wrapped
-              />
+              <Image id="profile-view-img" src={profileImg} wrapped />
 
               <Modal.Description>
                 <Header>Posts</Header>
@@ -233,8 +246,14 @@ class TimelinePosts extends Component {
               <Button
                 style={{ backgroundColor: "#DC3545" }}
                 onClick={() => {
-                  unfollowUser(loggedInUserID, userID);
-                  this.unFollowUserPosts(userID);
+                  this.setState({ open: false });
+                  unfollowUser(loggedInUserID, userID).then(yo =>
+                    axios.get(`/api/posts/${userID}`).then(posts => {
+                      this.setState({
+                        posts: posts.data
+                      });
+                    })
+                  );
                 }}
                 id="profile-button"
               >

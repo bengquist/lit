@@ -1,6 +1,6 @@
 .login-btn {
   display: inline-block;
-  padding: 15px 25px;
+  padding: 40px 75px;
   font-size: 24px;
   cursor: pointer;
   text-align: center;
@@ -20,7 +20,7 @@
 }
 
 .login-btn-text {
-  font-size: 14px;
+  font-size: 25px;
 }
 
 .login-bg {

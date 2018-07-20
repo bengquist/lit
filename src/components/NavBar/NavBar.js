@@ -24,11 +24,7 @@ class NavBar extends Component {
       <div className="navbar">
         <div className="logo">
           <Link onClick={() => this.clickActive(1)} to="/">
-            <h1>
-              l
-              <i className="fas fa-fire" />
-              t
-            </h1>
+            <i className="fas fa-fire" />
           </Link>
         </div>
         <div className="header">

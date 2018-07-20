@@ -7,7 +7,12 @@ class Login extends Component {
       <div>
         <div className="login-bg">
           <div className="login">
-            <a href="http://localhost:3001/login" className="login-btn">
+            <h1>
+              l
+              <i className="fas fa-fire" />
+              t
+            </h1>
+            <a href={process.env.REACT_APP_SECRET} className="login-btn">
               <p className="login-btn-text">Log In</p>
             </a>
           </div>

@@ -9,13 +9,14 @@ const Auth0Strategy = require("passport-auth0");
 const session = require("express-session");
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
+const path = require("path");
 
 const ctrl = require("./controller");
 
 const port = 3001;
 const client_id = process.env.CLIENT_ID; // Your client id
 const client_secret = process.env.CLIENT_SECRET; // Your secret
-const redirect_uri = "http://localhost:3001/callback"; // Or Your redirect uri
+const redirect_uri = process.env.REDIRECT_URI_CALLBACK; // Or Your redirect uri
 
 let generateRandomString = function(length) {
   let text = "";
@@ -35,6 +36,7 @@ app.use(json());
 
 app.use(express.static(__dirname + "/public")).use(cookieParser());
 app.use(cors());
+app.use(express.static(`${__dirname}/../build `));
 
 app.get("/login", function(req, res) {
   let state = generateRandomString(16);
@@ -107,7 +109,7 @@ app.get("/callback", function(req, res) {
           email = body.email;
           body.images[0] && (profile_img = body.images[0].url);
           res.redirect(
-            "http://localhost:3000/#/" +
+            process.env.REDIRECT_URI +
               querystring.stringify({
                 access_token: access_token,
                 refresh_token: refresh_token,
@@ -185,6 +187,10 @@ app.get("/api/user/posts/:userID", ctrl.getProfilePosts);
 app.get("/api/comments/:postID", ctrl.getComments);
 app.put("/api/comments/:postID/:userID", ctrl.addComments);
 app.delete("/api/comments/:commentID", ctrl.deleteComment);
+
+// app.get("*", (req, res) => {
+//   res.sendFile(path.join(__dirname, "../build/index.html"));
+// });
 
 app.listen(port, () => {
   console.log(`Listening on port:3001`);
