@@ -62,6 +62,7 @@ class Profile extends Component {
     });
 
     let relatedArtists = this.state.relatedArtists.map(val => {
+      console.log(val);
       const { name, popularity, uri } = val;
       const image = val.images[0].url;
 

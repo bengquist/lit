@@ -1,9 +1,11 @@
 import React, { Component } from "react";
 import { Progress } from "semantic-ui-react";
+import "./RelatedArtists.css";
 
 export default class RelatedArtists extends Component {
   render() {
     const { uri, image, name, popularity } = this.props;
+    const song = `https://open.spotify.com/embed?uri=${uri}`;
 
     let error = false;
     let warning = false;
@@ -24,9 +26,14 @@ export default class RelatedArtists extends Component {
     }
 
     return (
-      <div>
-        <img height="200" src={image} alt="" />
-        <p>{name}</p>
+      <div className="related-artist-single">
+        <img
+          onClick={() => console.log(song.play())}
+          height="200"
+          src={image}
+          alt=""
+        />
+        <p className="related-name">{name}</p>
         <p className="popularity">Popularity</p>
         <Progress
           style={{ margin: 0 }}
@@ -36,8 +43,12 @@ export default class RelatedArtists extends Component {
           error={error}
           progress
         />
-
-        <iframe src={uri} frameborder="0" />
+        <iframe
+          style={{ margin: "20px 0 20px 0" }}
+          height="80"
+          src={song}
+          frameborder="0"
+        />
       </div>
     );
   }
