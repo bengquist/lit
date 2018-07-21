@@ -15,9 +15,9 @@ module.exports = {
   addToProfile: (req, res, next) => {
     const db = req.app.get("db");
 
-    const { uri, userID, comment } = req.body;
+    const { uri, userID, comment, artistName } = req.body;
 
-    db.addToProfile([uri, userID, comment])
+    db.addToProfile([uri, userID, comment, artistName])
       .then(posts => {
         res.status(200).send(posts);
       })

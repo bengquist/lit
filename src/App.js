@@ -23,8 +23,6 @@ class App extends Component {
     const profileImg = params["profile_img"];
 
     this.props.history.push("/discover");
-
-    token && spotifyApi.setAccessToken(token);
     !token && this.setState({ loggedIn: false });
     this.props.setUser({ name, email, profileImg });
   }

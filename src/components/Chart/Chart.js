@@ -23,7 +23,7 @@ class Chart extends Component {
   };
 
   render() {
-    const { uri, name } = this.props;
+    const { uri, name, artistName } = this.props;
     const userID = this.props.user.user_id;
     let popularity = 0;
     this.props.popularity && (popularity = this.props.popularity);
@@ -31,7 +31,7 @@ class Chart extends Component {
     let warning = false;
     let success = false;
 
-    if (popularity > 80) {
+    if (popularity >= 80) {
       error = false;
       warning = false;
       success = true;
@@ -67,13 +67,17 @@ class Chart extends Component {
           height="80"
         />
         {popularity !== 0 && (
-          <Progress
-            percent={popularity}
-            success={success}
-            warning={warning}
-            error={error}
-            progress
-          />
+          <div>
+            <p className="popularity">Popularity</p>
+            <Progress
+              style={{ marginTop: 0 }}
+              percent={popularity}
+              success={success}
+              warning={warning}
+              error={error}
+              progress
+            />
+          </div>
         )}
 
         <div className="toggle">
@@ -94,7 +98,8 @@ class Chart extends Component {
               this.props.addToProfile({
                 uri,
                 userID,
-                comment: this.state.comment
+                comment: this.state.comment,
+                artistName
               });
               this.props.alert.show(`Added "${name}" to your profile!`);
             }}

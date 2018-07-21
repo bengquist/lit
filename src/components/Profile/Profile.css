@@ -1,4 +1,20 @@
 .profile {
-  width: 60%;
-  margin: 0 auto;
+  left: 15%;
+  position: absolute;
+  width: 85%;
+  display: flex;
+  height: 98%;
+}
+
+.user-posts {
+  overflow: auto;
+  width: 80%;
+  height: 100%;
+}
+
+.related-artists {
+  overflow: auto;
+  margin-top: 20px;
+  width: 20%;
+  height: 100%;
 }

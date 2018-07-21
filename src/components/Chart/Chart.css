@@ -27,6 +27,11 @@
   font-size: 30px;
 }
 
+.popularity {
+  padding-top: 20px;
+  padding-bottom: 8px;
+}
+
 iframe {
   animation: iframe-fade 2s forwards ease-in;
   width: 80%;

@@ -128,6 +128,13 @@ class Discover extends Component {
       let popularity = "";
       val.popularity && (popularity = val.popularity);
 
+      let artistName = "";
+
+      val.artists
+        ? (artistName = val.artists[0].name)
+        : (artistName = val.name);
+      console.log(artistName);
+
       return (
         <ReactCSSTransitionGroup
           transitionName="fade"
@@ -137,7 +144,12 @@ class Discover extends Component {
           transitionAppearTimeout={500}
           key={i}
         >
-          <Chart uri={uri} name={name} popularity={popularity} />
+          <Chart
+            uri={uri}
+            name={name}
+            artistName={artistName}
+            popularity={popularity}
+          />
         </ReactCSSTransitionGroup>
       );
     });
