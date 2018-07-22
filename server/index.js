@@ -36,7 +36,7 @@ app.use(json());
 
 app.use(express.static(__dirname + "/public")).use(cookieParser());
 app.use(cors());
-app.use(express.static(`${__dirname}/../build `));
+app.use(express.static(`${__dirname}/../build`));
 
 app.get("/login", function(req, res) {
   let state = generateRandomString(16);
