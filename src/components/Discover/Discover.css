@@ -20,7 +20,7 @@
 .user-results {
   margin-top: 7px;
   position: absolute;
-  background: #a6a6a6;
+  background: rgb(147, 167, 154);
   width: 92%;
   font-size: 20px;
   border-radius: 2px;
@@ -41,6 +41,11 @@
   width: 45px;
   height: 45px;
   border-radius: 50%;
+  animation: userImgShow .3s both;
+}
+
+.fa-plus-square {
+  color: #22A053;
 }
 
 .fa-plus-square:hover {
@@ -61,6 +66,15 @@ p {
   }
   to {
     height: 60px;
+  }
+}
+
+@keyframes userImgShow {
+  from {
+    height: 0;
+  }
+  to {
+    height: 45px;
   }
 }
 

@@ -90,12 +90,9 @@ class Discover extends Component {
   searchHandler = e => {
     this.setState({ search: e.target.value }, () => {
       const activateHandler = this.changeHandler();
+      this.setState({ results: [] });
 
       _.debounce(activateHandler, 500)();
-
-      if (this.state.search.length === 0) {
-        this.setState({ users: [] });
-      }
     });
   };
 
@@ -109,6 +106,7 @@ class Discover extends Component {
   };
 
   handleRecentRelease = (e, { name }) => {
+    this.setState({ results: [] });
     spotifyApi.getNewReleases().then(response => {
       this.setState({
         selected: name,

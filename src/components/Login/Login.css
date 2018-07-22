@@ -16,7 +16,7 @@
   justify-content: center;
   margin: 0 auto;
 
-  animation: box-shadow 1s both;
+  animation: box-shadow 1.5s both;
   animation-delay: .5s;
 }
 
@@ -27,7 +27,7 @@
   width: 200px;
   height: 100px;
   margin: 0 auto;
-  box-shadow: 0 0 50px 5px #22A053;
+  animation: button-box-shadow 1.5s both;
 }
 
 .login-toggle > a:active {
@@ -73,5 +73,14 @@
   }
   to {
     box-shadow: 0 0 100px 1px black;
+  }
+}
+
+@keyframes button-box-shadow {
+  from {
+    box-shadow: none;
+  }
+  to {
+    box-shadow: 0 0 80px 10px #22A053;
   }
 }
