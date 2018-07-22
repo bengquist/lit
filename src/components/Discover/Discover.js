@@ -93,6 +93,10 @@ class Discover extends Component {
       this.setState({ results: [] });
 
       _.debounce(activateHandler, 500)();
+
+      if (this.state.search.length === 0) {
+        this.setState({ users: [] });
+      }
     });
   };
 
