@@ -131,7 +131,6 @@ class Discover extends Component {
       val.artists
         ? (artistName = val.artists[0].name)
         : (artistName = val.name);
-      console.log(artistName);
 
       return (
         <ReactCSSTransitionGroup
