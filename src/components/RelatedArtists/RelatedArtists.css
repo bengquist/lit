@@ -1,11 +1,15 @@
 .related-artist-single {
-  border-bottom: 1px solid #000;
-  box-shadow: 0 4px 8px -6px #000;
-  margin-bottom: 60px;
+  box-shadow: 0 6px 8px -6px #000;
+  margin: 50px 0;
 }
 
 .related-name {
   margin-top: 10px;
   text-decoration: underline;
   font-size: 20px;
+}
+
+#related-iframe {
+  width: 80px;
+  transform: scale(1.2)
 }

@@ -2,12 +2,12 @@
   background: linear-gradient(to top, #22A053, rgba(104, 156, 130, 0.25));
   display: flex;
   justify-content: space-between;
-  margin: 20px auto;
+  margin: 30px auto 0 auto;
   padding: 10px;
   font-family: 'Montserrat', sans-serif;
   border-radius: 10px;
   position: relative;
-  width: 90%;
+  width: 85%;
 }
 
 .info {

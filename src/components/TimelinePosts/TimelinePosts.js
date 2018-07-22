@@ -298,6 +298,7 @@ class TimelinePosts extends Component {
                 style={{ height: "100px" }}
               />
               <Button
+                style={{ marginBottom: "8px" }}
                 onClick={() =>
                   this.addComment(
                     loggedInUsername,

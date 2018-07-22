@@ -9,11 +9,10 @@
   width: 90%;
   border-radius: 5px;
   box-shadow: 0 0 20px 2px #131313;
-  height: 90%;
 }
 
 .chart:hover {
-  animation: shrink .5s both;
+  animation: expand .5s both;
 }
 
 .chart > iframe {
@@ -33,11 +32,15 @@
 }
 
 iframe {
-  animation: iframe-fade 2s forwards ease-in;
+  animation: iframe-fade 1.5s forwards ease-in;
+  animation-delay: 1.5s;
+  opacity: 0;
   width: 80%;
 }
 
 #discover-iframe {
+  animation: iframe-fade 1.5s forwards ease-in;
+  animation-delay: 2.5s;
   width: 100%;
 }
 
@@ -50,7 +53,7 @@ iframe {
   }
 }
 
-@keyframes shrink {
+@keyframes expand {
   from {
     transform: scale(1);
   }

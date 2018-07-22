@@ -4,6 +4,7 @@ import { getProfilePosts } from "../../ducks/reducers/reducer";
 import RelatedArtists from "../RelatedArtists/RelatedArtists";
 import ProfilePosts from "../ProfilePosts/ProfilePosts";
 import ReactCSSTransitionGroup from "react-addons-css-transition-group";
+import _ from "lodash";
 import SpotifyWebApi from "spotify-web-api-js";
 import "./Profile.css";
 
@@ -17,12 +18,16 @@ class Profile extends Component {
   componentDidMount() {
     let artistName = "";
     let artistID = "";
+    let randomNum = 0;
 
     this.props.getProfilePosts(this.props.user.user_id).then(() => {
       spotifyApi.setAccessToken(this.props.token);
 
-      this.props.profilePosts[0] &&
-        (artistName = this.props.profilePosts[0].artist_name);
+      if (this.props.profilePosts[0]) {
+        randomNum = _.random(0, this.props.profilePosts.length - 1);
+        console.log(randomNum);
+        artistName = this.props.profilePosts[randomNum].artist_name;
+      }
 
       spotifyApi
         .search(artistName, ["artist"])
@@ -90,7 +95,18 @@ class Profile extends Component {
           </ReactCSSTransitionGroup>
         </div>
 
-        <div className="related-artists">{relatedArtists}</div>
+        <div className="related-artists">
+          <h1>Related Artists</h1>
+          <ReactCSSTransitionGroup
+            transitionName="fade"
+            transitionEnterTimeout={300}
+            transitionLeaveTimeout={300}
+            transitionAppear={true}
+            transitionAppearTimeout={300}
+          >
+            {relatedArtists}
+          </ReactCSSTransitionGroup>
+        </div>
       </div>
     );
   }

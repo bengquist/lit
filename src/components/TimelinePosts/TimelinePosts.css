@@ -18,6 +18,8 @@
   display: flex;
   justify-content: space-between;
   margin-bottom: 20px;
+  width: 98%;
+  margin: 0 auto;
 }
 
 .info > iframe {
@@ -132,5 +134,7 @@
 }
 
 @keyframes modalSlide {
-  100% { transform: translateX(0%); }
+  100% { 
+    transform: translateX(0%); 
+  }
 }

@@ -44,6 +44,7 @@ export default class RelatedArtists extends Component {
           progress
         />
         <iframe
+          id="related-iframe"
           style={{ margin: "20px 0 20px 0" }}
           height="80"
           src={song}
