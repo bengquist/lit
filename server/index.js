@@ -16,7 +16,7 @@ const ctrl = require("./controller");
 const port = 3001;
 const client_id = process.env.CLIENT_ID; // Your client id
 const client_secret = process.env.CLIENT_SECRET; // Your secret
-const redirect_uri = process.env.REDIRECT_URI_CALLBACK; // Or Your redirect uri
+const redirect_uri = "http://localhost:3001/callback"; // Or Your redirect uri
 
 let generateRandomString = function(length) {
   let text = "";
@@ -188,9 +188,9 @@ app.get("/api/comments/:postID", ctrl.getComments);
 app.put("/api/comments/:postID/:userID", ctrl.addComments);
 app.delete("/api/comments/:commentID", ctrl.deleteComment);
 
-app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "../build/index.html"));
-});
+// app.get("*", (req, res) => {
+//   res.sendFile(path.join(__dirname, "../build/index.html"));
+// });
 
 app.listen(port, () => {
   console.log(`Listening on port:3001`);
