@@ -33,7 +33,6 @@ class Timeline extends Component {
     });
 
     const timelinePosts = timeline.map((val, i) => {
-      console.log(val);
       const {
         uri,
         timestamp,

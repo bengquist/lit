@@ -274,7 +274,7 @@ class TimelinePosts extends Component {
               position: "absolute",
               left: 0,
               right: 0,
-              top: 85,
+              top: 70,
               zIndex: 0
             }}
             active

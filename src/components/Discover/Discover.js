@@ -32,14 +32,6 @@ class Discover extends Component {
     });
   }
 
-  // shouldComponentUpdate(nextProps, nextState) {
-  //   if (this.state !== nextState) {
-  //     return true;
-  //   } else {
-  //     return false;
-  //   }
-  // }
-
   changeHandler = () => {
     switch (this.state.selected) {
       case "Artists":
@@ -76,7 +68,6 @@ class Discover extends Component {
             .catch(() => this.setState({ results: [] }));
         };
       case "People":
-        console.log(this.state.search);
         return () => {
           axios.get(`/api/users/${this.state.search}`).then(users => {
             console.log(users);
@@ -90,7 +81,7 @@ class Discover extends Component {
   searchHandler = e => {
     this.setState({ search: e.target.value }, () => {
       const activateHandler = this.changeHandler();
-      this.setState({ results: [] });
+      this.state.selected !== "People" && this.setState({ results: [] });
 
       _.debounce(activateHandler, 500)();
 
@@ -110,7 +101,10 @@ class Discover extends Component {
   };
 
   handleRecentRelease = (e, { name }) => {
-    this.setState({ results: [] });
+    if (name !== "People") {
+      this.setState({ results: [] });
+    }
+
     spotifyApi.getNewReleases().then(response => {
       this.setState({
         selected: name,

@@ -102,6 +102,7 @@ class Chart extends Component {
                 artistName
               });
               this.props.alert.show(`Added "${name}" to your profile!`);
+              this.setState({ comment: "" });
             }}
             animated
           >

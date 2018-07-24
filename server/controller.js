@@ -54,16 +54,18 @@ module.exports = {
 
     const { userID } = req.params;
 
-    db.getFollowing([userID])
-      .then(friends => {
-        return Promise.all(
-          friends.map(({ friend_id }) => db.getTimelinePosts(friend_id))
-        );
-      })
-      .then(timelinePosts => {
-        res.status(200).send(timelinePosts);
-      })
-      .catch(err => console.log(err));
+    userID &&
+      db
+        .getFollowing([userID])
+        .then(friends => {
+          return Promise.all(
+            friends.map(({ friend_id }) => db.getTimelinePosts(friend_id))
+          );
+        })
+        .then(timelinePosts => {
+          res.status(200).send(timelinePosts);
+        })
+        .catch(err => console.log(err));
   },
 
   likePost: (req, res, next) => {

@@ -16,7 +16,7 @@ const ctrl = require("./controller");
 const port = 3001;
 const client_id = process.env.CLIENT_ID; // Your client id
 const client_secret = process.env.CLIENT_SECRET; // Your secret
-const redirect_uri = "http://localhost:3001/callback"; // Or Your redirect uri
+const redirect_uri = process.env.REDIRECT_URI_CALLBACK; // Or Your redirect uri
 
 let generateRandomString = function(length) {
   let text = "";
@@ -36,7 +36,7 @@ app.use(json());
 
 app.use(express.static(__dirname + "/public")).use(cookieParser());
 app.use(cors());
-app.use(express.static(`${__dirname}/../build`));
+// app.use(express.static(`${__dirname}/../build`));
 
 app.get("/login", function(req, res) {
   let state = generateRandomString(16);
