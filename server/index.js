@@ -70,7 +70,7 @@ app.get("/callback", function(req, res) {
 
   if (state === null || state !== storedState) {
     res.redirect(
-      "/#" +
+      "http://ilitmusic.com/#" +
         querystring.stringify({
           error: "state_mismatch"
         })

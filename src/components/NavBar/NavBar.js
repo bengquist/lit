@@ -55,7 +55,7 @@ class NavBar extends Component {
           </Link>
         </div>
         <div className="logout">
-          <a href="http://localhost:3000/#/Login" className="logout-btn">
+          <a href={process.env.REACT_APP_LOGOUT} className="logout-btn">
             Log Out
           </a>
         </div>
