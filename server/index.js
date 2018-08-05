@@ -4,12 +4,8 @@ const { json } = require("body-parser");
 const massive = require("massive");
 const request = require("request");
 const querystring = require("querystring");
-const passport = require("passport");
-const Auth0Strategy = require("passport-auth0");
-const session = require("express-session");
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
-const path = require("path");
 
 const ctrl = require("./controller");
 
