@@ -91,7 +91,13 @@ class Profile extends Component {
             transitionAppear={true}
             transitionAppearTimeout={500}
           >
-            {userPosts}
+            {userPosts[0] ? (
+              userPosts
+            ) : (
+              <p className="no-posts">
+                Add songs to your profile to view them here!
+              </p>
+            )}
           </ReactCSSTransitionGroup>
         </div>
 

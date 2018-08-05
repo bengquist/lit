@@ -74,7 +74,23 @@ class Timeline extends Component {
       );
     });
 
-    return <div className="timeline">{timelinePosts}</div>;
+    return (
+      <div className="timeline">
+        {timelinePosts[0] ? (
+          timelinePosts
+        ) : (
+          <ReactCSSTransitionGroup
+            transitionName="slide"
+            transitionEnterTimeout={300}
+            transitionLeaveTimeout={300}
+            transitionAppear={true}
+            transitionAppearTimeout={500}
+          >
+            <p className="no-posts">Follow someone to view their posts here!</p>
+          </ReactCSSTransitionGroup>
+        )}
+      </div>
+    );
   }
 }
 

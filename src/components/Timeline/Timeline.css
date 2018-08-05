@@ -6,3 +6,8 @@
   width: 85%;
   margin: o auto;
 }
+
+.no-posts {
+  font-size: 30px;
+  padding-top: 50px;
+}

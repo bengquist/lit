@@ -184,9 +184,9 @@ app.get("/api/comments/:postID", ctrl.getComments);
 app.put("/api/comments/:postID/:userID", ctrl.addComments);
 app.delete("/api/comments/:commentID", ctrl.deleteComment);
 
-// app.get("*", (req, res) => {
-//   res.sendFile(path.join(__dirname, "../build/index.html"));
-// });
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "../build/index.html"));
+});
 
 app.listen(port, () => {
   console.log(`Listening on port:3001`);
